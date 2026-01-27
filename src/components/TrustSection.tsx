@@ -49,7 +49,7 @@ export default function TrustSection() {
           {certifications.map((cert, index) => (
             <motion.div
               key={index}
-              className="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition text-center min-w-45"
+              className="rounded-2xl p-8 shadow-lg hover:shadow-xl transition text-center min-w-45"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -80,7 +80,7 @@ export default function TrustSection() {
           <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
             Apa Kata Pelanggan Kami?
           </h3>
-          <div className="bg-linear-to-br from-green-50 to-golden-yellow/10 rounded-2xl p-8 shadow-lg">
+          <div className=" rounded-2xl p-8 shadow-lg">
             <div className="text-center">
               <div className="flex justify-center mb-4">
                 {[...Array(testimonials[currentTestimonial].rating)].map(
