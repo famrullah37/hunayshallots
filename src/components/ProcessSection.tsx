@@ -66,11 +66,7 @@ export default function ProcessSection() {
 
                   <div className="mt-6 mb-4">
                     <div className="w-16 h-16 bg-linear-to-br from-golden-yellow/20 to-forest-green/20 rounded-2xl flex items-center justify-center mx-auto">
-                      <step.icon
-                        size={32}
-                        variant="Bold"
-                        className="text-forest-green"
-                      />
+                      <step.icon size={32} className="text-forest-green" />
                     </div>
                   </div>
 

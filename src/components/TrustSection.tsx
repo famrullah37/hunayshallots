@@ -56,18 +56,14 @@ export default function TrustSection() {
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.05 }}
             >
-              {cert.image ? (
-                <div className="relative w-24 h-24 mx-auto mb-4">
-                  <Image
-                    src={cert.image}
-                    alt={cert.name}
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              ) : (
-                <div className="text-5xl mb-4">{cert.icon}</div>
-              )}
+              <div className="relative w-24 h-24 mx-auto mb-4">
+                <Image
+                  src={cert.image}
+                  alt={cert.name}
+                  fill
+                  className="object-contain"
+                />
+              </div>
               <h3 className="font-bold text-gray-900">{cert.name}</h3>
             </motion.div>
           ))}
