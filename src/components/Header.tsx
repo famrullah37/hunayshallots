@@ -23,7 +23,7 @@ export default function Header() {
         {/* Desktop Navigation - Centered */}
         <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
           <Link
-            href="/tentang-kami"
+            href="#tentang-kami"
             className="text-gray-700 hover:text-forest-green transition"
           >
             Tentang Kami

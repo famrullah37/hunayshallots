@@ -137,7 +137,7 @@ export default function ProductShowcase() {
                   rel="noopener noreferrer"
                   className="block w-full bg-forest-green text-white text-center py-3 rounded-xl font-medium hover:bg-green-700 transition"
                 >
-                  Order via WhatsApp
+                  Order Sekarang!
                 </a>
               </div>
             </div>

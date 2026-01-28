@@ -32,6 +32,8 @@ export default function TrustSection() {
     { name: "Halal MUI", image: "/halalmui.png" },
     { name: "BPOM", image: "/bpom.png" },
     { name: "P-IRT", image: "/pirt.svg" },
+    { name: "ISO 9001", image: "/iso9001.jpg" },
+    { name: "GMP", image: "/gmp.jpg" },
   ];
 
   return (

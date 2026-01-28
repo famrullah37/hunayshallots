@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import MarqueeSection from "@/components/MarqueeSection";
+import CompanyProfile from "@/components/CompanyProfile";
 import WhyHunaySection from "@/components/WhyHunaySection";
 import ProcessSection from "@/components/ProcessSection";
 import ProductShowcase from "@/components/ProductShowcase";
@@ -16,9 +17,10 @@ export default function Home() {
       <Header />
       <HeroSection />
       <MarqueeSection />
+      <CompanyProfile />
       <WhyHunaySection />
-      <ProcessSection />
       <ProductShowcase />
+      <ProcessSection />
       <CTASection />
       <TrustSection />
       <LocationSection />

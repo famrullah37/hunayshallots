@@ -26,7 +26,7 @@ export default function CompanyProfile() {
   ];
 
   return (
-    <section className="bg-linear-to-b from-white to-green-50 py-20">
+    <section id="tentang-kami" className="py-20">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
@@ -74,9 +74,6 @@ export default function CompanyProfile() {
               <div className="aspect-square overflow-hidden rounded-3xl bg-linear-to-br from-golden-yellow/20 to-forest-green/20 shadow-xl">
                 <div className="flex h-full flex-col items-center justify-center p-8 text-center">
                   <div className="mb-4 text-8xl">🏢</div>
-                  <p className="text-sm text-gray-600">
-                    Tempatkan foto fasilitas produksi atau team Hunay di sini
-                  </p>
                 </div>
               </div>
               {/* Decorative element */}
@@ -100,19 +97,6 @@ export default function CompanyProfile() {
                 <p className="text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
-          </div>
-
-          {/* Vision Statement */}
-          <div className="mt-12 rounded-3xl bg-linear-to-r from-forest-green to-green-700 p-8 text-center text-white shadow-2xl md:p-12">
-            <h3 className="mb-4 text-2xl font-bold md:text-3xl">Visi Kami</h3>
-            <p className="mx-auto max-w-3xl text-lg leading-relaxed">
-              Terus tumbuh sebagai{" "}
-              <strong>
-                UMKM ekspor yang inovatif, berdaya saing, dan berkelanjutan
-              </strong>
-              , menghadirkan produk bawang goreng berkualitas tinggi untuk pasar
-              lokal dan internasional.
-            </p>
           </div>
         </div>
       </div>
