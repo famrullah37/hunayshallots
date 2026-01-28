@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function TrustSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const { t } = useLanguage();
 
   const testimonials = [
     {
@@ -40,10 +42,11 @@ export default function TrustSection() {
     <section id="sertifikat" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">
-          Dipercaya & <span className="text-forest-green">Bersertifikat</span>
+          {t("trust.title")}{" "}
+          <span className="text-forest-green">{t("trust.titleHighlight")}</span>
         </h2>
         <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-          Produk kami telah tersertifikasi dan dipercaya oleh ribuan pelanggan
+          {t("trust.subtitle")}
         </p>
 
         {/* Certifications */}
@@ -80,7 +83,7 @@ export default function TrustSection() {
           transition={{ delay: 0.3 }}
         >
           <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
-            Apa Kata Pelanggan Kami?
+            {t("testimonial.title")}
           </h3>
           <div className=" rounded-2xl p-8 shadow-lg">
             <div className="text-center">

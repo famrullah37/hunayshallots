@@ -1,19 +1,22 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function MarqueeSection() {
+  const { t } = useLanguage();
+
   const items = [
-    '✔ Telah Terjual 10.000+ Pcs',
-    '✔ Tanpa Pengawet',
-    '✔ Halal & Higienis',
+    `✔ ${t("marquee.sold")}`,
+    `✔ ${t("marquee.noPreservatives")}`,
+    `✔ ${t("marquee.halalHygienic")}`,
+    `✔ ${t("marquee.freshQuality")}`,
   ];
 
   return (
     <div className="bg-forest-green text-white py-4 overflow-hidden">
       <div className="marquee-container">
         <div className="marquee-content">
-          {/* Repeat items 3 times for smooth loop */}
           {[...items, ...items, ...items].map((item, index) => (
             <span key={index} className="inline-block px-8 text-lg font-medium">
               {item} •

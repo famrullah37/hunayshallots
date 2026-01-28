@@ -1,7 +1,11 @@
+"use client";
+
 import React from "react";
 import { Gift, MessageCircle } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function CTASection() {
+  const { t } = useLanguage();
   return (
     <section className="relative py-20 bg-linear-to-br from-forest-green to-green-700 overflow-hidden">
       {/* Decorative Elements */}
@@ -13,19 +17,15 @@ export default function CTASection() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
             <Gift size={24} className="text-white" />
-            <span className="text-white font-semibold">
-              Promo Spesial Hari Ini!
-            </span>
+            <span className="text-white font-semibold">{t("cta.promo")}</span>
           </div>
 
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            Siap Mencoba Kelezatan <br className="hidden md:block" />
-            Bawang Goreng Hunay?
+            {t("cta.title")}
           </h2>
 
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Dapatkan diskon khusus untuk pembelian pertama Anda. Hubungi kami
-            sekarang melalui WhatsApp!
+            {t("cta.subtitle")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -36,13 +36,13 @@ export default function CTASection() {
               className="inline-flex items-center gap-3 bg-white text-forest-green px-8 py-4 rounded-full text-lg font-bold hover:bg-golden-yellow hover:text-white transition shadow-xl transform hover:scale-105"
             >
               <MessageCircle size={24} fill="currentColor" />
-              <span>Pesan Sekarang via WhatsApp</span>
+              <span>{t("cta.button")}</span>
             </a>
 
             <div className="flex items-center gap-2 text-white/80">
               <span className="flex items-center gap-1">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                <span className="text-sm">Online 24/7</span>
+                <span className="text-sm">{t("cta.online")}</span>
               </span>
             </div>
           </div>
@@ -50,15 +50,17 @@ export default function CTASection() {
           <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
             <div className="text-center">
               <div className="text-3xl font-bold text-white mb-2">10.000+</div>
-              <div className="text-white/80 text-sm">Produk Terjual</div>
+              <div className="text-white/80 text-sm">{t("cta.sold")}</div>
             </div>
             <div className="text-center border-x border-white/20">
               <div className="text-3xl font-bold text-white mb-2">4.9/5</div>
-              <div className="text-white/80 text-sm">Rating Pelanggan</div>
+              <div className="text-white/80 text-sm">{t("cta.rating")}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-white mb-2">100%</div>
-              <div className="text-white/80 text-sm">Kepuasan</div>
+              <div className="text-white/80 text-sm">
+                {t("cta.satisfaction")}
+              </div>
             </div>
           </div>
         </div>

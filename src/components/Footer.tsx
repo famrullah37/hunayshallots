@@ -4,8 +4,10 @@ import React from "react";
 import { Phone, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
   return (
     <footer id="kontak" className="bg-gray-900 text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
@@ -15,15 +17,14 @@ export default function Footer() {
             <h3 className="text-2xl font-bold text-golden-yellow mb-4">
               Hunay
             </h3>
-            <p className="text-gray-400 mb-4">
-              Camilan bawang goreng renyah dan gurih, teman setia makan nasi
-              Anda.
-            </p>
+            <p className="text-gray-400 mb-4">{t("footer.tagline")}</p>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-bold mb-4">Hubungi Kami</h4>
+            <h4 className="text-lg font-bold mb-4">
+              {t("footer.contactTitle")}
+            </h4>
             <div className="space-y-3 text-gray-400">
               <a
                 href="https://api.whatsapp.com/send/?phone=6285233658619&text&type=phone_number&app_absent=0"
@@ -46,7 +47,9 @@ export default function Footer() {
 
           {/* Address */}
           <div>
-            <h4 className="text-lg font-bold mb-4">Alamat</h4>
+            <h4 className="text-lg font-bold mb-4">
+              {t("footer.addressTitle")}
+            </h4>
             <p className="text-gray-400">
               Desa Tegalrejo, RT/RW 002/003
               <br />
@@ -58,7 +61,7 @@ export default function Footer() {
 
           {/* Marketplace Links */}
           <div>
-            <h4 className="text-lg font-bold mb-4">Belanja di</h4>
+            <h4 className="text-lg font-bold mb-4">{t("footer.shopTitle")}</h4>
             <div className="space-y-3">
               <a
                 href="https://shopee.co.id/hunay.id"

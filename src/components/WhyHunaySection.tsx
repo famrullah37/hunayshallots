@@ -1,25 +1,27 @@
+"use client";
+
 import React from "react";
 import { Package, ChefHat, ShieldCheck } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function WhyHunaySection() {
+  const { t } = useLanguage();
+
   const features = [
     {
       icon: Package,
-      title: "Bahan Pilihan",
-      description:
-        "Menggunakan bawang putih kualitas ekspor yang dipilih dengan teliti untuk hasil terbaik",
+      title: t("why.feature1"),
+      description: t("why.feature1Desc"),
     },
     {
       icon: ChefHat,
-      title: "Resep Rahasia",
-      description:
-        "Rasa autentik dan konsisten yang diolah dengan bumbu rempah pilihan warisan turun temurun",
+      title: t("why.feature2"),
+      description: t("why.feature2Desc"),
     },
     {
       icon: ShieldCheck,
-      title: "Higienis",
-      description:
-        "Proses produksi dengan standar tinggi dan dikemas secara higienis untuk keamanan konsumen",
+      title: t("why.feature3"),
+      description: t("why.feature3Desc"),
     },
   ];
 
@@ -32,7 +34,7 @@ export default function WhyHunaySection() {
 
       <div className="container mx-auto px-4 relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12">
-          Mengapa Harus <span className="text-golden-yellow">Hunay?</span>
+          {t("why.title")} <span className="text-golden-yellow">Hunay?</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">

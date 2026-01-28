@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <motion.header
@@ -26,37 +28,64 @@ export default function Header() {
             href="#tentang-kami"
             className="text-gray-700 hover:text-forest-green transition"
           >
-            Tentang Kami
+            {t("nav.about")}
           </Link>
           <Link
             href="#produk"
             className="text-gray-700 hover:text-forest-green transition"
           >
-            Produk
+            {t("nav.products")}
           </Link>
           <Link
             href="#sertifikat"
             className="text-gray-700 hover:text-forest-green transition"
           >
-            Sertifikat
+            {t("nav.certificate")}
           </Link>
           <Link
             href="#kontak"
             className="text-gray-700 hover:text-forest-green transition"
           >
-            Kontak
+            {t("nav.contact")}
           </Link>
         </nav>
 
-        {/* CTA Button - Right Side */}
-        <a
-          href="https://linktr.ee/hunaybawanggoreng?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnNMCOOLVAOcBihTLFe1HZkVGetZ5mjYLtKEuaYUMvkVbZ1rlcmytu4M3oQYM_aem_KzN7PxybTFJ5y1HlWXYmtA"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden md:block bg-forest-green text-white px-6 py-2 rounded-full hover:bg-green-700 transition"
-        >
-          Beli Sekarang
-        </a>
+        {/* Language Switcher & CTA Button - Right Side */}
+        <div className="hidden md:flex items-center gap-4">
+          <div className="flex items-center gap-2 border border-gray-300 rounded-full p-1">
+            <button
+              onClick={() => setLanguage("id")}
+              className={`flex items-center gap-1 px-3 py-1 rounded-full transition ${
+                language === "id"
+                  ? "bg-forest-green text-white"
+                  : "hover:bg-gray-100"
+              }`}
+              aria-label="Bahasa Indonesia"
+            >
+              <span className="text-sm font-medium">ID</span>
+            </button>
+            <button
+              onClick={() => setLanguage("en")}
+              className={`flex items-center gap-1 px-3 py-1 rounded-full transition ${
+                language === "en"
+                  ? "bg-forest-green text-white"
+                  : "hover:bg-gray-100"
+              }`}
+              aria-label="English"
+            >
+              <span className="text-sm font-medium">EN</span>
+            </button>
+          </div>
+
+          <a
+            href="https://linktr.ee/hunaybawanggoreng?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnNMCOOLVAOcBihTLFe1HZkVGetZ5mjYLtKEuaYUMvkVbZ1rlcmytu4M3oQYM_aem_KzN7PxybTFJ5y1HlWXYmtA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-forest-green text-white px-6 py-2 rounded-full hover:bg-green-700 transition"
+          >
+            {t("nav.buyNow")}
+          </a>
+        </div>
 
         {/* Mobile Menu Button */}
         <button

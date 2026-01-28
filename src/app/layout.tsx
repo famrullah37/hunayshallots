@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Quicksand, Nunito } from "next/font/google";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import "./globals.css";
 
 const quicksand = Quicksand({
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`${quicksand.variable} ${nunito.variable} antialiased`}>
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

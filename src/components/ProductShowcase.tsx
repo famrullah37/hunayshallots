@@ -1,98 +1,99 @@
 "use client";
 
 import React, { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Product {
   id: number;
-  name: string;
+  nameKey: string;
   price: string;
-  category: string;
+  categoryKey: string;
   image: string;
 }
 
 export default function ProductShowcase() {
-  const [activeCategory, setActiveCategory] = useState("Semua");
+  const { t } = useLanguage();
+  const [activeCategory, setActiveCategory] = useState("product.all");
 
   const products: Product[] = [
     {
       id: 1,
-      name: "Paket Camilan Bawang Kemasan Box 200g",
+      nameKey: "product.name1",
       price: "Rp 30.000",
-      category: "Paket Bundling",
+      categoryKey: "product.category3",
       image: "📦",
     },
     {
       id: 2,
-      name: "Camilan Bawang Kemasan Pouch 125gr",
+      nameKey: "product.name2",
       price: "Rp 25.000",
-      category: "Bawang Goreng",
+      categoryKey: "product.category1",
       image: "🧅",
     },
     {
       id: 3,
-      name: "Bawang Putih Goreng Toples 150gr",
+      nameKey: "product.name3",
       price: "Rp 35.000",
-      category: "Bawang Goreng",
+      categoryKey: "product.category1",
       image: "🏺",
     },
     {
       id: 4,
-      name: "Bawang Merah Goreng Toples 150gr",
+      nameKey: "product.name4",
       price: "Rp 35.000",
-      category: "Bawang Goreng",
+      categoryKey: "product.category1",
       image: "🏺",
     },
     {
       id: 5,
-      name: "Bawang Putih Goreng Pouch 100gr",
+      nameKey: "product.name5",
       price: "Rp 25.000",
-      category: "Bawang Goreng",
+      categoryKey: "product.category1",
       image: "🧅",
     },
     {
       id: 6,
-      name: "Aneka Sambal Hunay",
+      nameKey: "product.name6",
       price: "Rp 25.000",
-      category: "Stik Bawang",
+      categoryKey: "product.category2",
       image: "🌶️",
     },
     {
       id: 7,
-      name: "Bawang Putih Botol 75gr",
+      nameKey: "product.name7",
       price: "Rp 20.000",
-      category: "Bawang Goreng",
+      categoryKey: "product.category1",
       image: "🍶",
     },
     {
       id: 8,
-      name: "Bawang Merah Goreng Pouch 100gr",
+      nameKey: "product.name8",
       price: "Rp 25.000",
-      category: "Bawang Goreng",
+      categoryKey: "product.category1",
       image: "🧅",
     },
   ];
 
   const categories = [
-    "Semua",
-    "Bawang Goreng",
-    "Stik Bawang",
-    "Paket Bundling",
+    "product.all",
+    "product.category1",
+    "product.category2",
+    "product.category3",
   ];
 
   const filteredProducts =
-    activeCategory === "Semua"
+    activeCategory === "product.all"
       ? products
-      : products.filter((product) => product.category === activeCategory);
+      : products.filter((product) => product.categoryKey === activeCategory);
 
   return (
     <section id="produk" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">
-          Produk <span className="text-forest-green">Hunay</span>
+          {t("products.title")}
         </h2>
         <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-          Pilih camilan bawang goreng favorit Anda dengan berbagai varian
-          kemasan
+          {t("products.subtitle")}
         </p>
 
         {/* Category Filter */}
@@ -107,7 +108,7 @@ export default function ProductShowcase() {
                   : "bg-white text-gray-700 hover:bg-gray-100 shadow"
               }`}
             >
-              {category}
+              {t(category)}
             </button>
           ))}
         </div>
@@ -126,18 +127,18 @@ export default function ProductShowcase() {
               </div>
               <div className="p-6">
                 <h3 className="font-bold text-gray-900 mb-2 min-h-12">
-                  {product.name}
+                  {t(product.nameKey)}
                 </h3>
                 <p className="text-2xl font-bold text-forest-green mb-4">
                   {product.price}
                 </p>
                 <a
-                  href={`https://api.whatsapp.com/send/?phone=6285233658619&text=Halo, saya ingin memesan ${product.name}&type=phone_number&app_absent=0`}
+                  href={`https://api.whatsapp.com/send/?phone=6285233658619&text=Halo, saya ingin memesan ${t(product.nameKey)}&type=phone_number&app_absent=0`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full bg-forest-green text-white text-center py-3 rounded-xl font-medium hover:bg-green-700 transition"
                 >
-                  Order Sekarang!
+                  {t("products.order")}
                 </a>
               </div>
             </div>

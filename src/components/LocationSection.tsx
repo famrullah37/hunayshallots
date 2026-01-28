@@ -1,6 +1,11 @@
+"use client";
+
 import React from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function LocationSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="bg-[#f5f1e8] py-20">
       <div className="container mx-auto px-4">
@@ -8,12 +13,14 @@ export default function LocationSection() {
           {/* Header */}
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
-              Lokasi <span className="text-forest-green">Kami</span>
+              {t("location.title")}{" "}
+              <span className="text-forest-green">
+                {t("location.titleHighlight")}
+              </span>
             </h2>
             <div className="h-1 w-24 bg-golden-yellow rounded-full mx-auto mb-4"></div>
             <p className="mx-auto max-w-2xl text-gray-600">
-              Kunjungi fasilitas produksi kami atau hubungi untuk informasi
-              lebih lanjut
+              {t("location.subtitle")}
             </p>
           </div>
 

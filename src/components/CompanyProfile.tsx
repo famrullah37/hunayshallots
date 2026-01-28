@@ -1,27 +1,32 @@
+"use client";
+
 import React from "react";
 import { Globe, Award, Package, Users, Building2 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function CompanyProfile() {
+  const { t } = useLanguage();
+
   const achievements = [
     {
       icon: Globe,
-      label: "Ekspor ke 4 Negara",
-      desc: "Jepang, Korea, Kanada, Singapura",
+      label: t("company.achievement1"),
+      desc: t("company.achievement1Desc"),
     },
     {
       icon: Award,
-      label: "Sertifikasi Lengkap",
-      desc: "Halal, BPOM, HACCP, GMP, GAP, ISO 9001",
+      label: t("company.achievement2"),
+      desc: t("company.achievement2Desc"),
     },
     {
       icon: Package,
-      label: "Bawang Lokal",
-      desc: "Varietas Biru Lancor Berkualitas",
+      label: t("company.achievement3"),
+      desc: t("company.achievement3Desc"),
     },
     {
       icon: Users,
-      label: "Pemberdayaan",
-      desc: "Perempuan Desa & Generasi Muda",
+      label: t("company.achievement4"),
+      desc: t("company.achievement4Desc"),
     },
   ];
 
@@ -32,8 +37,8 @@ export default function CompanyProfile() {
           {/* Header */}
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
-              Tentang{" "}
-              <span className="text-forest-green">CV. Dua Putri Sholehah</span>
+              {t("company.title")}{" "}
+              <span className="text-forest-green">{t("company.subtitle")}</span>
             </h2>
             <div className="mx-auto h-1 w-24 rounded-full bg-golden-yellow"></div>
           </div>
@@ -44,28 +49,24 @@ export default function CompanyProfile() {
             <div className="flex flex-col justify-center">
               <div className="mb-6 inline-flex items-center gap-3 rounded-full bg-forest-green/10 px-4 py-2 text-sm font-semibold text-forest-green">
                 <Building2 size={24} />
-                <span>Berdiri Sejak 17 Oktober 2010</span>
+                <span>{t("company.since")}</span>
               </div>
 
               <p className="mb-4 text-lg leading-relaxed text-gray-700">
                 <strong className="text-forest-green">
-                  CV. Dua Putri Sholehah
+                  {t("company.subtitle")}
                 </strong>{" "}
-                adalah UMKM olahan bawang merah dengan merek{" "}
-                <strong>Hunay</strong>, yang berdiri di Tegalrejo, Dringu,
-                Probolinggo.
+                {t("company.desc1")} <strong>Hunay</strong>,{" "}
+                {t("company.desc2")}
               </p>
 
               <p className="mb-4 leading-relaxed text-gray-600">
-                Usaha ini berkembang dari skala kecil hingga berhasil{" "}
-                <strong>ekspor ke Jepang, Korea, Kanada, dan Singapura</strong>.
-                Produk utama berupa bawang goreng kemasan berkualitas tinggi
-                dari varietas lokal <em>biru lancor</em>.
+                {t("company.desc3")} <strong>{t("company.desc4")}</strong>.
+                {t("company.desc5")} <em>{t("company.desc6")}</em>.
               </p>
 
               <p className="leading-relaxed text-gray-600">
-                Proses produksi terintegrasi dari budidaya hingga distribusi,
-                dengan komitmen memberdayakan perempuan desa dan generasi muda.
+                {t("company.desc7")}
               </p>
             </div>
 

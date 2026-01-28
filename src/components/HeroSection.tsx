@@ -1,7 +1,11 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   return (
     <section className="pt-24 pb-16 bg-linear-to-b from-green-50 to-white">
       <div className="container mx-auto px-4">
@@ -9,8 +13,8 @@ export default function HeroSection() {
           {/* Left Side - Text Content */}
           <div className="flex-1 text-center lg:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Camilan Bawang Renyah,{" "}
-              <span className="text-forest-green">Teman Setia</span> Makan Nasi.
+              {t("hero.title")},{" "}
+              <span className="text-forest-green">{t("hero.subtitle")}</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8">
               Renyah, gurih, dan cocok untuk semua hidangan.
@@ -21,7 +25,7 @@ export default function HeroSection() {
               rel="noopener noreferrer"
               className="inline-block bg-forest-green text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-green-700 transition shadow-lg hover:shadow-xl"
             >
-              Beli Sekarang
+              {t("hero.cta")}
             </a>
           </div>
 

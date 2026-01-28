@@ -1,34 +1,35 @@
+"use client";
+
 import React from "react";
 import { ShoppingCart, MessageSquare, CreditCard, Truck } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ProcessSection() {
+  const { t } = useLanguage();
+
   const steps = [
     {
       number: "01",
-      title: "Pilih Produk",
-      description:
-        "Browse katalog produk bawang goreng kami dan pilih varian favorit Anda",
+      title: t("process.step1"),
+      description: t("process.step1Desc"),
       icon: ShoppingCart,
     },
     {
       number: "02",
-      title: "Hubungi Kami",
-      description:
-        "Chat via WhatsApp untuk konfirmasi pesanan dan detail pengiriman",
+      title: t("process.step2"),
+      description: t("process.step2Desc"),
       icon: MessageSquare,
     },
     {
       number: "03",
-      title: "Pembayaran",
-      description:
-        "Lakukan pembayaran mudah melalui transfer bank atau metode lainnya",
+      title: t("process.step3"),
+      description: t("process.step3Desc"),
       icon: CreditCard,
     },
     {
       number: "04",
-      title: "Pengiriman",
-      description:
-        "Pesanan Anda akan segera diproses dan dikirim ke alamat tujuan",
+      title: t("process.step4"),
+      description: t("process.step4Desc"),
       icon: Truck,
     },
   ];
@@ -41,12 +42,11 @@ export default function ProcessSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Cara <span className="text-forest-green">Memesan</span>
+            {t("process.title")}
           </h2>
           <div className="h-1 w-24 bg-golden-yellow rounded-full mx-auto mb-4"></div>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Proses pemesanan yang mudah dan cepat, hanya dalam 4 langkah
-            sederhana
+            {t("process.subtitle")}
           </p>
         </div>
 
