@@ -5,6 +5,7 @@ import { Phone, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Link from "next/link";
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -14,10 +15,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold text-golden-yellow mb-4">
-              Hunay
-            </h3>
-            <p className="text-gray-400 mb-4">{t("footer.tagline")}</p>
+            <Link href="/">
+              <Image
+                src="/hunay_logo.png"
+                alt="Hunay Logo"
+                width={80}
+                height={80}
+              />
+            </Link>
+            <p className="text-gray-400 my-4">{t("footer.tagline")}</p>
           </div>
 
           {/* Contact Info */}

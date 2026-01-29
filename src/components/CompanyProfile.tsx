@@ -70,12 +70,19 @@ export default function CompanyProfile() {
               </p>
             </div>
 
-            {/* Right: Image Placeholder */}
+            {/* Right: YouTube Video */}
             <div className="relative">
-              <div className="aspect-square overflow-hidden rounded-3xl bg-linear-to-br from-golden-yellow/20 to-forest-green/20 shadow-xl">
-                <div className="flex h-full flex-col items-center justify-center p-8 text-center">
-                  <div className="mb-4 text-8xl">🏢</div>
-                </div>
+              <div className="aspect-video overflow-hidden rounded-3xl shadow-xl">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/LDg_kJmY740"
+                  title="Hunay Company Profile"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="h-full w-full"
+                ></iframe>
               </div>
               {/* Decorative element */}
               <div className="absolute -bottom-6 -right-6 -z-10 h-full w-full rounded-3xl bg-forest-green/10"></div>

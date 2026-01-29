@@ -58,11 +58,11 @@ const translations = {
     // Why Hunay
     "why.title": "Mengapa Harus",
     "why.feature1": "Bahan Pilihan",
-    "why.feature1Desc": "Menggunakan bawang kualitas ekspor",
+    "why.feature1Desc": "Menggunakan bawang kualitas ekspor yang terbaik",
     "why.feature2": "Resep Rahasia",
-    "why.feature2Desc": "Rasa autentik dan konsisten",
+    "why.feature2Desc": "Rasa autentik dan konsisten setiap saat",
     "why.feature3": "Higienis",
-    "why.feature3Desc": "Proses produksi standar tinggi",
+    "why.feature3Desc": "Proses produksi standar tinggi dan higienis",
 
     // Products
     "products.title": "Produk Kami",
@@ -184,11 +184,11 @@ const translations = {
     // Why Hunay
     "why.title": "Why Choose",
     "why.feature1": "Premium Ingredients",
-    "why.feature1Desc": "Using export quality onions",
+    "why.feature1Desc": "Using export quality onions of the best standard",
     "why.feature2": "Secret Recipe",
-    "why.feature2Desc": "Authentic and consistent taste",
+    "why.feature2Desc": "Authentic and consistent taste every time",
     "why.feature3": "Hygienic",
-    "why.feature3Desc": "High standard production process",
+    "why.feature3Desc": "High standard production process and hygienic",
 
     // Products
     "products.title": "Our Products",

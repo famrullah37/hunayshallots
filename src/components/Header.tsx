@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Image from "next/image";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,8 +19,13 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-forest-green">
-          Hunay
+        <Link href="/">
+          <Image
+            src="/hunay_logo.png"
+            alt="Hunay Logo"
+            width={80}
+            height={80}
+          />
         </Link>
 
         {/* Desktop Navigation - Centered */}
