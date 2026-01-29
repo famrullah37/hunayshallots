@@ -66,12 +66,7 @@ export default function ProductShowcase() {
     },
   ];
 
-  const categories = [
-    "product.all",
-    "product.category1",
-    "product.category2",
-    "product.category3",
-  ];
+  const categories = ["product.all", "product.category1", "product.category3"];
 
   const filteredProducts =
     activeCategory === "product.all"
