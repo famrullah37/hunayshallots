@@ -2,13 +2,13 @@
 
 import React, { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Image from "next/image";
 
 interface Product {
-  id: number;
+  id: string;
   nameKey: string;
   price: string;
   categoryKey: string;
-  image: string;
 }
 
 export default function ProductShowcase() {
@@ -17,60 +17,52 @@ export default function ProductShowcase() {
 
   const products: Product[] = [
     {
-      id: 1,
+      id: "p1",
       nameKey: "product.name1",
       price: "Rp 30.000",
       categoryKey: "product.category3",
-      image: "📦",
     },
     {
-      id: 2,
+      id: "p2",
       nameKey: "product.name2",
       price: "Rp 25.000",
       categoryKey: "product.category1",
-      image: "🧅",
     },
     {
-      id: 3,
+      id: "p3",
       nameKey: "product.name3",
       price: "Rp 35.000",
       categoryKey: "product.category1",
-      image: "🏺",
     },
     {
-      id: 4,
+      id: "p4",
       nameKey: "product.name4",
       price: "Rp 35.000",
       categoryKey: "product.category1",
-      image: "🏺",
     },
     {
-      id: 5,
+      id: "p5",
       nameKey: "product.name5",
       price: "Rp 25.000",
       categoryKey: "product.category1",
-      image: "🧅",
     },
     {
-      id: 6,
+      id: "p6",
       nameKey: "product.name6",
       price: "Rp 25.000",
       categoryKey: "product.category2",
-      image: "🌶️",
     },
     {
-      id: 7,
+      id: "p7",
       nameKey: "product.name7",
       price: "Rp 20.000",
       categoryKey: "product.category1",
-      image: "🍶",
     },
     {
-      id: 8,
+      id: "p8",
       nameKey: "product.name8",
       price: "Rp 25.000",
       categoryKey: "product.category1",
-      image: "🧅",
     },
   ];
 
@@ -120,11 +112,13 @@ export default function ProductShowcase() {
               key={product.id}
               className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition overflow-hidden group"
             >
-              <div className="relative bg-linear-to-br from-golden-yellow/20 to-forest-green/10 h-48 flex items-center justify-center">
-                <span className="text-7xl group-hover:scale-110 transition">
-                  {product.image}
-                </span>
-              </div>
+              <Image
+                src={`/products/${product.id}.jpg`}
+                alt={t(product.nameKey)}
+                width={400}
+                height={400}
+                className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+              />
               <div className="p-6">
                 <h3 className="font-bold text-gray-900 mb-2 min-h-12">
                   {t(product.nameKey)}
