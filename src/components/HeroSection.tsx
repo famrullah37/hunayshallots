@@ -8,7 +8,7 @@ export default function HeroSection() {
   const { t } = useLanguage();
   return (
     <section className="pt-24 pb-16 bg-linear-to-b from-green-50 to-white">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 md:px-16">
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Left Side - Text Content */}
           <div className="flex-1 text-center lg:text-left">
