@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function TrustSection() {
@@ -28,7 +29,37 @@ export default function TrustSection() {
       text: "Higienis dan halal, anak-anak suka banget dijadikan camilan.",
       rating: 5,
     },
+    {
+      name: "Pak Joko",
+      location: "Semarang",
+      text: "Rasanya autentik dan tidak berminyak berlebihan. Cocok untuk pelengkap berbagai masakan.",
+      rating: 5,
+    },
+    {
+      name: "Ibu Dewi",
+      location: "Yogyakarta",
+      text: "Harga terjangkau dengan kualitas premium. Kemasannya juga rapi dan aman.",
+      rating: 5,
+    },
   ];
+
+  // Auto-change testimonial every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+
+  const handlePrevious = () => {
+    setCurrentTestimonial((prev) =>
+      prev === 0 ? testimonials.length - 1 : prev - 1,
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
 
   const certifications = [
     { name: "Halal MUI", image: "/halalmui.png" },
@@ -85,27 +116,54 @@ export default function TrustSection() {
           <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
             {t("testimonial.title")}
           </h3>
-          <div className=" rounded-2xl p-8 shadow-lg">
-            <div className="text-center">
-              <div className="flex justify-center mb-4">
-                {[...Array(testimonials[currentTestimonial].rating)].map(
-                  (_, i) => (
-                    <span key={i} className="text-golden-yellow text-2xl">
-                      ⭐
-                    </span>
-                  ),
-                )}
-              </div>
-              <p className="text-lg text-gray-700 mb-6 italic">
-                &quot;{testimonials[currentTestimonial].text}&quot;
-              </p>
-              <p className="font-bold text-gray-900">
-                {testimonials[currentTestimonial].name}
-              </p>
-              <p className="text-gray-600 text-sm">
-                {testimonials[currentTestimonial].location}
-              </p>
-            </div>
+          <div className="relative rounded-2xl p-8 shadow-lg">
+            {/* Left Arrow */}
+            <button
+              onClick={handlePrevious}
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white hover:bg-forest-green text-forest-green hover:text-white rounded-full p-2 shadow-lg transition"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            {/* Right Arrow */}
+            <button
+              onClick={handleNext}
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white hover:bg-forest-green text-forest-green hover:text-white rounded-full p-2 shadow-lg transition"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentTestimonial}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.3 }}
+                className="text-center px-12"
+              >
+                <div className="flex justify-center mb-4">
+                  {[...Array(testimonials[currentTestimonial].rating)].map(
+                    (_, i) => (
+                      <span key={i} className="text-golden-yellow text-2xl">
+                        ⭐
+                      </span>
+                    ),
+                  )}
+                </div>
+                <p className="text-lg text-gray-700 mb-6 italic">
+                  &quot;{testimonials[currentTestimonial].text}&quot;
+                </p>
+                <p className="font-bold text-gray-900">
+                  {testimonials[currentTestimonial].name}
+                </p>
+                <p className="text-gray-600 text-sm">
+                  {testimonials[currentTestimonial].location}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
             {/* Navigation Dots */}
             <div className="flex justify-center gap-2 mt-6">
@@ -118,6 +176,7 @@ export default function TrustSection() {
                       ? "bg-forest-green w-8"
                       : "bg-gray-300"
                   }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}
             </div>
