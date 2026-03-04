@@ -113,6 +113,7 @@ export default function ProductShowcase() {
                 width={400}
                 height={400}
                 className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
+                priority
               />
               <div className="p-6">
                 <h3 className="font-bold text-gray-900 mb-2 min-h-12">
