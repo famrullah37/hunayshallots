@@ -7,6 +7,7 @@ import ProcessSection from "@/components/ProcessSection";
 import ProductShowcase from "@/components/ProductShowcase";
 import CTASection from "@/components/CTASection";
 import TrustSection from "@/components/TrustSection";
+import GallerySection from "@/components/GallerySection";
 import LocationSection from "@/components/LocationSection";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
@@ -23,6 +24,7 @@ export default function Home() {
       <ProcessSection />
       <CTASection />
       <TrustSection />
+      <GallerySection />
       <LocationSection />
       <Footer />
       <WhatsAppFloat />

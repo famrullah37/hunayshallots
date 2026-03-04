@@ -136,6 +136,18 @@ const translations = {
 
     // Testimonials
     "testimonial.title": "Apa Kata Pelanggan Kami?",
+
+    // Gallery
+    "gallery.title": "Galeri",
+    "gallery.titleHighlight": "Video",
+    "gallery.subtitle":
+      "Lihat lebih dekat proses produksi dan produk-produk berkualitas kami",
+    "gallery.video1": "Profil Hunay",
+    "gallery.video2": "Produksi Sambal",
+    "gallery.video3": "Produk Hunay",
+    "gallery.video4": "Produk Premium",
+    "gallery.video5": "Gudang Produksi",
+    "gallery.video6": "Proses Produksi Hunay",
   },
   en: {
     // Header
@@ -262,6 +274,18 @@ const translations = {
 
     // Testimonials
     "testimonial.title": "What Our Customers Say?",
+
+    // Gallery
+    "gallery.title": "Video",
+    "gallery.titleHighlight": "Gallery",
+    "gallery.subtitle":
+      "Take a closer look at our production process and quality products",
+    "gallery.video1": "Hunay Profile",
+    "gallery.video2": "Sambal Production",
+    "gallery.video3": "Hunay Products",
+    "gallery.video4": "Premium Products",
+    "gallery.video5": "Production Warehouse",
+    "gallery.video6": "Hunay Production Process",
   },
 };
 
