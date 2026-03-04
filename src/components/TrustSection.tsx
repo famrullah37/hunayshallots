@@ -98,6 +98,7 @@ export default function TrustSection() {
                   alt={cert.name}
                   fill
                   className="object-contain"
+                  priority
                 />
               </div>
               <h3 className="font-bold text-gray-900">{cert.name}</h3>
