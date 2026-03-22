@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Quicksand, Nunito } from "next/font/google";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import Script from "next/script";
 import "./globals.css";
 
 const quicksand = Quicksand({
@@ -28,6 +29,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
+      <head>
+        <Script
+          src="https://analytics.hunayshallots.com/script.js"
+          data-website-id="4b355a33-ad7e-4000-84ed-954c780a48f6"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`${quicksand.variable} ${nunito.variable} antialiased`}>
         <LanguageProvider>{children}</LanguageProvider>
       </body>
