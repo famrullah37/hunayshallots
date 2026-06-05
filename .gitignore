@@ -44,3 +44,8 @@ next-env.d.ts
 _private/
 
 /src/generated/prisma
+
+# large video files — host on YouTube/Cloudinary instead
+/public/video/*.mp4
+/public/video/*.mov
+/public/video/*.webm
