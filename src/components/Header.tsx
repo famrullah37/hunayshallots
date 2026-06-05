@@ -4,11 +4,13 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useCart } from "@/contexts/CartContext";
 import Image from "next/image";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const { totalItems } = useCart();
 
   return (
     <motion.header
@@ -30,30 +32,10 @@ export default function Header() {
 
         {/* Desktop Navigation - Centered */}
         <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
-          <Link
-            href="#tentang-kami"
-            className="text-gray-700 hover:text-forest-green transition"
-          >
-            {t("nav.about")}
-          </Link>
-          <Link
-            href="#produk"
-            className="text-gray-700 hover:text-forest-green transition"
-          >
-            {t("nav.products")}
-          </Link>
-          <Link
-            href="#sertifikat"
-            className="text-gray-700 hover:text-forest-green transition"
-          >
-            {t("nav.certificate")}
-          </Link>
-          <Link
-            href="#kontak"
-            className="text-gray-700 hover:text-forest-green transition"
-          >
-            {t("nav.contact")}
-          </Link>
+          <Link href="/#tentang-kami" className="text-gray-700 hover:text-forest-green transition">{t("nav.about")}</Link>
+          <Link href="/#produk" className="text-gray-700 hover:text-forest-green transition">{t("nav.products")}</Link>
+          <Link href="/#sertifikat" className="text-gray-700 hover:text-forest-green transition">{t("nav.certificate")}</Link>
+          <Link href="/#kontak" className="text-gray-700 hover:text-forest-green transition">{t("nav.contact")}</Link>
         </nav>
 
         {/* Language Switcher & CTA Button - Right Side */}
@@ -82,6 +64,17 @@ export default function Header() {
               <span className="text-sm font-medium">EN</span>
             </button>
           </div>
+
+          <Link href="/cart" className="relative p-2 text-gray-700 hover:text-forest-green transition" aria-label="Cart">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.4 7h12.8M7 13L5.4 5M10 21a1 1 0 100-2 1 1 0 000 2zm7 0a1 1 0 100-2 1 1 0 000 2z" />
+            </svg>
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+                {totalItems}
+              </span>
+            )}
+          </Link>
 
           <a
             href="https://linktr.ee/hunaybawanggoreng?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnNMCOOLVAOcBihTLFe1HZkVGetZ5mjYLtKEuaYUMvkVbZ1rlcmytu4M3oQYM_aem_KzN7PxybTFJ5y1HlWXYmtA"
@@ -142,33 +135,19 @@ export default function Header() {
             className="md:hidden bg-white border-t border-gray-200 overflow-hidden"
           >
             <nav className="flex flex-col space-y-4 px-4 py-4">
+              <Link href="/#tentang-kami" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">Tentang Kami</Link>
+              <Link href="/#produk" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">Produk</Link>
+              <Link href="/#sertifikat" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">Sertifikat</Link>
+              <Link href="/#kontak" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">Kontak</Link>
               <Link
-                href="/tentang-kami"
+                href="/cart"
                 onClick={() => setIsMenuOpen(false)}
-                className="text-gray-700 hover:text-forest-green transition"
+                className="flex items-center gap-2 text-gray-700 hover:text-forest-green transition"
               >
-                Tentang Kami
-              </Link>
-              <Link
-                href="#produk"
-                onClick={() => setIsMenuOpen(false)}
-                className="text-gray-700 hover:text-forest-green transition"
-              >
-                Produk
-              </Link>
-              <Link
-                href="#sertifikat"
-                onClick={() => setIsMenuOpen(false)}
-                className="text-gray-700 hover:text-forest-green transition"
-              >
-                Sertifikat
-              </Link>
-              <Link
-                href="#kontak"
-                onClick={() => setIsMenuOpen(false)}
-                className="text-gray-700 hover:text-forest-green transition"
-              >
-                Kontak
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.4 7h12.8M7 13L5.4 5M10 21a1 1 0 100-2 1 1 0 000 2zm7 0a1 1 0 100-2 1 1 0 000 2z" />
+                </svg>
+                Keranjang {totalItems > 0 && <span className="bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">{totalItems}</span>}
               </Link>
               <a
                 href="https://api.whatsapp.com/send/?phone=6285233658619&text&type=phone_number&app_absent=0"

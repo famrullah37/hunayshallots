@@ -11,8 +11,13 @@ import GallerySection from "@/components/GallerySection";
 import LocationSection from "@/components/LocationSection";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import { getProducts } from "@/actions/products";
 
-export default function Home() {
+export const revalidate = 3600;
+
+export default async function Home() {
+  const products = await getProducts(true).catch(() => []);
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -20,7 +25,7 @@ export default function Home() {
       <MarqueeSection />
       <CompanyProfile />
       <WhyHunaySection />
-      <ProductShowcase />
+      <ProductShowcase products={products.length > 0 ? products : undefined} />
       <ProcessSection />
       <CTASection />
       <TrustSection />

@@ -8,37 +8,42 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function TrustSection() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const testimonials = [
     {
       name: "Bu Siti",
       location: "Jakarta",
-      text: "Bawang goreng Hunay enak banget! Renyah dan gurih, cocok buat taburan nasi goreng.",
+      textId: "Bawang goreng Hunay enak banget! Renyah dan gurih, cocok buat taburan nasi goreng.",
+      textEn: "Hunay fried onions are so delicious! Crispy and savory, perfect as a topping for fried rice.",
       rating: 5,
     },
     {
       name: "Pak Bambang",
       location: "Surabaya",
-      text: "Kualitas terbaik! Sudah langganan beli Hunay untuk warung makan saya.",
+      textId: "Kualitas terbaik! Sudah langganan beli Hunay untuk warung makan saya.",
+      textEn: "Top quality! I've been a regular Hunay customer for my restaurant.",
       rating: 5,
     },
     {
       name: "Ibu Rina",
       location: "Bandung",
-      text: "Higienis dan halal, anak-anak suka banget dijadikan camilan.",
+      textId: "Higienis dan halal, anak-anak suka banget dijadikan camilan.",
+      textEn: "Hygienic and halal certified — my kids love it as a snack.",
       rating: 5,
     },
     {
       name: "Pak Joko",
       location: "Semarang",
-      text: "Rasanya autentik dan tidak berminyak berlebihan. Cocok untuk pelengkap berbagai masakan.",
+      textId: "Rasanya autentik dan tidak berminyak berlebihan. Cocok untuk pelengkap berbagai masakan.",
+      textEn: "The taste is authentic and not overly oily. Great as a complement to various dishes.",
       rating: 5,
     },
     {
       name: "Ibu Dewi",
       location: "Yogyakarta",
-      text: "Harga terjangkau dengan kualitas premium. Kemasannya juga rapi dan aman.",
+      textId: "Harga terjangkau dengan kualitas premium. Kemasannya juga rapi dan aman.",
+      textEn: "Affordable price with premium quality. The packaging is neat and secure too.",
       rating: 5,
     },
   ];
@@ -155,7 +160,7 @@ export default function TrustSection() {
                   )}
                 </div>
                 <p className="text-lg text-gray-700 mb-6 italic">
-                  &quot;{testimonials[currentTestimonial].text}&quot;
+                  &quot;{language === "id" ? testimonials[currentTestimonial].textId : testimonials[currentTestimonial].textEn}&quot;
                 </p>
                 <p className="font-bold text-gray-900">
                   {testimonials[currentTestimonial].name}

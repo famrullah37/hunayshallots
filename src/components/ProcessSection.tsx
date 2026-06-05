@@ -83,10 +83,10 @@ export default function ProcessSection() {
         {/* CTA Button */}
         <div className="text-center mt-12">
           <a
-            href="#produk"
+            href="/#produk"
             className="inline-block bg-forest-green text-white px-8 py-4 rounded-full font-semibold hover:bg-green-700 transition shadow-lg hover:shadow-xl transform hover:scale-105"
           >
-            Lihat Produk Kami
+            {t("process.viewProducts")}
           </a>
         </div>
       </div>

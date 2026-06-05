@@ -1,77 +1,77 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useCart } from "@/contexts/CartContext";
 import Image from "next/image";
+import Link from "next/link";
 
-interface Product {
+interface ProductItem {
   id: string;
-  nameKey: string;
-  price: string;
-  categoryKey: string;
+  nameId: string;
+  nameEn: string;
+  price: number;
+  weight: number;
+  category: string;
+  imageUrl: string | null;
+  whatsappText: string | null;
 }
 
-export default function ProductShowcase() {
-  const { t } = useLanguage();
-  const [activeCategory, setActiveCategory] = useState("product.all");
+const CATEGORY_LABELS: Record<string, { id: string; en: string }> = {
+  all: { id: "Semua", en: "All" },
+  "bawang-putih": { id: "Bawang Putih", en: "Fried Garlic" },
+  "bawang-merah": { id: "Bawang Merah", en: "Fried Shallot" },
+  sambal: { id: "Sambal", en: "Sambal Sauce" },
+};
 
-  const products: Product[] = [
-    {
-      id: "p1",
-      nameKey: "product.name1",
-      price: "Rp 30.000",
-      categoryKey: "product.category3",
-    },
-    {
-      id: "p2",
-      nameKey: "product.name2",
-      price: "Rp 25.000",
-      categoryKey: "product.category1",
-    },
-    {
-      id: "p3",
-      nameKey: "product.name3",
-      price: "Rp 35.000",
-      categoryKey: "product.category1",
-    },
-    {
-      id: "p4",
-      nameKey: "product.name4",
-      price: "Rp 35.000",
-      categoryKey: "product.category1",
-    },
-    {
-      id: "p5",
-      nameKey: "product.name5",
-      price: "Rp 25.000",
-      categoryKey: "product.category1",
-    },
-    {
-      id: "p6",
-      nameKey: "product.name6",
-      price: "Rp 25.000",
-      categoryKey: "product.category2",
-    },
-    {
-      id: "p7",
-      nameKey: "product.name7",
-      price: "Rp 20.000",
-      categoryKey: "product.category1",
-    },
-    {
-      id: "p8",
-      nameKey: "product.name8",
-      price: "Rp 25.000",
-      categoryKey: "product.category1",
-    },
-  ];
+const FALLBACK_PRODUCTS: ProductItem[] = [
+  { id: "p1", nameId: "Paket Camilan Bawang Kemasan Box 200g", nameEn: "Onion Snack Package Box 200g", price: 30000, weight: 250, category: "bawang-merah", imageUrl: "/products/camilan-bawang-merah-box.jpg", whatsappText: null },
+  { id: "p2", nameId: "Camilan Bawang Kemasan Pouch 125gr", nameEn: "Onion Snack Pouch 125gr", price: 25000, weight: 150, category: "bawang-merah", imageUrl: "/products/camilan-bawang-merah-pouch.jpg", whatsappText: null },
+  { id: "p3", nameId: "Bawang Putih Goreng Toples 150gr", nameEn: "Fried Garlic Jar 150gr", price: 35000, weight: 300, category: "bawang-putih", imageUrl: "/products/bawang-putih-goreng-toples-150.jpg", whatsappText: null },
+  { id: "p4", nameId: "Bawang Merah Goreng Toples 150gr", nameEn: "Fried Shallot Jar 150gr", price: 35000, weight: 300, category: "bawang-merah", imageUrl: "/products/bawang-merah-goreng-toples-150.jpg", whatsappText: null },
+  { id: "p5", nameId: "Bawang Putih Goreng Pouch 100gr", nameEn: "Fried Garlic Pouch 100gr", price: 25000, weight: 120, category: "bawang-putih", imageUrl: "/products/bawang-putih-goreng-pouch.jpg", whatsappText: null },
+  { id: "p6", nameId: "Aneka Sambal Hunay", nameEn: "Hunay Sambal Varieties", price: 25000, weight: 200, category: "sambal", imageUrl: "/products/sambel-geprek-pedas.jpg", whatsappText: null },
+  { id: "p7", nameId: "Bawang Putih Botol 75gr", nameEn: "Garlic Bottle 75gr", price: 20000, weight: 200, category: "bawang-putih", imageUrl: "/products/bawang-putih-goreng-botol.jpg", whatsappText: null },
+  { id: "p8", nameId: "Bawang Merah Goreng Pouch 100gr", nameEn: "Fried Shallot Pouch 100gr", price: 25000, weight: 120, category: "bawang-merah", imageUrl: "/products/bawang-merah-goreng-pouch.jpg", whatsappText: null },
+];
 
-  const categories = ["product.all", "product.category1", "product.category3"];
+interface Props {
+  products?: ProductItem[];
+}
 
-  const filteredProducts =
-    activeCategory === "product.all"
+export default function ProductShowcase({ products = FALLBACK_PRODUCTS }: Props) {
+  const { language, t } = useLanguage();
+  const { addItem } = useCart();
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [addedIds, setAddedIds] = useState<Set<string>>(new Set());
+
+  const handleAddToCart = (product: ProductItem) => {
+    addItem({
+      id: product.id,
+      nameId: product.nameId,
+      nameEn: product.nameEn,
+      price: product.price,
+      weight: product.weight,
+      imageUrl: product.imageUrl,
+      category: product.category,
+      whatsappText: product.whatsappText,
+    });
+    setAddedIds((prev) => new Set(prev).add(product.id));
+    setTimeout(() => {
+      setAddedIds((prev) => {
+        const next = new Set(prev);
+        next.delete(product.id);
+        return next;
+      });
+    }, 1500);
+  };
+
+  const categories = ["all", ...Array.from(new Set(products.map((p) => p.category)))];
+
+  const filtered =
+    activeCategory === "all"
       ? products
-      : products.filter((product) => product.categoryKey === activeCategory);
+      : products.filter((p) => p.category === activeCategory);
 
   return (
     <section id="produk" className="py-20 bg-gray-50">
@@ -83,56 +83,75 @@ export default function ProductShowcase() {
           {t("products.subtitle")}
         </p>
 
-        {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category) => (
+          {categories.map((cat) => (
             <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
               className={`px-6 py-2 rounded-full font-medium transition ${
-                activeCategory === category
+                activeCategory === cat
                   ? "bg-forest-green text-white shadow-lg"
                   : "bg-white text-gray-700 hover:bg-gray-100 shadow"
               }`}
             >
-              {t(category)}
+              {CATEGORY_LABELS[cat]?.[language] ?? cat}
             </button>
           ))}
         </div>
 
-        {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-          {filteredProducts.map((product) => (
-            <div
-              key={product.id}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition overflow-hidden group"
-            >
-              <Image
-                src={`/products/${product.id}.jpg`}
-                alt={t(product.nameKey)}
-                width={400}
-                height={400}
-                className="w-full h-48 object-cover group-hover:scale-105 transition-transform"
-                priority
-              />
-              <div className="p-6">
-                <h3 className="font-bold text-gray-900 mb-2 min-h-12">
-                  {t(product.nameKey)}
-                </h3>
-                <p className="text-2xl font-bold text-forest-green mb-4">
-                  {product.price}
-                </p>
-                <a
-                  href={`https://api.whatsapp.com/send/?phone=6285233658619&text=Halo, saya ingin memesan ${t(product.nameKey)}&type=phone_number&app_absent=0`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full bg-forest-green text-white text-center py-3 rounded-xl font-medium hover:bg-green-700 transition"
-                >
-                  {t("products.order")}
-                </a>
+          {filtered.map((product) => {
+            const name = language === "id" ? product.nameId : product.nameEn;
+            const imgSrc = product.imageUrl || `/products/${product.id}.jpg`;
+
+            return (
+              <div
+                key={product.id}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition overflow-hidden group"
+              >
+                <div className="relative h-48 w-full">
+                  <Image
+                    src={imgSrc}
+                    alt={name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform"
+                    priority
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-bold text-gray-900 mb-2 min-h-12">{name}</h3>
+                  <div className="flex items-center justify-between mb-4">
+                    <p className="text-2xl font-bold text-forest-green">
+                      Rp {product.price.toLocaleString("id-ID")}
+                    </p>
+                    {product.weight > 0 && (
+                      <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">
+                        {product.weight}g
+                      </span>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className={`block w-full text-center py-3 rounded-xl font-medium transition ${
+                      addedIds.has(product.id)
+                        ? "bg-green-600 text-white"
+                        : "bg-forest-green text-white hover:bg-green-700"
+                    }`}
+                  >
+                    {addedIds.has(product.id)
+                      ? language === "id" ? "Ditambahkan!" : "Added!"
+                      : t("products.addToCart")}
+                  </button>
+                  <Link
+                    href={`/produk/${product.id}`}
+                    className="block text-center text-sm text-gray-400 hover:text-forest-green transition mt-2"
+                  >
+                    {language === "id" ? "Lihat Detail →" : "View Detail →"}
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

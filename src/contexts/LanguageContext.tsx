@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 type Language = "id" | "en";
 
@@ -71,12 +71,13 @@ const translations = {
     "products.original": "Original",
     "products.spicy": "Pedas",
     "products.order": "Pesan Sekarang!",
+    "products.addToCart": "Tambah ke Keranjang",
 
     // Product names and categories
     "product.all": "Semua",
-    "product.category1": "Bawang Goreng",
-    "product.category2": "Stik Bawang",
-    "product.category3": "Paket Bundling",
+    "product.category1": "Bawang Putih",
+    "product.category2": "Bawang Merah",
+    "product.category3": "Sambal",
     "product.name1": "Paket Camilan Bawang Kemasan Box 200g",
     "product.name2": "Camilan Bawang Kemasan Pouch 125gr",
     "product.name3": "Bawang Putih Goreng Toples 150gr",
@@ -101,6 +102,7 @@ const translations = {
     "process.step4": "Pengiriman",
     "process.step4Desc":
       "Pesanan Anda akan segera diproses dan dikirim ke alamat tujuan",
+    "process.viewProducts": "Lihat Produk Kami",
 
     // CTA
     "cta.promo": "Promo Spesial Hari Ini!",
@@ -209,12 +211,13 @@ const translations = {
     "products.original": "Original",
     "products.spicy": "Spicy",
     "products.order": "Order Now!",
+    "products.addToCart": "Add to Cart",
 
     // Product names and categories
     "product.all": "All",
-    "product.category1": "Fried Onions",
-    "product.category2": "Onion Sticks",
-    "product.category3": "Bundle Package",
+    "product.category1": "Fried Garlic",
+    "product.category2": "Fried Shallot",
+    "product.category3": "Sambal Sauce",
     "product.name1": "Onion Snack Package Box 200g",
     "product.name2": "Onion Snack Pouch 125gr",
     "product.name3": "Fried Garlic Jar 150gr",
@@ -239,6 +242,7 @@ const translations = {
     "process.step4": "Delivery",
     "process.step4Desc":
       "Your order will be processed immediately and shipped to your address",
+    "process.viewProducts": "View Our Products",
 
     // CTA
     "cta.promo": "Special Promo Today!",
@@ -294,7 +298,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("id");
+  const [language, setLanguage] = useState<Language>("en");
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations.id] || key;
