@@ -47,6 +47,12 @@ export default async function AdminDashboard() {
           desc="Publish, edit, atau hapus artikel"
           icon="📰"
         />
+        <QuickLink
+          href="/admin/videos"
+          title="Kelola Video Galeri"
+          desc="Upload video untuk 6 slot galeri"
+          icon="🎬"
+        />
       </div>
     </div>
   );

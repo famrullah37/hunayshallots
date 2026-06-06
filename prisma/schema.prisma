@@ -43,3 +43,14 @@ model BlogPost {
 
   @@map("blog_posts")
 }
+
+model GalleryVideo {
+  id        String   @id @default(cuid())
+  slot      Int      @unique
+  titleId   String   @map("title_id")
+  titleEn   String   @map("title_en")
+  videoUrl  String?  @map("video_url")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("gallery_videos")
+}

@@ -5,48 +5,24 @@ import { motion } from "framer-motion";
 import { Play, X } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-export default function GallerySection() {
-  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
-  const { t } = useLanguage();
 
-  const videos = [
-    {
-      id: 1,
-      titleKey: "gallery.video1",
-      thumbnail: "/video/profil-hunay.mp4",
-      videoUrl: "/video/profil-hunay.mp4",
-    },
-    {
-      id: 2,
-      titleKey: "gallery.video2",
-      thumbnail: "/video/produksi-sambal.mp4",
-      videoUrl: "/video/produksi-sambal.mp4",
-    },
-    {
-      id: 3,
-      titleKey: "gallery.video3",
-      thumbnail: "/video/produk-1.mp4",
-      videoUrl: "/video/produk-1.mp4",
-    },
-    {
-      id: 4,
-      titleKey: "gallery.video4",
-      thumbnail: "/video/produk-2.mp4",
-      videoUrl: "/video/produk-2.mp4",
-    },
-    {
-      id: 5,
-      titleKey: "gallery.video5",
-      thumbnail: "/video/gudang-produksi.mp4",
-      videoUrl: "/video/gudang-produksi.mp4",
-    },
-    {
-      id: 6,
-      titleKey: "gallery.video6",
-      thumbnail: "/video/proses-produksi.mp4",
-      videoUrl: "/video/proses-produksi.mp4",
-    },
-  ];
+interface GalleryVideoData {
+  slot: number;
+  titleId: string;
+  titleEn: string;
+  videoUrl: string | null;
+}
+
+export default function GallerySection({ galleryVideos }: { galleryVideos?: GalleryVideoData[] }) {
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const { t, language } = useLanguage();
+
+  const videos = (galleryVideos ?? []).map((v) => ({
+    id: v.slot,
+    title: language === "id" ? v.titleId : v.titleEn,
+    titleKey: TITLE_KEYS[v.slot - 1],
+    videoUrl: v.videoUrl,
+  })).filter((v) => v.videoUrl);
 
   return (
     <section className="py-20">
@@ -76,12 +52,12 @@ export default function GallerySection() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className="relative group cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
-                onClick={() => setSelectedVideo(video.videoUrl)}
+                onClick={() => setSelectedVideo(video.videoUrl!)}
               >
                 {/* Video Thumbnail */}
                 <div className="relative aspect-video bg-gray-200">
                   <video
-                    src={video.thumbnail}
+                    src={video.videoUrl!}
                     className="w-full h-full object-cover"
                     muted
                     loop
@@ -102,7 +78,7 @@ export default function GallerySection() {
                 {/* Title */}
                 <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4">
                   <h3 className="text-white font-semibold text-lg">
-                    {t(video.titleKey)}
+                    {video.title}
                   </h3>
                 </div>
               </motion.div>

@@ -12,11 +12,15 @@ import LocationSection from "@/components/LocationSection";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { getProducts } from "@/actions/products";
+import { getGalleryVideos } from "@/actions/videos";
 
 export const revalidate = 3600;
 
 export default async function Home() {
-  const products = await getProducts(true).catch(() => []);
+  const [products, galleryVideos] = await Promise.all([
+    getProducts(true).catch(() => []),
+    getGalleryVideos(),
+  ]);
 
   return (
     <div className="min-h-screen">
@@ -29,7 +33,7 @@ export default async function Home() {
       <ProcessSection />
       <CTASection />
       <TrustSection />
-      <GallerySection />
+      <GallerySection galleryVideos={galleryVideos} />
       <LocationSection />
       <Footer />
       <WhatsAppFloat />
