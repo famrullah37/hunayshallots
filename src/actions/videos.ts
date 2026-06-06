@@ -3,22 +3,13 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
+import { DEFAULT_VIDEOS } from "@/lib/video-defaults";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-
-export const DEFAULT_VIDEOS = [
-  { slot: 1, titleId: "Profil Hunay",           titleEn: "Hunay Profile",          videoUrl: null as string | null },
-  { slot: 2, titleId: "Produksi Sambal",         titleEn: "Sambal Production",       videoUrl: null as string | null },
-  { slot: 3, titleId: "Produk Hunay",            titleEn: "Hunay Products",          videoUrl: null as string | null },
-  { slot: 4, titleId: "Produk Premium",          titleEn: "Premium Products",        videoUrl: null as string | null },
-  { slot: 5, titleId: "Gudang Produksi",         titleEn: "Production Warehouse",    videoUrl: null as string | null },
-  { slot: 6, titleId: "Proses Produksi Hunay",   titleEn: "Hunay Production Process",
-    videoUrl: "https://res.cloudinary.com/davkdgozv/video/upload/v1780710802/hunay/videos/proses-produksi.mp4" },
-];
 
 export async function getGalleryVideos() {
   try {
