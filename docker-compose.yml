@@ -8,10 +8,8 @@ services:
     env_file: .env.production
     networks:
       - proxy
-      - internal
-    depends_on:
-      db:
-        condition: service_healthy
+      - postgresql-wsnb_default
+      - redis_public
     labels:
       - "traefik.enable=true"
       # HTTPS router
@@ -31,26 +29,10 @@ services:
       - "traefik.http.middlewares.www-redirect.redirectregex.replacement=https://$${1}"
       - "traefik.http.middlewares.www-redirect.redirectregex.permanent=true"
 
-  db:
-    image: postgres:16-alpine
-    container_name: hunayshallots_db
-    restart: unless-stopped
-    env_file: .env.production
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - internal
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
 networks:
   proxy:
     external: true
-  internal:
-    driver: bridge
-
-volumes:
-  postgres_data:
+  postgresql-wsnb_default:
+    external: true
+  redis_public:
+    external: true
