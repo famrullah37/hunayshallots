@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Play, X } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -20,7 +20,6 @@ export default function GallerySection({ galleryVideos }: { galleryVideos?: Gall
   const videos = (galleryVideos ?? []).map((v) => ({
     id: v.slot,
     title: language === "id" ? v.titleId : v.titleEn,
-    titleKey: TITLE_KEYS[v.slot - 1],
     videoUrl: v.videoUrl,
   })).filter((v) => v.videoUrl);
 
