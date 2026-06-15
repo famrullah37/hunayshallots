@@ -109,17 +109,25 @@ export default function ProductShowcase({ products = FALLBACK_PRODUCTS }: Props)
                 key={product.id}
                 className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition overflow-hidden group"
               >
-                <div className="relative h-48 w-full">
+                {/* Image — klik ke detail */}
+                <Link href={`/produk/${product.id}`} className="block relative h-48 w-full overflow-hidden">
                   <Image
                     src={imgSrc}
                     alt={name}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                     priority
                   />
-                </div>
+                </Link>
+
                 <div className="p-6">
-                  <h3 className="font-bold text-gray-900 mb-2 min-h-12">{name}</h3>
+                  {/* Nama — klik ke detail */}
+                  <Link href={`/produk/${product.id}`} className="block mb-2">
+                    <h3 className="font-bold text-gray-900 min-h-12 hover:text-forest-green transition leading-snug">
+                      {name}
+                    </h3>
+                  </Link>
+
                   <div className="flex items-center justify-between mb-4">
                     <p className="text-2xl font-bold text-forest-green">
                       Rp {product.price.toLocaleString("id-ID")}
@@ -130,6 +138,7 @@ export default function ProductShowcase({ products = FALLBACK_PRODUCTS }: Props)
                       </span>
                     )}
                   </div>
+
                   <button
                     onClick={() => handleAddToCart(product)}
                     className={`block w-full text-center py-3 rounded-xl font-medium transition ${
@@ -142,6 +151,7 @@ export default function ProductShowcase({ products = FALLBACK_PRODUCTS }: Props)
                       ? language === "id" ? "Ditambahkan!" : "Added!"
                       : t("products.addToCart")}
                   </button>
+
                   <Link
                     href={`/produk/${product.id}`}
                     className="block text-center text-sm text-gray-400 hover:text-forest-green transition mt-2"
