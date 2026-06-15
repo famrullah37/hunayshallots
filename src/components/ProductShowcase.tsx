@@ -6,6 +6,8 @@ import { useCart } from "@/contexts/CartContext";
 import Image from "next/image";
 import Link from "next/link";
 
+const WHATSAPP_NUMBER = "6285233658619";
+
 interface ProductItem {
   id: string;
   nameId: string;
@@ -66,6 +68,15 @@ export default function ProductShowcase({ products = FALLBACK_PRODUCTS }: Props)
     }, 1500);
   };
 
+  const handleOrderNow = (product: ProductItem) => {
+    const name = language === "id" ? product.nameId : product.nameEn;
+    const text = product.whatsappText || `Halo Hunay! Saya ingin memesan ${name}. Harga: Rp ${product.price.toLocaleString("id-ID")}`;
+    window.open(
+      `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(text)}&type=phone_number&app_absent=0`,
+      "_blank"
+    );
+  };
+
   const categories = ["all", ...Array.from(new Set(products.map((p) => p.category)))];
 
   const filtered =
@@ -107,10 +118,10 @@ export default function ProductShowcase({ products = FALLBACK_PRODUCTS }: Props)
             return (
               <div
                 key={product.id}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition overflow-hidden group"
+                className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow overflow-hidden group flex flex-col"
               >
-                {/* Image — klik ke detail */}
-                <Link href={`/produk/${product.id}`} className="block relative h-48 w-full overflow-hidden">
+                {/* Gambar — klik ke detail */}
+                <Link href={`/produk/${product.id}`} className="block relative h-52 w-full overflow-hidden bg-gray-50 shrink-0">
                   <Image
                     src={imgSrc}
                     alt={name}
@@ -120,44 +131,43 @@ export default function ProductShowcase({ products = FALLBACK_PRODUCTS }: Props)
                   />
                 </Link>
 
-                <div className="p-6">
+                <div className="p-5 flex flex-col flex-1">
                   {/* Nama — klik ke detail */}
-                  <Link href={`/produk/${product.id}`} className="block mb-2">
-                    <h3 className="font-bold text-gray-900 min-h-12 hover:text-forest-green transition leading-snug">
+                  <Link href={`/produk/${product.id}`} className="block mb-3 flex-1">
+                    <h3 className="font-bold text-gray-900 text-base leading-snug hover:text-forest-green transition line-clamp-2">
                       {name}
                     </h3>
                   </Link>
 
-                  <div className="flex items-center justify-between mb-4">
-                    <p className="text-2xl font-bold text-forest-green">
+                  {/* Harga */}
+                  <div className="mb-4">
+                    <p className="text-2xl font-bold text-forest-green leading-tight">
                       Rp {product.price.toLocaleString("id-ID")}
                     </p>
-                    {product.weight > 0 && (
-                      <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">
-                        {product.weight}g
-                      </span>
-                    )}
+                    <p className="text-xs text-gray-400 mt-0.5">IDR (Indonesian Rupiah)</p>
                   </div>
 
+                  {/* Tombol Order Now */}
+                  <button
+                    onClick={() => handleOrderNow(product)}
+                    className="w-full py-3 rounded-xl font-semibold text-sm bg-[#2d5a27] hover:bg-[#1e3d1a] text-white transition"
+                  >
+                    {language === "id" ? "Pesan Sekarang!" : "Order Now!"}
+                  </button>
+
+                  {/* Tambah ke keranjang — secondary */}
                   <button
                     onClick={() => handleAddToCart(product)}
-                    className={`block w-full text-center py-3 rounded-xl font-medium transition ${
+                    className={`w-full mt-2 py-2 rounded-xl text-sm font-medium border transition ${
                       addedIds.has(product.id)
-                        ? "bg-green-600 text-white"
-                        : "bg-forest-green text-white hover:bg-green-700"
+                        ? "border-green-500 bg-green-50 text-green-700"
+                        : "border-gray-200 text-gray-500 hover:border-forest-green hover:text-forest-green"
                     }`}
                   >
                     {addedIds.has(product.id)
-                      ? language === "id" ? "Ditambahkan!" : "Added!"
-                      : t("products.addToCart")}
+                      ? language === "id" ? "✓ Ditambahkan" : "✓ Added"
+                      : language === "id" ? "+ Keranjang" : "+ Cart"}
                   </button>
-
-                  <Link
-                    href={`/produk/${product.id}`}
-                    className="block text-center text-sm text-gray-400 hover:text-forest-green transition mt-2"
-                  >
-                    {language === "id" ? "Lihat Detail →" : "View Detail →"}
-                  </Link>
                 </div>
               </div>
             );
