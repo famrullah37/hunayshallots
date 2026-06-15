@@ -3,9 +3,37 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunay.id";
+
 export const metadata: Metadata = {
-  title: "Blog — Hunay Fried Onions",
-  description: "Tips, recipes, and stories about premium fried onions from Hunay Indonesia.",
+  title: "Blog & Artikel — Hunay Fried Onions",
+  description:
+    "Tips, resep, dan cerita seputar bawang goreng premium Hunay dari Probolinggo, Indonesia. Tips memasak, cara penyimpanan, dan informasi ekspor.",
+  keywords: [
+    "blog bawang goreng", "resep bawang goreng", "tips memasak bawang goreng",
+    "hunay blog", "artikel bawang goreng premium",
+  ],
+  alternates: {
+    canonical: `${BASE_URL}/blog`,
+    languages: {
+      "en-US": `${BASE_URL}/blog`,
+      "id-ID": `${BASE_URL}/blog?lang=id`,
+    },
+  },
+  openGraph: {
+    type: "website",
+    url: `${BASE_URL}/blog`,
+    siteName: "Hunay Fried Onions",
+    title: "Blog & Artikel — Hunay Fried Onions",
+    description: "Tips, resep, dan cerita seputar bawang goreng premium Hunay dari Probolinggo.",
+    images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Hunay Blog" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog & Artikel — Hunay Fried Onions",
+    description: "Tips, resep, dan cerita seputar bawang goreng premium Hunay.",
+    images: [`${BASE_URL}/og-image.jpg`],
+  },
 };
 
 export const revalidate = 3600;

@@ -5,7 +5,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import Script from "next/script";
 import "./globals.css";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunay.id";
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
@@ -115,17 +115,34 @@ const websiteSchema = {
   "@type": "WebSite",
   "@id": `${BASE_URL}/#website`,
   name: "Hunay Fried Onions",
-  alternateName: "Hunay Bawang Goreng",
+  alternateName: ["Hunay Bawang Goreng", "hunay.id"],
   url: BASE_URL,
-  description: "Official website of Hunay premium fried onions by CV. Dua Putri Sholehah, Probolinggo, Indonesia.",
+  description: "Official website of Hunay premium fried onions and fried shallots by CV. Dua Putri Sholehah, Probolinggo, East Java, Indonesia. Halal certified, no preservatives, exported globally.",
   inLanguage: ["en-US", "id-ID"],
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${BASE_URL}/blog?q={search_term_string}`,
-    },
-    "query-input": "required name=search_term_string",
+  keywords: "fried onion, bawang goreng, biru lancor, halal, Probolinggo, Indonesia, export",
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["h1", ".hero-title", ".hero-description", ".product-name", ".about-text"],
+  },
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${BASE_URL}/#webpage`,
+  url: BASE_URL,
+  name: "Hunay — Premium Fried Onions & Fried Shallots | Export Quality from Probolinggo",
+  isPartOf: { "@id": `${BASE_URL}/#website` },
+  about: { "@id": `${BASE_URL}/#organization` },
+  description: "Buy premium fried onions (bawang goreng) directly from the producer in Probolinggo, Indonesia. Halal MUI certified, no preservatives, crispy biru lancor variety. Available retail and wholesale.",
+  primaryImageOfPage: { "@type": "ImageObject", url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630 },
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["h1", "h2", ".hero-description", ".product-description", ".about-section", "[data-speakable]"],
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: BASE_URL }],
   },
 };
 
@@ -326,6 +343,73 @@ const faqSchema = {
       name: "How much do Hunay fried onions cost?",
       acceptedAnswer: { "@type": "Answer", text: "Hunay retail products range from Rp20.000 (garlic bottle 75gr) to Rp35.000 (shallot or garlic jar 150gr). Wholesale bulk pricing is available for businesses — contact WhatsApp +62 852-3365-8619 for current wholesale rates." },
     },
+    // ─── Indonesian / Bilingual FAQ (AEO for ID market) ───
+    {
+      "@type": "Question",
+      name: "Apa itu bawang goreng Hunay?",
+      acceptedAnswer: { "@type": "Answer", text: "Hunay adalah brand bawang goreng premium dari CV. Dua Putri Sholehah, Probolinggo, Jawa Timur. Dibuat dari bawang biru lancor pilihan tanpa tepung dan tanpa pengawet buatan. Bersertifikat Halal MUI, BPOM, ISO 9001:2015, HACCP, GMP, dan GAP." },
+    },
+    {
+      "@type": "Question",
+      name: "Berapa harga bawang goreng Hunay?",
+      acceptedAnswer: { "@type": "Answer", text: "Harga bawang goreng Hunay mulai Rp20.000 (botol bawang putih 75gr) hingga Rp35.000 (toples bawang merah atau putih 150gr). Tersedia harga grosir kiloan untuk restoran, katering, dan bisnis makanan. Hubungi WhatsApp +62 852-3365-8619 untuk info harga grosir." },
+    },
+    {
+      "@type": "Question",
+      name: "Apakah bawang goreng Hunay menggunakan pengawet?",
+      acceptedAnswer: { "@type": "Answer", text: "Tidak. Bawang goreng Hunay 100% bebas pengawet buatan. Kerenyahan dan daya tahan (6–12 bulan dalam kemasan vacuum) diperoleh dari kandungan air rendah bawang biru lancor dan teknologi pengemasan vakum, bukan dari bahan kimia." },
+    },
+    {
+      "@type": "Question",
+      name: "Berapa lama ketahanan bawang goreng Hunay?",
+      acceptedAnswer: { "@type": "Answer", text: "Bawang goreng Hunay yang belum dibuka tahan 6–12 bulan dalam kemasan vacuum. Setelah dibuka, tetap renyah 1–2 bulan jika disimpan dalam wadah kedap udara di tempat kering dan sejuk. Jangan disimpan di kulkas karena kelembaban akan membuatnya lembek." },
+    },
+    {
+      "@type": "Question",
+      name: "Apakah bawang goreng Hunay bisa dikirim ke luar Indonesia?",
+      acceptedAnswer: { "@type": "Answer", text: "Ya. Hunay mengekspor bawang goreng premium ke Jepang, Korea Selatan, Kanada, dan Singapura. Untuk pemesanan ekspor dalam jumlah besar, hubungi tim kami via WhatsApp +62 852-3365-8619." },
+    },
+    {
+      "@type": "Question",
+      name: "Apa itu bawang biru lancor dan mengapa istimewa?",
+      acceptedAnswer: { "@type": "Answer", text: "Biru lancor adalah varietas bawang merah lokal khas Probolinggo dengan kadar air hanya 62–65%, jauh lebih rendah dari varietas lain. Hasilnya: bawang goreng lebih renyah, warna keemasan alami lebih intens, aroma lebih kuat, dan daya tahan lebih lama tanpa pengawet." },
+    },
+    {
+      "@type": "Question",
+      name: "Bagaimana cara memesan bawang goreng Hunay?",
+      acceptedAnswer: { "@type": "Answer", text: "Bisa melalui 3 cara: (1) Langsung via website hunay.id — pilih produk, tambah ke keranjang, isi data pengiriman, kirim pesanan via WhatsApp. (2) WhatsApp langsung ke +62 852-3365-8619. (3) Marketplace: Tokopedia (tokopedia.com/hunay-1) atau Shopee (shopee.co.id/hunay.id)." },
+    },
+  ],
+};
+
+const definedTermSchema = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "@id": `${BASE_URL}/#glossary`,
+  name: "Hunay Fried Onion Glossary",
+  description: "Key terms related to Hunay premium fried onions and Indonesian fried shallot production",
+  hasDefinedTerm: [
+    {
+      "@type": "DefinedTerm",
+      "@id": `${BASE_URL}/#term-biru-lancor`,
+      name: "Biru Lancor",
+      description: "A premium local shallot variety (Allium cepa var. aggregatum) native to Probolinggo, East Java, Indonesia. Distinguished by very low water content (62–65%), producing exceptionally crispy fried onions with intense golden color, rich aroma, and long shelf life without preservatives. The foundation of Hunay's quality.",
+      inDefinedTermSet: { "@id": `${BASE_URL}/#glossary` },
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": `${BASE_URL}/#term-bawang-goreng`,
+      name: "Bawang Goreng",
+      description: "Indonesian crispy fried shallots or fried onions. A staple condiment in Indonesian, Malaysian, and Southeast Asian cuisines. Used as a topping for rice (nasi goreng, soto), soups, noodles, and salads. Premium quality bawang goreng uses biru lancor variety and no preservatives.",
+      inDefinedTermSet: { "@id": `${BASE_URL}/#glossary` },
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": `${BASE_URL}/#term-bawang-putih-goreng`,
+      name: "Bawang Putih Goreng",
+      description: "Indonesian crispy fried garlic. Used as a condiment and flavor enhancer in Southeast Asian cooking. Hunay's fried garlic is made from selected garlic with no additives or preservatives.",
+      inDefinedTermSet: { "@id": `${BASE_URL}/#glossary` },
+    },
   ],
 };
 
@@ -338,7 +422,7 @@ const howToOrderSchema = {
   supply: [{ "@type": "HowToSupply", name: "WhatsApp or internet access" }],
   tool: [{ "@type": "HowToTool", name: "Smartphone or computer" }],
   step: [
-    { "@type": "HowToStep", position: 1, name: "Browse the Product Catalog", text: "Visit hunayshallots.com or scroll to the product section. Choose from fried shallot, fried garlic, or sambal variants in various packaging sizes.", image: `${BASE_URL}/hero-hunay.jpg` },
+    { "@type": "HowToStep", position: 1, name: "Browse the Product Catalog", text: `Visit hunay.id or scroll to the product section. Choose from fried shallot, fried garlic, or sambal variants in various packaging sizes.`, image: `${BASE_URL}/hero-hunay.jpg` },
     { "@type": "HowToStep", position: 2, name: "Add to Cart", text: "Click 'Add to Cart' on your chosen product. You can add multiple products and adjust quantities in the shopping cart." },
     { "@type": "HowToStep", position: 3, name: "Fill in Shipping Details", text: "In the cart page, fill in your complete name, WhatsApp number, and full delivery address including city and province." },
     { "@type": "HowToStep", position: 4, name: "Send Order via WhatsApp", text: "Click 'Send Order via WhatsApp'. Your complete order details will automatically be sent to Hunay admin at +62 852-3365-8619 for order confirmation." },
@@ -361,11 +445,13 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productCatalogSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToOrderSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(definedTermSchema) }} />
       </head>
       <body className={`${quicksand.variable} ${nunito.variable} antialiased`}>
         <LanguageProvider>

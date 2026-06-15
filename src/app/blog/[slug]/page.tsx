@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunay.id";
 
 export const revalidate = 3600;
 
