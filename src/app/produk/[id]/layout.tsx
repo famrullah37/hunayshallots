@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunay.id";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
 const CATEGORY_LABELS: Record<string, string> = {
   "bawang-putih": "Fried Garlic",

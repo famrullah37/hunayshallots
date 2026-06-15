@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunay.id";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
 export const revalidate = 3600;
 

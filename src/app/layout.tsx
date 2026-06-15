@@ -5,7 +5,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import Script from "next/script";
 import "./globals.css";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunay.id";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
@@ -115,7 +115,7 @@ const websiteSchema = {
   "@type": "WebSite",
   "@id": `${BASE_URL}/#website`,
   name: "Hunay Fried Onions",
-  alternateName: ["Hunay Bawang Goreng", "hunay.id"],
+  alternateName: ["Hunay Bawang Goreng", "hunayshallots.com"],
   url: BASE_URL,
   description: "Official website of Hunay premium fried onions and fried shallots by CV. Dua Putri Sholehah, Probolinggo, East Java, Indonesia. Halal certified, no preservatives, exported globally.",
   inLanguage: ["en-US", "id-ID"],
@@ -422,7 +422,7 @@ const howToOrderSchema = {
   supply: [{ "@type": "HowToSupply", name: "WhatsApp or internet access" }],
   tool: [{ "@type": "HowToTool", name: "Smartphone or computer" }],
   step: [
-    { "@type": "HowToStep", position: 1, name: "Browse the Product Catalog", text: `Visit hunay.id or scroll to the product section. Choose from fried shallot, fried garlic, or sambal variants in various packaging sizes.`, image: `${BASE_URL}/hero-hunay.jpg` },
+    { "@type": "HowToStep", position: 1, name: "Browse the Product Catalog", text: `Visit hunayshallots.com or scroll to the product section. Choose from fried shallot, fried garlic, or sambal variants in various packaging sizes.`, image: `${BASE_URL}/hero-hunay.jpg` },
     { "@type": "HowToStep", position: 2, name: "Add to Cart", text: "Click 'Add to Cart' on your chosen product. You can add multiple products and adjust quantities in the shopping cart." },
     { "@type": "HowToStep", position: 3, name: "Fill in Shipping Details", text: "In the cart page, fill in your complete name, WhatsApp number, and full delivery address including city and province." },
     { "@type": "HowToStep", position: 4, name: "Send Order via WhatsApp", text: "Click 'Send Order via WhatsApp'. Your complete order details will automatically be sent to Hunay admin at +62 852-3365-8619 for order confirmation." },
