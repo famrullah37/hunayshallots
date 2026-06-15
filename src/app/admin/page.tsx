@@ -53,6 +53,12 @@ export default async function AdminDashboard() {
           desc="Upload video untuk 6 slot galeri"
           icon="🎬"
         />
+        <QuickLink
+          href="/admin/settings"
+          title="Pengaturan"
+          desc="Atur ongkos pengiriman global"
+          icon="⚙️"
+        />
       </div>
     </div>
   );

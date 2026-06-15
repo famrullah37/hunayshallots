@@ -15,6 +15,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/admin/products" className="text-green-200 hover:text-white text-sm transition">Produk</Link>
           <Link href="/admin/blog" className="text-green-200 hover:text-white text-sm transition">Blog</Link>
           <Link href="/admin/videos" className="text-green-200 hover:text-white text-sm transition">Video</Link>
+          <Link href="/admin/settings" className="text-green-200 hover:text-white text-sm transition">Pengaturan</Link>
           <Link href="/" target="_blank" className="text-green-200 hover:text-white text-sm transition">Lihat Website ↗</Link>
         </div>
         <form action={logoutAction}>

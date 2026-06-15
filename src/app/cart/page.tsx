@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -22,6 +22,7 @@ interface ShippingForm {
 export default function CartPage() {
   const { items, removeItem, updateQuantity, clearCart, totalPrice, totalWeight } = useCart();
   const { language } = useLanguage();
+  const [shippingCost, setShippingCost] = useState<number | null>(null);
 
   const [form, setForm] = useState<ShippingForm>({
     nama: "",
@@ -34,6 +35,15 @@ export default function CartPage() {
   const [errors, setErrors] = useState<Partial<ShippingForm>>({});
 
   const id = language === "id";
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then((data) => setShippingCost(data.shippingCost ?? 0))
+      .catch(() => setShippingCost(0));
+  }, []);
+
+  const grandTotal = totalPrice + (shippingCost ?? 0);
 
   const validate = () => {
     const e: Partial<ShippingForm> = {};
@@ -55,13 +65,31 @@ export default function CartPage() {
       })
       .join("\n");
 
+    const shippingLine =
+      shippingCost && shippingCost > 0
+        ? id
+          ? `Ongkir: Rp ${shippingCost.toLocaleString("id-ID")}`
+          : `Shipping: Rp ${shippingCost.toLocaleString("id-ID")}`
+        : id
+        ? "Ongkir: dikonfirmasi kemudian"
+        : "Shipping: to be confirmed";
+
+    const totalLine =
+      shippingCost && shippingCost > 0
+        ? id
+          ? `*Total: Rp ${grandTotal.toLocaleString("id-ID")}* (sudah termasuk ongkir)`
+          : `*Total: Rp ${grandTotal.toLocaleString("id-ID")}* (including shipping)`
+        : id
+        ? `Subtotal: Rp ${totalPrice.toLocaleString("id-ID")} _(belum termasuk ongkir)_`
+        : `Subtotal: Rp ${totalPrice.toLocaleString("id-ID")} _(excl. shipping)_`;
+
     const shippingInfo = id
       ? `📋 *Data Pengiriman:*\nNama: ${form.nama}\nNo. WhatsApp: ${form.noWA}\nAlamat: ${form.alamat}\nKota/Kab: ${form.kota}${form.provinsi ? `\nProvinsi: ${form.provinsi}` : ""}${form.catatan ? `\nCatatan: ${form.catatan}` : ""}`
       : `📋 *Shipping Info:*\nName: ${form.nama}\nWhatsApp: ${form.noWA}\nAddress: ${form.alamat}\nCity: ${form.kota}${form.provinsi ? `\nProvince: ${form.provinsi}` : ""}${form.catatan ? `\nNotes: ${form.catatan}` : ""}`;
 
     const message = id
-      ? `Halo Hunay! Saya ingin memesan:\n\n${itemsList}\n\nSubtotal: Rp ${totalPrice.toLocaleString("id-ID")}\n_(Biaya pengiriman dikonfirmasi kemudian)_\n\n${shippingInfo}\n\nTerima kasih! 🙏`
-      : `Hello Hunay! I'd like to order:\n\n${itemsList}\n\nSubtotal: Rp ${totalPrice.toLocaleString("id-ID")}\n_(Shipping cost to be confirmed)_\n\n${shippingInfo}\n\nThank you! 🙏`;
+      ? `Halo Hunay! Saya ingin memesan:\n\n${itemsList}\n\n${shippingLine}\n${totalLine}\n\n${shippingInfo}\n\nTerima kasih! 🙏`
+      : `Hello Hunay! I'd like to order:\n\n${itemsList}\n\n${shippingLine}\n${totalLine}\n\n${shippingInfo}\n\nThank you! 🙏`;
 
     const waUrl = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
     window.open(waUrl, "_blank");
@@ -104,7 +132,7 @@ export default function CartPage() {
         ) : (
           <div className="flex flex-col lg:flex-row gap-8 mt-8">
 
-            {/* Left column: items + shipping form */}
+            {/* Left: items + shipping form */}
             <div className="flex-1 space-y-6">
 
               {/* Cart Items */}
@@ -242,21 +270,23 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                {/* Shipping cost notice */}
-                <div className="mt-4 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl p-3">
-                  <svg className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <p className="text-xs text-amber-700">
-                    {id
-                      ? "Biaya pengiriman akan dikalkulasi dan dikonfirmasi oleh admin Hunay melalui WhatsApp setelah pesanan diterima."
-                      : "Shipping cost will be calculated and confirmed by Hunay admin via WhatsApp after receiving your order."}
-                  </p>
-                </div>
+                {/* Shipping cost notice — only show when cost = 0 */}
+                {shippingCost === 0 && (
+                  <div className="mt-4 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl p-3">
+                    <svg className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p className="text-xs text-amber-700">
+                      {id
+                        ? "Biaya pengiriman akan dikalkulasi dan dikonfirmasi oleh admin Hunay melalui WhatsApp setelah pesanan diterima."
+                        : "Shipping cost will be calculated and confirmed by Hunay admin via WhatsApp after receiving your order."}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Right column: Order summary */}
+            {/* Right: Order summary */}
             <div className="lg:w-80 shrink-0">
               <div className="bg-white rounded-2xl shadow-sm p-6 sticky top-24">
                 <h2 className="text-lg font-bold text-gray-900 mb-4">
@@ -275,12 +305,12 @@ export default function CartPage() {
                   })}
                 </div>
 
-                <div className="border-t border-gray-100 pt-3 mb-1">
-                  <div className="flex justify-between text-sm text-gray-600 mb-1">
+                <div className="border-t border-gray-100 pt-3 space-y-1.5 mb-4">
+                  <div className="flex justify-between text-sm text-gray-600">
                     <span>Subtotal</span>
                     <span>Rp {totalPrice.toLocaleString("id-ID")}</span>
                   </div>
-                  <div className="flex justify-between text-sm text-gray-600 mb-1">
+                  <div className="flex justify-between text-sm text-gray-600">
                     <span>{id ? "Total Berat" : "Total Weight"}</span>
                     <span className="font-medium">
                       {totalWeight >= 1000
@@ -288,18 +318,33 @@ export default function CartPage() {
                         : `${totalWeight} g`}
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm text-gray-400">
+                  <div className="flex justify-between text-sm text-gray-600">
                     <span>{id ? "Ongkir" : "Shipping"}</span>
-                    <span className="italic">{id ? "dikonfirmasi via WA" : "confirmed via WA"}</span>
+                    {shippingCost === null ? (
+                      <span className="text-gray-400 text-xs italic">loading...</span>
+                    ) : shippingCost > 0 ? (
+                      <span className="font-medium text-gray-800">Rp {shippingCost.toLocaleString("id-ID")}</span>
+                    ) : (
+                      <span className="italic text-gray-400 text-xs">{id ? "dikonfirmasi via WA" : "confirmed via WA"}</span>
+                    )}
                   </div>
                 </div>
 
                 <div className="border-t border-gray-100 pt-3 mb-6">
-                  <div className="flex justify-between font-bold text-gray-900 text-lg">
-                    <span>Total</span>
-                    <span>Rp {totalPrice.toLocaleString("id-ID")}</span>
-                  </div>
-                  <p className="text-xs text-gray-400 mt-0.5">{id ? "+ ongkir" : "+ shipping"}</p>
+                  {shippingCost !== null && shippingCost > 0 ? (
+                    <div className="flex justify-between font-bold text-gray-900 text-lg">
+                      <span>Total</span>
+                      <span>Rp {grandTotal.toLocaleString("id-ID")}</span>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex justify-between font-bold text-gray-900 text-lg">
+                        <span>Total</span>
+                        <span>Rp {totalPrice.toLocaleString("id-ID")}</span>
+                      </div>
+                      <p className="text-xs text-gray-400 mt-0.5">{id ? "+ ongkir" : "+ shipping"}</p>
+                    </>
+                  )}
                 </div>
 
                 <button
