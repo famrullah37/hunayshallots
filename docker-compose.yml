@@ -16,18 +16,18 @@ services:
       - "traefik.http.routers.hunayshallots.rule=Host(`hunayshallots.com`) || Host(`www.hunayshallots.com`)"
       - "traefik.http.routers.hunayshallots.entrypoints=websecure"
       - "traefik.http.routers.hunayshallots.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.hunayshallots.middlewares=www-redirect@docker"
+      - "traefik.http.routers.hunayshallots.middlewares=hunayshallots-www-redirect@docker"
       - "traefik.http.services.hunayshallots.loadbalancer.server.port=3000"
       # HTTP → HTTPS redirect
       - "traefik.http.routers.hunayshallots-http.rule=Host(`hunayshallots.com`) || Host(`www.hunayshallots.com`)"
       - "traefik.http.routers.hunayshallots-http.entrypoints=web"
-      - "traefik.http.routers.hunayshallots-http.middlewares=https-redirect@docker"
+      - "traefik.http.routers.hunayshallots-http.middlewares=hunayshallots-https-redirect@docker"
       # Middlewares
-      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.https-redirect.redirectscheme.permanent=true"
-      - "traefik.http.middlewares.www-redirect.redirectregex.regex=^https://www\\.(.*)"
-      - "traefik.http.middlewares.www-redirect.redirectregex.replacement=https://$${1}"
-      - "traefik.http.middlewares.www-redirect.redirectregex.permanent=true"
+      - "traefik.http.middlewares.hunayshallots-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.hunayshallots-https-redirect.redirectscheme.permanent=true"
+      - "traefik.http.middlewares.hunayshallots-www-redirect.redirectregex.regex=^https://www\\.(.*)"
+      - "traefik.http.middlewares.hunayshallots-www-redirect.redirectregex.replacement=https://$${1}"
+      - "traefik.http.middlewares.hunayshallots-www-redirect.redirectregex.permanent=true"
 
 networks:
   proxy:
