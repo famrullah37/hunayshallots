@@ -15,7 +15,7 @@ services:
       # HTTPS router
       - "traefik.http.routers.hunayshallots.rule=Host(`hunayshallots.com`) || Host(`www.hunayshallots.com`)"
       - "traefik.http.routers.hunayshallots.entrypoints=websecure"
-      - "traefik.http.routers.hunayshallots.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.hunayshallots.tls.certresolver=le"
       - "traefik.http.routers.hunayshallots.middlewares=hunayshallots-www-redirect@docker"
       - "traefik.http.services.hunayshallots.loadbalancer.server.port=3000"
       # HTTP → HTTPS redirect
