@@ -22,6 +22,7 @@ async function getProductSEO(slug: string) {
         price: true,
         category: true,
         weight: true,
+        keywords: true,
       },
     });
   } catch {
@@ -56,6 +57,9 @@ export async function generateMetadata({
   return {
     title: `${name} (${weightLabel}) — ${category} | Hunay`,
     description,
+    keywords: product.keywords
+      ? product.keywords.split(",").map((k) => k.trim()).filter(Boolean)
+      : undefined,
     alternates: { canonical: url },
     openGraph: {
       type: "website",

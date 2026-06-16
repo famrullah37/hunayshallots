@@ -121,6 +121,19 @@ export default function ProductForm({ product, action, submitLabel = "Simpan" }:
       />
 
       <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Kata Kunci SEO <span className="text-gray-400 font-normal">(pisahkan dengan koma, boleh campur ID & EN)</span>
+        </label>
+        <input
+          name="keywords"
+          type="text"
+          defaultValue={product?.keywords || ""}
+          placeholder="bawang goreng, fried shallot, bawang merah, garlic"
+          className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
+      </div>
+
+      <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Foto Produk</label>
         <CloudinaryUpload value={imageUrl} onChange={setImageUrl} label="Upload Foto" />
       </div>

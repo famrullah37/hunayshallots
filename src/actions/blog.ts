@@ -34,6 +34,7 @@ export async function createPost(formData: FormData) {
       excerptId: (formData.get("excerptId") as string) || null,
       excerptEn: (formData.get("excerptEn") as string) || null,
       coverImage: (formData.get("coverImage") as string) || null,
+      keywords: (formData.get("keywords") as string) || null,
       isPublished: formData.get("isPublished") === "true",
       publishedAt:
         formData.get("isPublished") === "true" ? new Date() : null,
@@ -58,6 +59,7 @@ export async function updatePost(id: string, formData: FormData) {
       excerptId: (formData.get("excerptId") as string) || null,
       excerptEn: (formData.get("excerptEn") as string) || null,
       coverImage: (formData.get("coverImage") as string) || null,
+      keywords: (formData.get("keywords") as string) || null,
       isPublished,
       publishedAt:
         isPublished && !existing?.publishedAt ? new Date() : existing?.publishedAt,
