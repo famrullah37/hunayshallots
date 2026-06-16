@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getProducts, deleteProduct } from "@/actions/products";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Produk | Hunay Admin" };
 
 export default async function AdminProductsPage() {

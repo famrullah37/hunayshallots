@@ -1,6 +1,7 @@
 import { getGalleryVideos } from "@/actions/videos";
 import VideoManager from "@/components/admin/VideoManager";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Kelola Video | Hunay Admin" };
 
 export default async function AdminVideosPage() {

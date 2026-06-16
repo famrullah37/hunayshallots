@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getProducts } from "@/actions/products";
 import { getPosts } from "@/actions/blog";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Dashboard | Hunay Admin" };
 
 export default async function AdminDashboard() {

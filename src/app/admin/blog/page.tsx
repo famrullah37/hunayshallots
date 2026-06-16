@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getPosts, deletePost } from "@/actions/blog";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Blog | Hunay Admin" };
 
 export default async function AdminBlogPage() {
