@@ -13,9 +13,16 @@ function toSlug(text: string) {
     .replace(/-+/g, "-");
 }
 
+async function uniqueSlug(base: string) {
+  const slug = toSlug(base);
+  const existing = await prisma.blogPost.findUnique({ where: { slug } });
+  if (!existing) return slug;
+  return `${slug}-${Math.random().toString(36).slice(2, 6)}`;
+}
+
 export async function createPost(formData: FormData) {
   const titleEn = formData.get("titleEn") as string;
-  const slug = toSlug(titleEn);
+  const slug = await uniqueSlug(titleEn);
 
   await prisma.blogPost.create({
     data: {

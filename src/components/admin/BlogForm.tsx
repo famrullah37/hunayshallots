@@ -15,6 +15,18 @@ export default function BlogForm({ post, action, submitLabel = "Simpan" }: Props
   const [isPublished, setIsPublished] = useState(post?.isPublished ?? false);
   const [lang, setLang] = useState<"id" | "en">("id");
 
+  // A required field on the inactive tab is display:none, so the browser
+  // can't focus it to show its validation tooltip and silently blocks
+  // submit instead. Switch to that tab and re-report validity manually.
+  function revealAndReport(targetLang: "id" | "en") {
+    return (e: React.InvalidEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      setLang(targetLang);
+      const field = e.target;
+      requestAnimationFrame(() => field.reportValidity());
+    };
+  }
+
   return (
     <form action={action} className="space-y-6">
       <input type="hidden" name="coverImage" value={coverImage} />
@@ -42,7 +54,7 @@ export default function BlogForm({ post, action, submitLabel = "Simpan" }: Props
 
       {/* Tab ID — stays in DOM */}
       <div style={{ display: lang === "id" ? "block" : "none" }} className="space-y-4">
-        <Field label="Judul Artikel" name="titleId" defaultValue={post?.titleId} required />
+        <Field label="Judul Artikel" name="titleId" defaultValue={post?.titleId} required onInvalid={revealAndReport("id")} />
         <Textarea label="Ringkasan (Excerpt)" name="excerptId" defaultValue={post?.excerptId || ""} rows={2} />
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -60,7 +72,7 @@ export default function BlogForm({ post, action, submitLabel = "Simpan" }: Props
 
       {/* Tab EN — stays in DOM */}
       <div style={{ display: lang === "en" ? "block" : "none" }} className="space-y-4">
-        <Field label="Article Title" name="titleEn" defaultValue={post?.titleEn} required />
+        <Field label="Article Title" name="titleEn" defaultValue={post?.titleEn} required onInvalid={revealAndReport("en")} />
         <Textarea label="Excerpt" name="excerptEn" defaultValue={post?.excerptEn || ""} rows={2} />
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -115,8 +127,9 @@ export default function BlogForm({ post, action, submitLabel = "Simpan" }: Props
   );
 }
 
-function Field({ label, name, defaultValue, required }: {
+function Field({ label, name, defaultValue, required, onInvalid }: {
   label: string; name: string; defaultValue?: string; required?: boolean;
+  onInvalid?: (e: React.InvalidEvent<HTMLInputElement>) => void;
 }) {
   return (
     <div>
@@ -126,6 +139,7 @@ function Field({ label, name, defaultValue, required }: {
         type="text"
         defaultValue={defaultValue}
         required={required}
+        onInvalid={onInvalid}
         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
       />
     </div>
