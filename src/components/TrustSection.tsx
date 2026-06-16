@@ -71,6 +71,7 @@ export default function TrustSection() {
     { name: "BPOM", image: "/bpom.png" },
     { name: "P-IRT", image: "/pirt.svg" },
     { name: "GAP", image: "/good.png" },
+    { name: "GMP", image: "/gmp.png" },
     { name: "Non-GMO", image: "/gmo.png" },
     { name: "FDA", image: "/fda.png" },
     { name: "HACCP", image: "/haccp.png" },
