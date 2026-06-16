@@ -70,7 +70,7 @@ export default function TrustSection() {
     { name: "Halal MUI", image: "/halalmui.png" },
     { name: "BPOM", image: "/bpom.png" },
     { name: "P-IRT", image: "/pirt.svg" },
-    { name: "GMP", image: "/good.png" },
+    { name: "GAP", image: "/good.png" },
     { name: "Non-GMO", image: "/gmo.png" },
     { name: "FDA", image: "/fda.png" },
     { name: "HACCP", image: "/haccp.png" },
