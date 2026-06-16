@@ -3,6 +3,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      # Compose only substitutes ${VAR} below from a file literally named
+      # ".env" in this directory (or the shell env) — it does NOT read
+      # env_file: .env.production for build-time interpolation. Without a
+      # ".env" containing these, the args resolve empty and NEXT_PUBLIC_*
+      # gets baked into the client bundle as "", crashing CldUploadWidget.
       args:
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
         NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
