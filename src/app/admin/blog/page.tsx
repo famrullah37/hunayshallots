@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getPosts, deletePost } from "@/actions/blog";
+import DeleteButton from "@/components/admin/DeleteButton";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Blog | Hunay Admin" };
@@ -58,11 +59,13 @@ export default async function AdminBlogPage() {
                 <Link href={`/admin/blog/${post.id}/edit`} className="text-blue-600 hover:underline text-sm">
                   Edit
                 </Link>
-                <form action={async () => { "use server"; await deletePost(post.id); }}>
-                  <button type="submit" className="text-red-500 hover:underline text-sm">
-                    Hapus
-                  </button>
-                </form>
+                <DeleteButton
+                  action={async () => { "use server"; await deletePost(post.id); }}
+                  confirmMessage={`Hapus artikel "${post.titleId}"? Tindakan ini tidak bisa dibatalkan.`}
+                  className="text-red-500 hover:underline text-sm"
+                >
+                  Hapus
+                </DeleteButton>
               </div>
             </div>
           ))}

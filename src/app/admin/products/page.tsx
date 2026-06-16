@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getProducts, deleteProduct } from "@/actions/products";
+import DeleteButton from "@/components/admin/DeleteButton";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Produk | Hunay Admin" };
@@ -75,11 +76,13 @@ export default async function AdminProductsPage() {
                       >
                         Edit
                       </Link>
-                      <form action={async () => { "use server"; await deleteProduct(product.id); }}>
-                        <button type="submit" className="text-red-500 hover:underline">
-                          Hapus
-                        </button>
-                      </form>
+                      <DeleteButton
+                        action={async () => { "use server"; await deleteProduct(product.id); }}
+                        confirmMessage={`Hapus produk "${product.nameId}"? Tindakan ini tidak bisa dibatalkan.`}
+                        className="text-red-500 hover:underline"
+                      >
+                        Hapus
+                      </DeleteButton>
                     </div>
                   </td>
                 </tr>
