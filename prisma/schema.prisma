@@ -9,6 +9,7 @@ datasource db {
 
 model Product {
   id            String   @id @default(cuid())
+  slug          String   @unique
   nameId        String   @map("name_id")
   nameEn        String   @map("name_en")
   descriptionId String?  @map("description_id")

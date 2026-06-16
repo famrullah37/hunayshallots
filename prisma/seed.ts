@@ -8,6 +8,7 @@ const prisma = new PrismaClient({ adapter } as ConstructorParameters<typeof Pris
 const products = [
   {
     id: "seed-p1",
+    slug: "paket-camilan-bawang-kemasan-box-200g",
     nameId: "Paket Camilan Bawang Kemasan Box 200g",
     nameEn: "Onion Snack Package Box 200g",
     descriptionId: "Paket camilan bawang goreng premium dalam kemasan box eksklusif 200g.",
@@ -22,6 +23,7 @@ const products = [
   },
   {
     id: "seed-p2",
+    slug: "camilan-bawang-kemasan-pouch-125gr",
     nameId: "Camilan Bawang Kemasan Pouch 125gr",
     nameEn: "Onion Snack Pouch 125gr",
     descriptionId: "Bawang goreng renyah dalam kemasan pouch praktis 125gr.",
@@ -36,6 +38,7 @@ const products = [
   },
   {
     id: "seed-p3",
+    slug: "bawang-putih-goreng-toples-150gr",
     nameId: "Bawang Putih Goreng Toples 150gr",
     nameEn: "Fried Garlic Jar 150gr",
     descriptionId: "Bawang putih goreng premium dalam toples kaca 150gr, renyah dan tahan lama.",
@@ -50,6 +53,7 @@ const products = [
   },
   {
     id: "seed-p4",
+    slug: "bawang-merah-goreng-toples-150gr",
     nameId: "Bawang Merah Goreng Toples 150gr",
     nameEn: "Fried Shallot Jar 150gr",
     descriptionId: "Bawang merah goreng premium dalam toples kaca 150gr, gurih dan harum.",
@@ -64,6 +68,7 @@ const products = [
   },
   {
     id: "seed-p5",
+    slug: "bawang-putih-goreng-pouch-100gr",
     nameId: "Bawang Putih Goreng Pouch 100gr",
     nameEn: "Fried Garlic Pouch 100gr",
     descriptionId: "Bawang putih goreng dalam kemasan pouch 100gr, praktis untuk dibawa.",
@@ -78,6 +83,7 @@ const products = [
   },
   {
     id: "seed-p6",
+    slug: "aneka-sambal-hunay",
     nameId: "Aneka Sambal Hunay",
     nameEn: "Hunay Sambal Varieties",
     descriptionId: "Koleksi sambal autentik Hunay dengan berbagai pilihan rasa pedas.",
@@ -92,6 +98,7 @@ const products = [
   },
   {
     id: "seed-p7",
+    slug: "bawang-putih-botol-75gr",
     nameId: "Bawang Putih Botol 75gr",
     nameEn: "Garlic Bottle 75gr",
     descriptionId: "Bawang putih goreng dalam kemasan botol 75gr, cocok untuk oleh-oleh.",
@@ -106,6 +113,7 @@ const products = [
   },
   {
     id: "seed-p8",
+    slug: "bawang-merah-goreng-pouch-100gr",
     nameId: "Bawang Merah Goreng Pouch 100gr",
     nameEn: "Fried Shallot Pouch 100gr",
     descriptionId: "Bawang merah goreng dalam kemasan pouch 100gr, renyah dan gurih.",
@@ -127,6 +135,7 @@ async function main() {
     await prisma.product.upsert({
       where: { id: product.id },
       update: {
+        slug: product.slug,
         nameId: product.nameId,
         nameEn: product.nameEn,
         descriptionId: product.descriptionId,

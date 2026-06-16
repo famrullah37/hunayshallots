@@ -9,10 +9,10 @@ const CATEGORY_LABELS: Record<string, string> = {
   sambal: "Sambal Sauce",
 };
 
-async function getProductSEO(id: string) {
+async function getProductSEO(slug: string) {
   try {
     return await prisma.product.findUnique({
-      where: { id },
+      where: { slug },
       select: {
         nameEn: true,
         nameId: true,
@@ -32,10 +32,10 @@ async function getProductSEO(id: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { id } = await params;
-  const product = await getProductSEO(id);
+  const { slug } = await params;
+  const product = await getProductSEO(slug);
 
   if (!product) return { title: "Produk | Hunay" };
 
@@ -47,7 +47,7 @@ export async function generateMetadata({
     `${name} — ${category} premium dari Hunay, Probolinggo. Halal, tanpa pengawet, renyah.`;
   const imgUrl = product.imageUrl || `${BASE_URL}/og-image.jpg`;
   const absImg = imgUrl.startsWith("http") ? imgUrl : `${BASE_URL}${imgUrl}`;
-  const url = `${BASE_URL}/produk/${id}`;
+  const url = `${BASE_URL}/produk/${slug}`;
   const weightLabel =
     product.weight >= 1000
       ? `${(product.weight / 1000).toFixed(0)}kg`
@@ -83,11 +83,11 @@ export default async function ProductLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
-  const product = await getProductSEO(id);
-  const url = `${BASE_URL}/produk/${id}`;
+  const { slug } = await params;
+  const product = await getProductSEO(slug);
+  const url = `${BASE_URL}/produk/${slug}`;
 
   const productSchema = product
     ? {
