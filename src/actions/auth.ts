@@ -26,15 +26,21 @@ export async function loginAction(formData: FormData) {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
-  // Rate limiting: max 5 attempts per 15 min
+  // Rate limiting: max 5 attempts per 15 min. If Redis is unreachable,
+  // skip rate limiting rather than crashing the whole login flow.
   const rateLimitKey = getRateLimitKey("admin");
-  const attempts = await redis.incr(rateLimitKey);
-  if (attempts === 1) {
-    await redis.expire(rateLimitKey, RATE_LIMIT_TTL);
-  }
-  if (attempts > MAX_ATTEMPTS) {
-    const ttl = await redis.ttl(rateLimitKey);
-    redirect(`/admin/login?error=rate&ttl=${ttl}`);
+  try {
+    const attempts = await redis.incr(rateLimitKey);
+    if (attempts === 1) {
+      await redis.expire(rateLimitKey, RATE_LIMIT_TTL);
+    }
+    if (attempts > MAX_ATTEMPTS) {
+      const ttl = await redis.ttl(rateLimitKey);
+      redirect(`/admin/login?error=rate&ttl=${ttl}`);
+    }
+  } catch (err) {
+    if ((err as Error & { digest?: string })?.digest?.startsWith("NEXT_REDIRECT")) throw err;
+    console.error("[auth] rate limit check failed, skipping:", err);
   }
 
   const validUsername = username === process.env.ADMIN_USERNAME;
@@ -43,11 +49,15 @@ export async function loginAction(formData: FormData) {
     redirect("/admin/login?error=1");
   }
 
-  // Successful login — clear rate limit and create session
-  await redis.del(rateLimitKey);
-
-  const token = generateToken();
-  await redis.setex(getSessionKey(token), SESSION_TTL, "admin");
+  let token: string;
+  try {
+    await redis.del(rateLimitKey).catch(() => {});
+    token = generateToken();
+    await redis.setex(getSessionKey(token), SESSION_TTL, "admin");
+  } catch (err) {
+    console.error("[auth] failed to create session in Redis:", err);
+    redirect("/admin/login?error=redis");
+  }
 
   const cookieStore = await cookies();
   cookieStore.set(COOKIE_NAME, token, {

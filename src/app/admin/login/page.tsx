@@ -12,6 +12,8 @@ export default async function LoginPage({
   const errorMessage =
     error === "rate"
       ? `Terlalu banyak percobaan. Coba lagi dalam ${Math.ceil(Number(ttl) / 60)} menit.`
+      : error === "redis"
+      ? "Server tidak bisa membuat sesi login (koneksi Redis gagal). Hubungi admin teknis."
       : error
       ? "Password salah. Coba lagi."
       : null;
