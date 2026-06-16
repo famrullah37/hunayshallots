@@ -12,6 +12,7 @@ services:
       - redis_public
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
       # HTTPS router
       - "traefik.http.routers.hunayshallots.rule=Host(`hunayshallots.com`) || Host(`www.hunayshallots.com`)"
       - "traefik.http.routers.hunayshallots.entrypoints=websecure"
