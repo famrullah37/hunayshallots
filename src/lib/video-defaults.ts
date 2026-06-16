@@ -6,4 +6,5 @@ export const DEFAULT_VIDEOS = [
   { slot: 5, titleId: "Gudang Produksi",         titleEn: "Production Warehouse",     videoUrl: null as string | null },
   { slot: 6, titleId: "Proses Produksi Hunay",   titleEn: "Hunay Production Process",
     videoUrl: "https://res.cloudinary.com/davkdgozv/video/upload/v1780710802/hunay/videos/proses-produksi.mp4" },
+  { slot: 7, titleId: "Video Baru",              titleEn: "New Video",               videoUrl: null as string | null },
 ];

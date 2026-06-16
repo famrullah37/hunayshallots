@@ -44,6 +44,22 @@ export async function updateGalleryVideo(slot: number, videoUrl: string | null) 
   revalidatePath("/admin/videos");
 }
 
+export async function updateGalleryVideoTitle(slot: number, titleId: string, titleEn: string) {
+  const def = DEFAULT_VIDEOS[slot - 1];
+  await prisma.galleryVideo.upsert({
+    where: { slot },
+    update: { titleId, titleEn },
+    create: {
+      slot,
+      titleId,
+      titleEn,
+      videoUrl: def.videoUrl,
+    },
+  });
+  revalidatePath("/");
+  revalidatePath("/admin/videos");
+}
+
 export async function getVideoUploadSignature(slot: number) {
   const timestamp = Math.round(Date.now() / 1000);
   const publicId = `hunay/videos/slot-${slot}`;

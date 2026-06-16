@@ -12,7 +12,7 @@ export default async function AdminVideosPage() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Kelola Video Galeri</h1>
         <p className="text-gray-500 text-sm mt-1">
-          Upload video untuk 6 slot di halaman galeri. Hover thumbnail untuk preview.
+          Upload video dan edit judulnya untuk slot di halaman galeri. Hover thumbnail untuk preview.
         </p>
       </div>
       <VideoManager initialVideos={videos} />

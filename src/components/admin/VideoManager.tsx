@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Upload, Trash2, CheckCircle, AlertCircle, Film } from "lucide-react";
-import { updateGalleryVideo, getVideoUploadSignature } from "@/actions/videos";
+import { Upload, Trash2, CheckCircle, AlertCircle, Film, Check } from "lucide-react";
+import { updateGalleryVideo, updateGalleryVideoTitle, getVideoUploadSignature } from "@/actions/videos";
 
 interface Video {
   slot: number;
@@ -20,10 +20,23 @@ interface UploadState {
 export default function VideoManager({ initialVideos }: { initialVideos: Video[] }) {
   const [videos, setVideos] = useState(initialVideos);
   const [uploads, setUploads] = useState<Record<number, UploadState>>({});
+  const [titleSaved, setTitleSaved] = useState<Record<number, boolean>>({});
   const fileRefs = useRef<Record<number, HTMLInputElement | null>>({});
 
   const setUpload = (slot: number, state: Partial<UploadState>) =>
     setUploads((prev) => ({ ...prev, [slot]: { ...prev[slot] ?? { progress: 0, status: "idle" }, ...state } }));
+
+  function handleTitleChange(slot: number, field: "titleId" | "titleEn", value: string) {
+    setVideos((prev) => prev.map((v) => (v.slot === slot ? { ...v, [field]: value } : v)));
+    setTitleSaved((prev) => ({ ...prev, [slot]: false }));
+  }
+
+  async function handleTitleSave(slot: number) {
+    const video = videos.find((v) => v.slot === slot);
+    if (!video) return;
+    await updateGalleryVideoTitle(slot, video.titleId, video.titleEn);
+    setTitleSaved((prev) => ({ ...prev, [slot]: true }));
+  }
 
   async function handleFile(slot: number, file: File) {
     if (!file.type.startsWith("video/")) {
@@ -129,9 +142,33 @@ export default function VideoManager({ initialVideos }: { initialVideos: Video[]
 
             {/* Info & Actions */}
             <div className="p-4 space-y-3">
-              <div>
-                <p className="font-semibold text-gray-900 text-sm">{video.titleId}</p>
-                <p className="text-gray-400 text-xs">{video.titleEn}</p>
+              <div className="space-y-1.5">
+                <input
+                  type="text"
+                  value={video.titleId}
+                  onChange={(e) => handleTitleChange(video.slot, "titleId", e.target.value)}
+                  placeholder="Judul (Indonesia)"
+                  className="w-full font-semibold text-gray-900 text-sm border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+                <input
+                  type="text"
+                  value={video.titleEn}
+                  onChange={(e) => handleTitleChange(video.slot, "titleEn", e.target.value)}
+                  placeholder="Title (English)"
+                  className="w-full text-gray-500 text-xs border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+                <button
+                  onClick={() => handleTitleSave(video.slot)}
+                  className="flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline"
+                >
+                  {titleSaved[video.slot] ? (
+                    <>
+                      <Check className="w-3.5 h-3.5" /> Tersimpan
+                    </>
+                  ) : (
+                    "Simpan Judul"
+                  )}
+                </button>
               </div>
 
               {/* Status feedback */}
