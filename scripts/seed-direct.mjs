@@ -30,6 +30,11 @@ const sql = `
 async function main() {
   const client = await pool.connect();
   try {
+    // Add keywords column if it doesn't exist yet
+    await client.query(`ALTER TABLE products ADD COLUMN IF NOT EXISTS keywords TEXT`);
+    await client.query(`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS keywords TEXT`);
+    console.log('✓ Kolom keywords sudah siap');
+
     console.log('Seeding products...');
     for (const p of products) {
       await client.query(sql, [p.id, p.slug, p.nameId, p.nameEn, p.descriptionId, p.descriptionEn, p.price, p.weight, p.category, p.imageUrl, p.isActive, p.sortOrder, p.whatsappText, p.keywords]);
