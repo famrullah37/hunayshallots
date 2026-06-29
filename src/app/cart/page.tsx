@@ -123,7 +123,7 @@ export default function CartPage() {
   useEffect(() => {
     if (!form.country) { setIntlEstimate(null); return; }
     const c = INTERNATIONAL_COUNTRIES.find(x => x.value === form.country);
-    if (c) setIntlEstimate(c.ratePerKg * Math.max(1, totalWeight / 1000));
+    if (c) setIntlEstimate(c.ratePerKg * (totalWeight / 1000));
   }, [form.country, totalWeight]);
 
   const calculateShipping = async () => {
@@ -541,8 +541,8 @@ export default function CartPage() {
                           </p>
                           <p className="text-blue-600 text-xs mt-1">
                             {id
-                              ? `Estimasi untuk ${(totalWeight / 1000).toFixed(2)} kg. Ongkir final dikonfirmasi admin via WhatsApp.`
-                              : `Estimate for ${(totalWeight / 1000).toFixed(2)} kg. Final cost confirmed by admin via WhatsApp.`}
+                              ? `Estimasi untuk ${totalWeight >= 1000 ? `${(totalWeight / 1000).toFixed(2)} kg` : `${totalWeight} g`}. Ongkir final dikonfirmasi admin via WhatsApp.`
+                              : `Estimate for ${totalWeight >= 1000 ? `${(totalWeight / 1000).toFixed(2)} kg` : `${totalWeight} g`}. Final cost confirmed by admin via WhatsApp.`}
                           </p>
                         </div>
                       )}
