@@ -12,10 +12,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
   const product = await prisma.product.findUnique({ where: { id } });
   if (!product) notFound();
 
-  const action = async (formData: FormData) => {
-    "use server";
-    await updateProduct(id, formData);
-  };
+  const action = updateProduct.bind(null, id);
 
   return (
     <div>

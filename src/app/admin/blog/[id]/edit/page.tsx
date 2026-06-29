@@ -12,10 +12,7 @@ export default async function EditBlogPage({ params }: { params: Promise<{ id: s
   const post = await prisma.blogPost.findUnique({ where: { id } });
   if (!post) notFound();
 
-  const action = async (formData: FormData) => {
-    "use server";
-    await updatePost(id, formData);
-  };
+  const action = updatePost.bind(null, id);
 
   return (
     <div>

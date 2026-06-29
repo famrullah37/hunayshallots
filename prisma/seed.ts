@@ -20,6 +20,7 @@ const products = [
     isActive: true,
     sortOrder: 1,
     whatsappText: null,
+    keywords: "fried shallots, fried shallot snack, crispy shallots, Indonesian fried shallots, bawang goreng merah, fried onion box, premium shallots Indonesia, bawang merah goreng, hunay",
   },
   {
     id: "seed-p2",
@@ -35,6 +36,7 @@ const products = [
     isActive: true,
     sortOrder: 2,
     whatsappText: null,
+    keywords: "fried shallots pouch, crispy fried shallots, fried onion snack, Indonesian shallots, bawang goreng merah, bawang merah goreng, premium fried onion, hunay, halal",
   },
   {
     id: "seed-p3",
@@ -50,6 +52,7 @@ const products = [
     isActive: true,
     sortOrder: 3,
     whatsappText: null,
+    keywords: "fried garlic, crispy fried garlic, Indonesian fried garlic, garlic flakes, bawang putih goreng, bawang goreng putih, premium garlic Indonesia, garlic jar, hunay, halal",
   },
   {
     id: "seed-p4",
@@ -65,6 +68,7 @@ const products = [
     isActive: true,
     sortOrder: 4,
     whatsappText: null,
+    keywords: "fried shallots jar, fried shallots, crispy shallots, Indonesian fried shallots, bawang merah goreng, bawang goreng merah, premium shallots Indonesia, shallot flakes, hunay, halal",
   },
   {
     id: "seed-p5",
@@ -80,6 +84,7 @@ const products = [
     isActive: true,
     sortOrder: 5,
     whatsappText: null,
+    keywords: "fried garlic pouch, crispy garlic, Indonesian fried garlic, garlic flakes, bawang putih goreng, bawang goreng putih, premium garlic Indonesia, hunay, halal",
   },
   {
     id: "seed-p6",
@@ -95,6 +100,7 @@ const products = [
     isActive: true,
     sortOrder: 6,
     whatsappText: null,
+    keywords: "sambal Indonesia, Indonesian chili sauce, spicy sambal, authentic sambal, hunay sambal, Indonesian condiment, sambal goreng, halal",
   },
   {
     id: "seed-p7",
@@ -110,6 +116,7 @@ const products = [
     isActive: true,
     sortOrder: 7,
     whatsappText: null,
+    keywords: "fried garlic bottle, garlic souvenir, crispy garlic, Indonesian fried garlic, bawang putih goreng, garlic flakes, premium garlic, hunay, halal, oleh-oleh",
   },
   {
     id: "seed-p8",
@@ -125,6 +132,7 @@ const products = [
     isActive: true,
     sortOrder: 8,
     whatsappText: null,
+    keywords: "fried shallots, fried shallots pouch, crispy shallots, Indonesian fried shallots, bawang merah goreng, bawang goreng merah, shallot flakes, premium fried onion, hunay, halal",
   },
 ];
 
@@ -146,6 +154,7 @@ async function main() {
         imageUrl: product.imageUrl,
         isActive: product.isActive,
         sortOrder: product.sortOrder,
+        keywords: product.keywords,
       },
       create: product,
     });
