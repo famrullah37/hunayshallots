@@ -22,3 +22,37 @@ export async function updateShippingCost(formData: FormData) {
   revalidatePath("/admin/settings");
   revalidatePath("/cart");
 }
+
+export async function getRajaOngkirSettings(): Promise<{ apiKey: string; originCityId: string }> {
+  try {
+    const [keySetting, originSetting] = await Promise.all([
+      prisma.siteSettings.findUnique({ where: { key: "rajaongkir_key" } }),
+      prisma.siteSettings.findUnique({ where: { key: "origin_city_id" } }),
+    ]);
+    return {
+      apiKey: keySetting?.value ?? "",
+      originCityId: originSetting?.value ?? "439",
+    };
+  } catch {
+    return { apiKey: "", originCityId: "439" };
+  }
+}
+
+export async function updateRajaOngkirSettings(formData: FormData) {
+  const apiKey = (formData.get("rajaongkir_key") as string)?.trim() ?? "";
+  const originCityId = (formData.get("origin_city_id") as string)?.trim() || "439";
+
+  await Promise.all([
+    prisma.siteSettings.upsert({
+      where: { key: "rajaongkir_key" },
+      update: { value: apiKey },
+      create: { key: "rajaongkir_key", value: apiKey },
+    }),
+    prisma.siteSettings.upsert({
+      where: { key: "origin_city_id" },
+      update: { value: originCityId },
+      create: { key: "origin_city_id", value: originCityId },
+    }),
+  ]);
+  revalidatePath("/admin/settings");
+}
