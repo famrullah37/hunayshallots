@@ -28,16 +28,34 @@ export const metadata: Metadata = {
   description:
     "Hunay produces premium export-quality fried onions and fried shallots (bawang goreng) from Probolinggo, Indonesia. Made from biru lancor variety, Halal MUI certified, no preservatives. Trusted by Japan, South Korea, Canada & Singapore importers. Order wholesale via WhatsApp.",
   keywords: [
-    // Primary EN
+    // Primary EN (US & UK)
     "fried onions", "fried shallots", "premium fried onion", "Indonesian fried shallot",
     "crispy fried onion", "fried onion supplier Indonesia", "wholesale fried onion",
     "halal fried onion", "biru lancor fried onion", "export fried onion Indonesia",
     "fried onion Probolinggo", "fried shallot Indonesia export",
+    // US market
+    "fried onion supplier USA", "import Indonesian fried onion USA", "Asian fried shallots USA",
+    "crispy onion flakes", "Asian condiment USA", "wholesale fried shallots USA",
+    "Indonesian food importer USA", "halal fried onion USA", "Asian grocery fried onion",
+    "fried shallot topping", "crispy shallot flakes USA",
+    // UK market
+    "fried onion supplier UK", "Indonesian fried onion UK", "halal fried onion UK",
+    "crispy shallots UK", "Asian grocery UK", "Indonesian condiment UK",
+    "fried shallot UK", "wholesale fried onion UK",
+    // Australia market
+    "fried onion supplier Australia", "Indonesian fried onion Australia",
+    "halal fried onion Australia", "Asian grocery Australia", "wholesale fried shallots Australia",
     // Primary ID
     "bawang goreng", "bawang goreng premium", "bawang goreng halal",
     "bawang goreng ekspor", "bawang goreng Probolinggo", "supplier bawang goreng",
     "grosir bawang goreng", "bawang goreng tanpa pengawet", "bawang goreng biru lancor",
-    "bawang goreng katering", "bawang goreng restoran",
+    "bawang goreng katering", "bawang goreng restoran", "produsen bawang goreng Indonesia",
+    "bawang goreng kiloan", "bawang goreng curah", "bawang goreng untuk ekspor",
+    // Arabic keywords
+    "بصل مقلي", "ثوم مقلي", "بصل أحمر مقلي", "بصل مقلي مقرمش",
+    "بصل مقلي إندونيسي", "ثوم مقلي إندونيسي", "توابل إندونيسية",
+    "مورد بصل مقلي", "بصل مقلي بالجملة", "بصل مقلي للتصدير",
+    "بدون مواد حافظة", "حلال", "بصل مقلي حلال",
     // Brand
     "Hunay", "CV Dua Putri Sholehah",
     // Long-tail
@@ -161,7 +179,7 @@ const organizationSchema = {
   },
   image: `${BASE_URL}/hero-hunay.jpg`,
   description:
-    "Indonesian SME producing premium export-quality fried onions (bawang goreng) since 2010. Certified Halal MUI, BPOM, ISO 9001:2015, HACCP, GMP, and GAP. Exported to Japan, South Korea, Canada, and Singapore.",
+    "Indonesian SME producing premium export-quality fried onions (bawang goreng) since 2010. Certified Halal MUI, BPOM, ISO 9001:2015, HACCP, GMP, and GAP. Exported to Japan, South Korea, Canada, Singapore, USA, and Australia.",
   foundingDate: "2010-10-17",
   numberOfEmployees: { "@type": "QuantitativeValue", minValue: 10, maxValue: 50 },
   address: {
@@ -201,6 +219,8 @@ const organizationSchema = {
     { "@type": "Country", name: "South Korea" },
     { "@type": "Country", name: "Canada" },
     { "@type": "Country", name: "Singapore" },
+    { "@type": "Country", name: "United States" },
+    { "@type": "Country", name: "Australia" },
   ],
   knowsAbout: [
     "Fried onion production", "Shallot farming", "Halal food manufacturing",
@@ -296,7 +316,7 @@ const faqSchema = {
     {
       "@type": "Question",
       name: "Does Hunay export fried onions internationally?",
-      acceptedAnswer: { "@type": "Answer", text: "Yes. Hunay exports premium fried onions to Japan, South Korea, Canada, and Singapore. Our products meet stringent international food safety standards including Japanese MHLW and Korean MFDS requirements." },
+      acceptedAnswer: { "@type": "Answer", text: "Yes. Hunay exports premium fried onions to Japan, South Korea, Canada, Singapore, USA, and Australia. Our products meet stringent international food safety standards including Japanese MHLW and Korean MFDS requirements." },
     },
     {
       "@type": "Question",
@@ -367,7 +387,7 @@ const faqSchema = {
     {
       "@type": "Question",
       name: "Apakah bawang goreng Hunay bisa dikirim ke luar Indonesia?",
-      acceptedAnswer: { "@type": "Answer", text: "Ya. Hunay mengekspor bawang goreng premium ke Jepang, Korea Selatan, Kanada, dan Singapura. Untuk pemesanan ekspor dalam jumlah besar, hubungi tim kami via WhatsApp +62 852-3365-8619." },
+      acceptedAnswer: { "@type": "Answer", text: "Ya. Hunay mengekspor bawang goreng premium ke Jepang, Korea Selatan, Kanada, Singapura, Amerika Serikat, dan Australia. Untuk pemesanan ekspor dalam jumlah besar, hubungi tim kami via WhatsApp +62 852-3365-8619." },
     },
     {
       "@type": "Question",
