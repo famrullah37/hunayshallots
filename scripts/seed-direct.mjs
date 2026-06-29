@@ -1,5 +1,6 @@
 // Plain JS seed — runs inside the app container using pg directly
-import { Pool } from '/app/node_modules/pg/lib/index.js';
+import pkg from '/app/node_modules/pg/lib/index.js';
+const { Pool } = pkg;
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
