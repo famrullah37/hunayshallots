@@ -37,8 +37,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 
-# Copy Prisma CLI for runtime schema sync (runs prisma db push on every startup)
+# Copy Prisma CLI + engines for runtime schema sync (runs prisma db push on every startup)
 COPY --from=deps /app/node_modules/prisma ./node_modules/prisma
+COPY --from=deps /app/node_modules/@prisma ./node_modules/@prisma
 
 COPY scripts/start.sh ./start.sh
 RUN chown nextjs:nodejs ./start.sh && chmod +x ./start.sh
