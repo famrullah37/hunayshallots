@@ -51,6 +51,36 @@ export const metadata: Metadata = {
     "grosir bawang goreng", "bawang goreng tanpa pengawet", "bawang goreng biru lancor",
     "bawang goreng katering", "bawang goreng restoran", "produsen bawang goreng Indonesia",
     "bawang goreng kiloan", "bawang goreng curah", "bawang goreng untuk ekspor",
+    // Produk spesifik ID
+    "bawang putih goreng", "bawang merah goreng", "bawang putih goreng premium",
+    "bawang merah goreng renyah", "bawang goreng renyah tahan lama",
+    "bawang goreng dalam toples", "bawang goreng kemasan vakum", "bawang goreng pouch",
+    "bawang goreng botol", "bawang goreng sachet", "sambal hunay",
+    // Intent pembelian ID
+    "beli bawang goreng", "pesan bawang goreng", "order bawang goreng online",
+    "bawang goreng murah berkualitas", "bawang goreng harga pabrik",
+    "bawang goreng free ongkir", "bawang goreng COD", "bawang goreng terdekat",
+    "toko bawang goreng online", "jual bawang goreng online",
+    // Lokasi ID
+    "bawang goreng Jawa Timur", "bawang goreng asli Probolinggo",
+    "bawang goreng Dringu", "produsen bawang goreng Probolinggo",
+    "pabrik bawang goreng Jawa Timur", "UMKM bawang goreng Indonesia",
+    // B2B & distribusi ID
+    "distributor bawang goreng", "agen bawang goreng", "reseller bawang goreng",
+    "bawang goreng untuk hotel", "bawang goreng untuk industri makanan",
+    "bawang goreng untuk pabrik", "bawang goreng partai besar",
+    "bawang goreng kemasan private label", "bawang goreng OEM",
+    // Sertifikasi & kualitas ID
+    "bawang goreng sertifikat halal MUI", "bawang goreng terdaftar BPOM",
+    "bawang goreng ISO 9001", "bawang goreng HACCP", "bawang goreng GMP",
+    "bawang goreng tanpa MSG", "bawang goreng tanpa bahan kimia",
+    "bawang goreng alami", "bawang goreng organik", "bawang goreng asli tanpa campuran",
+    // Long-tail ID
+    "cara pesan bawang goreng Hunay", "harga bawang goreng per kg",
+    "bawang goreng tahan berapa lama", "bawang goreng tidak lembek",
+    "bawang goreng untuk nasi goreng", "bawang goreng untuk soto",
+    "bawang goreng untuk mie ayam", "taburan bawang goreng", "topping bawang goreng",
+    "bawang goreng untuk topping makanan", "bawang goreng enak renyah",
     // Arabic keywords
     "بصل مقلي", "ثوم مقلي", "بصل أحمر مقلي", "بصل مقلي مقرمش",
     "بصل مقلي إندونيسي", "ثوم مقلي إندونيسي", "توابل إندونيسية",
