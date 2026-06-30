@@ -5,6 +5,7 @@ import CompanyProfile from "@/components/CompanyProfile";
 import WhyHunaySection from "@/components/WhyHunaySection";
 import ProcessSection from "@/components/ProcessSection";
 import ProductShowcase from "@/components/ProductShowcase";
+import MaklonSection from "@/components/MaklonSection";
 import CTASection from "@/components/CTASection";
 import TrustSection from "@/components/TrustSection";
 import GallerySection from "@/components/GallerySection";
@@ -31,6 +32,7 @@ export default async function Home() {
       <WhyHunaySection />
       <ProductShowcase products={products.length > 0 ? products : undefined} />
       <ProcessSection />
+      <MaklonSection />
       <CTASection />
       <TrustSection />
       <GallerySection galleryVideos={galleryVideos} />

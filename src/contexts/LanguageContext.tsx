@@ -150,6 +150,28 @@ const translations = {
     "gallery.video4": "Produk Premium",
     "gallery.video5": "Gudang Produksi",
     "gallery.video6": "Proses Produksi Hunay",
+
+    // Maklon / B2B
+    "maklon.title": "Solusi",
+    "maklon.titleHighlight": "Maklon & B2B",
+    "maklon.subtitle":
+      "Kami membuka kemitraan untuk reseller, distributor, dan pelaku usaha yang ingin produk bawang goreng premium dengan label sendiri.",
+    "maklon.service1": "Maklon / OEM",
+    "maklon.service1Desc":
+      "Produksi bawang goreng dengan merek dan kemasan Anda sendiri. Kami siapkan mulai dari bahan baku hingga produk jadi siap jual.",
+    "maklon.service2": "Custom Label",
+    "maklon.service2Desc":
+      "Desain kemasan sesuai brand Anda. Cocok untuk souvenir, hampers, atau kebutuhan corporate gift.",
+    "maklon.service3": "Reseller & Distributor",
+    "maklon.service3Desc":
+      "Bergabunglah sebagai mitra reseller dengan harga khusus grosir untuk wilayah Anda.",
+    "maklon.stat1": "Min. Order",
+    "maklon.stat2": "Kapasitas / Bulan",
+    "maklon.stat3": "Mitra Aktif",
+    "maklon.cta": "Konsultasi via WhatsApp",
+    "maklon.ctaNote": "Respon cepat, tanpa biaya konsultasi",
+    "maklon.waMessage":
+      "Halo Hunay, saya tertarik dengan layanan Maklon/B2B. Boleh saya tahu informasi lebih lanjut?",
   },
   en: {
     // Header
@@ -290,6 +312,28 @@ const translations = {
     "gallery.video4": "Premium Products",
     "gallery.video5": "Production Warehouse",
     "gallery.video6": "Hunay Production Process",
+
+    // Maklon / B2B
+    "maklon.title": "Solutions for",
+    "maklon.titleHighlight": "Maklon & B2B",
+    "maklon.subtitle":
+      "We open partnerships for resellers, distributors, and businesses who want premium fried onion products under their own brand.",
+    "maklon.service1": "Maklon / OEM",
+    "maklon.service1Desc":
+      "Produce fried onions under your own brand and packaging. We handle everything from raw materials to finished products ready to sell.",
+    "maklon.service2": "Custom Label",
+    "maklon.service2Desc":
+      "Custom packaging design to match your brand. Perfect for souvenirs, hampers, or corporate gifts.",
+    "maklon.service3": "Reseller & Distributor",
+    "maklon.service3Desc":
+      "Join as a reseller partner with special wholesale pricing for your region.",
+    "maklon.stat1": "Min. Order",
+    "maklon.stat2": "Capacity / Month",
+    "maklon.stat3": "Active Partners",
+    "maklon.cta": "Consult via WhatsApp",
+    "maklon.ctaNote": "Fast response, free consultation",
+    "maklon.waMessage":
+      "Hello Hunay, I'm interested in your Maklon/B2B services. Could you share more information?",
   },
 };
 
