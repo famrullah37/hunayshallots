@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
 import { DEFAULT_VIDEOS } from "@/lib/video-defaults";
+import { requireAdmin } from "@/actions/auth";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -29,6 +30,7 @@ export async function getGalleryVideos() {
 }
 
 export async function updateGalleryVideo(slot: number, videoUrl: string | null) {
+  await requireAdmin();
   const def = DEFAULT_VIDEOS[slot - 1];
   await prisma.galleryVideo.upsert({
     where: { slot },
@@ -45,6 +47,7 @@ export async function updateGalleryVideo(slot: number, videoUrl: string | null) 
 }
 
 export async function updateGalleryVideoTitle(slot: number, titleId: string, titleEn: string) {
+  await requireAdmin();
   const def = DEFAULT_VIDEOS[slot - 1];
   await prisma.galleryVideo.upsert({
     where: { slot },
@@ -61,6 +64,7 @@ export async function updateGalleryVideoTitle(slot: number, titleId: string, tit
 }
 
 export async function getVideoUploadSignature(slot: number) {
+  await requireAdmin();
   const timestamp = Math.round(Date.now() / 1000);
   const publicId = `hunay/videos/slot-${slot}`;
   const paramsToSign = {

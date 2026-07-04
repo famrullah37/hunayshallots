@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { requireAdmin } from "@/actions/auth";
 
 export async function getShippingCost(): Promise<number> {
   try {
@@ -13,6 +14,7 @@ export async function getShippingCost(): Promise<number> {
 }
 
 export async function updateShippingCost(formData: FormData) {
+  await requireAdmin();
   const cost = parseInt((formData.get("shipping_cost") as string) || "0", 10) || 0;
   await prisma.siteSettings.upsert({
     where: { key: "shipping_cost" },
@@ -24,6 +26,7 @@ export async function updateShippingCost(formData: FormData) {
 }
 
 export async function getRajaOngkirSettings(): Promise<{ apiKey: string; originCityId: string }> {
+  await requireAdmin();
   try {
     const [keySetting, originSetting] = await Promise.all([
       prisma.siteSettings.findUnique({ where: { key: "rajaongkir_key" } }),
@@ -39,6 +42,7 @@ export async function getRajaOngkirSettings(): Promise<{ apiKey: string; originC
 }
 
 export async function updateRajaOngkirSettings(formData: FormData) {
+  await requireAdmin();
   const apiKey = (formData.get("rajaongkir_key") as string)?.trim() ?? "";
   const originCityId = (formData.get("origin_city_id") as string)?.trim() || "439";
 

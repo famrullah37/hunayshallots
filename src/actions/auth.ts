@@ -95,3 +95,12 @@ export async function getSession(): Promise<boolean> {
     return false;
   }
 }
+
+// Middleware only checks that the admin_token cookie is present, not that it
+// maps to a live Redis session — every admin server action must call this
+// itself or an attacker can forge the cookie and skip login entirely.
+export async function requireAdmin(): Promise<void> {
+  if (!(await getSession())) {
+    redirect("/admin/login");
+  }
+}

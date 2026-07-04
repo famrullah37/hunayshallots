@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { requireAdmin } from "@/actions/auth";
 
 function toSlug(text: string) {
   return text
@@ -21,6 +22,7 @@ async function uniqueSlug(base: string) {
 }
 
 export async function createPost(formData: FormData) {
+  await requireAdmin();
   const titleEn = formData.get("titleEn") as string;
   const slug = await uniqueSlug(titleEn);
 
@@ -46,6 +48,7 @@ export async function createPost(formData: FormData) {
 }
 
 export async function updatePost(id: string, formData: FormData) {
+  await requireAdmin();
   const isPublished = formData.get("isPublished") === "true";
   const existing = await prisma.blogPost.findUnique({ where: { id } });
 
@@ -71,6 +74,7 @@ export async function updatePost(id: string, formData: FormData) {
 }
 
 export async function deletePost(id: string) {
+  await requireAdmin();
   await prisma.blogPost.delete({ where: { id } });
   revalidatePath("/admin/blog");
   revalidatePath("/blog");
