@@ -12,10 +12,26 @@ import GallerySection from "@/components/GallerySection";
 import LocationSection from "@/components/LocationSection";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import type { Metadata } from "next";
 import { getProducts } from "@/actions/products";
 import { getGalleryVideos } from "@/actions/videos";
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
+
 export const revalidate = 3600;
+
+// Canonical & hreflang khusus homepage — jangan di root layout,
+// karena akan diwarisi semua halaman dan membuat Google menganggapnya duplikat homepage
+export const metadata: Metadata = {
+  alternates: {
+    canonical: BASE_URL,
+    languages: {
+      "en-US": BASE_URL,
+      "id-ID": `${BASE_URL}?lang=id`,
+      "x-default": BASE_URL,
+    },
+  },
+};
 
 export default async function Home() {
   const [products, galleryVideos] = await Promise.all([

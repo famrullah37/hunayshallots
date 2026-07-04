@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { requireAdmin } from "@/actions/auth";
 
 function toSlug(text: string) {
   return text
@@ -21,6 +22,7 @@ async function uniqueSlug(base: string, excludeId?: string) {
 }
 
 export async function createProduct(formData: FormData) {
+  await requireAdmin();
   const nameEn = formData.get("nameEn") as string;
   const slug = await uniqueSlug(nameEn);
   await prisma.product.create({
@@ -42,10 +44,12 @@ export async function createProduct(formData: FormData) {
   });
   revalidatePath("/admin/products");
   revalidatePath("/");
+  revalidatePath("/produk");
   redirect("/admin/products");
 }
 
 export async function updateProduct(id: string, formData: FormData) {
+  await requireAdmin();
   await prisma.product.update({
     where: { id },
     data: {
@@ -65,13 +69,16 @@ export async function updateProduct(id: string, formData: FormData) {
   });
   revalidatePath("/admin/products");
   revalidatePath("/");
+  revalidatePath("/produk");
   redirect("/admin/products");
 }
 
 export async function deleteProduct(id: string) {
+  await requireAdmin();
   await prisma.product.delete({ where: { id } });
   revalidatePath("/admin/products");
   revalidatePath("/");
+  revalidatePath("/produk");
 }
 
 export async function getProducts(activeOnly = false) {

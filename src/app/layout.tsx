@@ -139,14 +139,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: {
-    canonical: BASE_URL,
-    languages: {
-      "en-US": BASE_URL,
-      "id-ID": `${BASE_URL}?lang=id`,
-      "x-default": BASE_URL,
-    },
-  },
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",

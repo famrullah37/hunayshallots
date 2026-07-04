@@ -133,7 +133,7 @@ export default async function ProductLayout({
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-      { "@type": "ListItem", position: 2, name: "Produk", item: `${BASE_URL}/#produk` },
+      { "@type": "ListItem", position: 2, name: "Produk", item: `${BASE_URL}/produk` },
       {
         "@type": "ListItem",
         position: 3,
