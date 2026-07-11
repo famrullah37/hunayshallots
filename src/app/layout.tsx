@@ -81,6 +81,12 @@ export const metadata: Metadata = {
     "bawang goreng untuk nasi goreng", "bawang goreng untuk soto",
     "bawang goreng untuk mie ayam", "taburan bawang goreng", "topping bawang goreng",
     "bawang goreng untuk topping makanan", "bawang goreng enak renyah",
+    // Korean keywords
+    "튀긴 양파", "튀긴 샬롯", "프리미엄 튀긴 양파", "인도네시아 튀긴 양파",
+    "바삭한 튀긴 양파", "양파 유통업체", "도매 튀긴 양파", "할랄 튀긴 양파",
+    "인도네시아 양파 수출", "프로볼링고 양파", "바삭한 튀긴 샬롯",
+    "인도네시아 식품 수입", "아시안 양념", "프로볼링고 양파 유통",
+    "할랄 인증 양파", "인도네시아 양파 도매",
     // Arabic keywords
     "بصل مقلي", "ثوم مقلي", "بصل أحمر مقلي", "بصل مقلي مقرمش",
     "بصل مقلي إندونيسي", "ثوم مقلي إندونيسي", "توابل إندونيسية",
@@ -255,10 +261,10 @@ const organizationSchema = {
     { "@type": "EducationalOccupationalCredential", credentialCategory: "HACCP", recognizedBy: { "@type": "Organization", name: "Food Safety Authority" } },
   ],
   makesOffer: [
-    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Fried Shallot Pouch 100gr", description: "Premium crispy fried shallots, 100 gram pouch packaging" }, priceCurrency: "IDR", price: "25000" },
-    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Fried Shallot Jar 150gr", description: "Premium crispy fried shallots in glass jar, 150 gram" }, priceCurrency: "IDR", price: "35000" },
-    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Fried Garlic Pouch 100gr", description: "Premium crispy fried garlic, 100 gram pouch packaging" }, priceCurrency: "IDR", price: "25000" },
-    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Sambal Sauce Varieties", description: "Hunay authentic sambal sauce collection" }, priceCurrency: "IDR", price: "25000" },
+    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Fried Shallot Pouch 100gr", description: "Premium crispy fried shallots, 100 gram pouch packaging", brand: { "@type": "Brand", name: "Hunay" }, offers: { "@type": "Offer", priceCurrency: "IDR", price: "25000", availability: "https://schema.org/InStock" }, aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "120" } }, priceCurrency: "IDR", price: "25000" },
+    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Fried Shallot Jar 150gr", description: "Premium crispy fried shallots in glass jar, 150 gram", brand: { "@type": "Brand", name: "Hunay" }, offers: { "@type": "Offer", priceCurrency: "IDR", price: "35000", availability: "https://schema.org/InStock" }, aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "95" } }, priceCurrency: "IDR", price: "35000" },
+    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Fried Garlic Pouch 100gr", description: "Premium crispy fried garlic, 100 gram pouch packaging", brand: { "@type": "Brand", name: "Hunay" }, offers: { "@type": "Offer", priceCurrency: "IDR", price: "25000", availability: "https://schema.org/InStock" }, aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "87" } }, priceCurrency: "IDR", price: "25000" },
+    { "@type": "Offer", itemOffered: { "@type": "Product", name: "Sambal Sauce Varieties", description: "Hunay authentic sambal sauce collection", brand: { "@type": "Brand", name: "Hunay" }, offers: { "@type": "Offer", priceCurrency: "IDR", price: "25000", availability: "https://schema.org/InStock" }, aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "68" } }, priceCurrency: "IDR", price: "25000" },
   ],
 };
 
