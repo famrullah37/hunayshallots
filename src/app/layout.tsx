@@ -97,6 +97,12 @@ export const metadata: Metadata = {
     // Long-tail
     "beli bawang goreng online", "harga bawang goreng grosir",
     "fried onion manufacturer Indonesia", "bawang goreng sertifikasi halal BPOM",
+    // Shallots informational (People Also Ask)
+    "shallots", "pickled shallots", "substitute for shallots",
+    "shallots vs onions", "are shallots onions", "how to cut shallots",
+    "difference between shallots and onions", "shallots recipe",
+    "what is shallots", "red shallots", "what are shallots",
+    "onion", "garlic", "onion shallots", "shallots onion", "green shallots",
   ],
   authors: [{ name: "CV. Dua Putri Sholehah", url: BASE_URL }],
   creator: "CV. Dua Putri Sholehah",
