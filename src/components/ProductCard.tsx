@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { useCart } from "@/contexts/CartContext";
 import Image from "next/image";
 import Link from "next/link";
@@ -38,6 +39,7 @@ export const FALLBACK_PRODUCTS: ProductItem[] = [
 
 export default function ProductCard({ product }: { product: ProductItem }) {
   const { language } = useLanguage();
+  const { formatPrice } = useCurrency();
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
 
@@ -82,9 +84,11 @@ export default function ProductCard({ product }: { product: ProductItem }) {
         {/* Harga */}
         <div className="mb-4">
           <p className="text-2xl font-bold text-forest-green leading-tight">
-            Rp {product.price.toLocaleString("id-ID")}
+            {formatPrice(product.price)}
           </p>
-          <p className="text-xs text-gray-400 mt-0.5">IDR (Indonesian Rupiah)</p>
+          <p className="text-xs text-gray-400 mt-0.5">
+            {language === "id" ? "IDR (Rupiah)" : "USD (approx., paid in IDR)"}
+          </p>
         </div>
 
         {/* Tambah ke keranjang */}

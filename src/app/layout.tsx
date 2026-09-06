@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Quicksand, Nunito } from "next/font/google";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { CartProvider } from "@/contexts/CartContext";
 import Script from "next/script";
 import "./globals.css";
@@ -509,7 +510,9 @@ export default function RootLayout({
       </head>
       <body className={`${quicksand.variable} ${nunito.variable} antialiased`}>
         <LanguageProvider>
-          <CartProvider>{children}</CartProvider>
+          <CurrencyProvider>
+            <CartProvider>{children}</CartProvider>
+          </CurrencyProvider>
         </LanguageProvider>
       </body>
     </html>

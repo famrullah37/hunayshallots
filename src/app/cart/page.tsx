@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const WHATSAPP_NUMBER = "6285233658619";
 
@@ -70,6 +71,7 @@ const COUNTRY_GROUPS = INTERNATIONAL_COUNTRIES.reduce<Record<string, typeof INTE
 export default function CartPage() {
   const { items, removeItem, updateQuantity, clearCart, totalPrice, totalWeight } = useCart();
   const { language } = useLanguage();
+  const { formatPrice, formatDual } = useCurrency();
   const id = language === "id";
 
   const [shippingType, setShippingType] = useState<ShippingType>("domestic");
@@ -176,7 +178,7 @@ export default function CartPage() {
 
     const itemsList = items.map((item, i) => {
       const name = language === "id" ? item.nameId : item.nameEn;
-      return `${i + 1}. ${name} (x${item.quantity}) — Rp ${(item.price * item.quantity).toLocaleString("id-ID")}`;
+      return `${i + 1}. ${name} (x${item.quantity}) — ${formatDual(item.price * item.quantity)}`;
     }).join("\n");
 
     const weightStr = totalWeight >= 1000
@@ -188,23 +190,23 @@ export default function CartPage() {
 
     if (shippingType === "domestic" && selectedService) {
       shippingLine = id
-        ? `Ongkir: ${selectedService.courierName} ${selectedService.service} — Rp ${selectedService.cost.toLocaleString("id-ID")} (est. ${selectedService.etd} hari)`
-        : `Shipping: ${selectedService.courierName} ${selectedService.service} — Rp ${selectedService.cost.toLocaleString("id-ID")} (est. ${selectedService.etd} days)`;
+        ? `Ongkir: ${selectedService.courierName} ${selectedService.service} — ${formatDual(selectedService.cost)} (est. ${selectedService.etd} hari)`
+        : `Shipping: ${selectedService.courierName} ${selectedService.service} — ${formatDual(selectedService.cost)} (est. ${selectedService.etd} days)`;
       totalLine = id
-        ? `*Total: Rp ${grandTotal.toLocaleString("id-ID")}* (sudah termasuk ongkir)`
-        : `*Total: Rp ${grandTotal.toLocaleString("id-ID")}* (including shipping)`;
+        ? `*Total: ${formatDual(grandTotal)}* (sudah termasuk ongkir)`
+        : `*Total: ${formatDual(grandTotal)}* (including shipping)`;
     } else if (shippingType === "international" && intlEstimate) {
       shippingLine = id
-        ? `Ongkir Internasional ke ${form.country}: Estimasi Rp ${intlEstimate.toLocaleString("id-ID")} _(dikonfirmasi admin)_`
-        : `International Shipping to ${form.country}: Est. Rp ${intlEstimate.toLocaleString("id-ID")} _(to be confirmed)_`;
+        ? `Ongkir Internasional ke ${form.country}: Estimasi ${formatDual(intlEstimate)} _(dikonfirmasi admin)_`
+        : `International Shipping to ${form.country}: Est. ${formatDual(intlEstimate)} _(to be confirmed)_`;
       totalLine = id
-        ? `Subtotal: Rp ${totalPrice.toLocaleString("id-ID")} _(belum termasuk ongkir final)_`
-        : `Subtotal: Rp ${totalPrice.toLocaleString("id-ID")} _(excl. final shipping)_`;
+        ? `Subtotal: ${formatDual(totalPrice)} _(belum termasuk ongkir final)_`
+        : `Subtotal: ${formatDual(totalPrice)} _(excl. final shipping)_`;
     } else {
       shippingLine = id ? "Ongkir: dikonfirmasi kemudian" : "Shipping: to be confirmed";
       totalLine = id
-        ? `Subtotal: Rp ${totalPrice.toLocaleString("id-ID")} _(belum termasuk ongkir)_`
-        : `Subtotal: Rp ${totalPrice.toLocaleString("id-ID")} _(excl. shipping)_`;
+        ? `Subtotal: ${formatDual(totalPrice)} _(belum termasuk ongkir)_`
+        : `Subtotal: ${formatDual(totalPrice)} _(excl. shipping)_`;
     }
 
     const destinationInfo = shippingType === "domestic"
@@ -266,7 +268,7 @@ export default function CartPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-gray-900 text-sm leading-tight mb-1 line-clamp-2">{name}</h3>
-                        <p className="text-forest-green font-bold">Rp {item.price.toLocaleString("id-ID")}</p>
+                        <p className="text-forest-green font-bold">{formatPrice(item.price)}</p>
                       </div>
                       <div className="flex flex-col items-end gap-3 shrink-0">
                         <button onClick={() => removeItem(item.id)} className="text-gray-400 hover:text-red-500 transition" aria-label="Remove">
@@ -279,7 +281,7 @@ export default function CartPage() {
                           <span className="w-8 text-center text-sm font-semibold">{item.quantity}</span>
                           <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="px-3 py-1.5 text-gray-600 hover:bg-gray-100 transition font-bold">+</button>
                         </div>
-                        <p className="text-sm font-semibold text-gray-700">Rp {(item.price * item.quantity).toLocaleString("id-ID")}</p>
+                        <p className="text-sm font-semibold text-gray-700">{formatPrice(item.price * item.quantity)}</p>
                       </div>
                     </div>
                   );
@@ -492,7 +494,7 @@ export default function CartPage() {
                                           </p>
                                         </div>
                                         <div className="text-right shrink-0 ml-4">
-                                          <p className="font-bold text-gray-900">Rp {cost.value.toLocaleString("id-ID")}</p>
+                                          <p className="font-bold text-gray-900">{formatPrice(cost.value)}</p>
                                           {isSelected && <p className="text-xs text-forest-green font-medium mt-0.5">✓ {id ? "Dipilih" : "Selected"}</p>}
                                         </div>
                                       </div>
@@ -537,7 +539,7 @@ export default function CartPage() {
                             {id ? "Estimasi Ongkir Internasional" : "International Shipping Estimate"}
                           </p>
                           <p className="text-blue-700 text-xl font-bold mt-1">
-                            ± Rp {intlEstimate.toLocaleString("id-ID")}
+                            ± {formatPrice(intlEstimate)}
                           </p>
                           <p className="text-blue-600 text-xs mt-1">
                             {id
@@ -586,7 +588,7 @@ export default function CartPage() {
                     return (
                       <div key={item.id} className="flex justify-between text-sm text-gray-600">
                         <span className="truncate mr-2">{name} ×{item.quantity}</span>
-                        <span className="shrink-0">Rp {(item.price * item.quantity).toLocaleString("id-ID")}</span>
+                        <span className="shrink-0">{formatPrice(item.price * item.quantity)}</span>
                       </div>
                     );
                   })}
@@ -595,7 +597,7 @@ export default function CartPage() {
                 <div className="border-t border-gray-100 pt-3 space-y-1.5 mb-4">
                   <div className="flex justify-between text-sm text-gray-600">
                     <span>Subtotal</span>
-                    <span>Rp {totalPrice.toLocaleString("id-ID")}</span>
+                    <span>{formatPrice(totalPrice)}</span>
                   </div>
                   <div className="flex justify-between text-sm text-gray-600">
                     <span>{id ? "Total Berat" : "Total Weight"}</span>
@@ -607,7 +609,7 @@ export default function CartPage() {
                     <span>{id ? "Ongkir" : "Shipping"}</span>
                     {currentShippingCost !== null ? (
                       <span className="font-medium text-gray-800">
-                        {shippingType === "international" ? "± " : ""}Rp {currentShippingCost.toLocaleString("id-ID")}
+                        {shippingType === "international" ? "± " : ""}{formatPrice(currentShippingCost)}
                       </span>
                     ) : (
                       <span className="italic text-gray-400 text-xs">
@@ -622,7 +624,7 @@ export default function CartPage() {
                 <div className="border-t border-gray-100 pt-3 mb-6">
                   <div className="flex justify-between font-bold text-gray-900 text-lg">
                     <span>Total</span>
-                    <span>Rp {grandTotal.toLocaleString("id-ID")}</span>
+                    <span>{formatPrice(grandTotal)}</span>
                   </div>
                   {currentShippingCost === null && (
                     <p className="text-xs text-gray-400 mt-0.5">{id ? "+ ongkir" : "+ shipping"}</p>

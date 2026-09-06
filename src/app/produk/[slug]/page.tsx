@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { use } from "react";
 
 const CATEGORY_LABELS: Record<string, { id: string; en: string }> = {
@@ -33,6 +34,7 @@ interface ProductItem {
 export default function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const { language } = useLanguage();
+  const { formatPrice } = useCurrency();
   const { addItem, items } = useCart();
   const [product, setProduct] = useState<ProductItem | null>(null);
   const [related, setRelated] = useState<ProductItem[]>([]);
@@ -147,7 +149,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
 
                 <div className="flex items-center gap-4 mb-6">
                   <p className="text-3xl font-bold text-forest-green">
-                    Rp {product.price.toLocaleString("id-ID")}
+                    {formatPrice(product.price)}
                   </p>
                   {product.weight > 0 && (
                     <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
@@ -215,7 +217,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                     </div>
                     {qty > 1 && (
                       <span className="text-sm text-gray-500">
-                        = Rp {(product.price * qty).toLocaleString("id-ID")}
+                        = {formatPrice(product.price * qty)}
                       </span>
                     )}
                   </div>
@@ -278,7 +280,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                     <div className="p-3">
                       <p className="text-sm font-semibold text-gray-800 line-clamp-2 mb-1">{pName}</p>
                       <p className="text-forest-green font-bold text-sm">
-                        Rp {p.price.toLocaleString("id-ID")}
+                        {formatPrice(p.price)}
                       </p>
                     </div>
                   </Link>
