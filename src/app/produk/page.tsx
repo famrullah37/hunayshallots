@@ -10,18 +10,18 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com"
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Semua Produk — Bawang Goreng, Camilan & Sambal | Hunay",
+  title: "All Products — Fried Onions, Snacks & Sambal | Hunay",
   description:
-    "Jelajahi seluruh produk Hunay: bawang merah goreng, bawang putih goreng, camilan bawang, dan aneka sambal premium. Halal, tanpa pengawet, renyah dari Probolinggo.",
+    "Explore Hunay's full product range: fried shallots, fried garlic, onion snacks, and premium sambal varieties. Halal, no preservatives, crispy from Probolinggo.",
   alternates: { canonical: `${BASE_URL}/produk` },
   openGraph: {
     type: "website",
     url: `${BASE_URL}/produk`,
     siteName: "Hunay Fried Onions",
-    title: "Semua Produk | Hunay",
+    title: "All Products | Hunay",
     description:
-      "Bawang goreng, camilan, dan sambal premium dari Hunay — halal, tanpa pengawet, renyah.",
-    images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Produk Hunay" }],
+      "Premium fried onions, snacks, and sambal from Hunay — halal, no preservatives, crispy.",
+    images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Hunay Products" }],
   },
 };
 
@@ -33,7 +33,7 @@ export default async function ProdukPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-      { "@type": "ListItem", position: 2, name: "Produk", item: `${BASE_URL}/produk` },
+      { "@type": "ListItem", position: 2, name: "Products", item: `${BASE_URL}/produk` },
     ],
   };
 

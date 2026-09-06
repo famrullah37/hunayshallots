@@ -38,14 +38,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = await getProductSEO(slug);
 
-  if (!product) return { title: "Produk | Hunay" };
+  if (!product) return { title: "Product | Hunay" };
 
   const name = product.nameEn || product.nameId;
   const category = CATEGORY_LABELS[product.category] || product.category;
   const description =
     product.descriptionEn ||
     product.descriptionId ||
-    `${name} — ${category} premium dari Hunay, Probolinggo. Halal, tanpa pengawet, renyah.`;
+    `${name} — premium ${category} from Hunay, Probolinggo. Halal, no preservatives, crispy.`;
   const imgUrl = product.imageUrl || `${BASE_URL}/og-image.jpg`;
   const absImg = imgUrl.startsWith("http") ? imgUrl : `${BASE_URL}${imgUrl}`;
   const url = `${BASE_URL}/produk/${slug}`;
@@ -133,11 +133,11 @@ export default async function ProductLayout({
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-      { "@type": "ListItem", position: 2, name: "Produk", item: `${BASE_URL}/produk` },
+      { "@type": "ListItem", position: 2, name: "Products", item: `${BASE_URL}/produk` },
       {
         "@type": "ListItem",
         position: 3,
-        name: product ? product.nameEn || product.nameId : "Produk",
+        name: product ? product.nameEn || product.nameId : "Product",
         item: url,
       },
     ],

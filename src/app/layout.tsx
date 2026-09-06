@@ -46,42 +46,6 @@ export const metadata: Metadata = {
     // Australia market
     "fried onion supplier Australia", "Indonesian fried onion Australia",
     "halal fried onion Australia", "Asian grocery Australia", "wholesale fried shallots Australia",
-    // Primary ID
-    "bawang goreng", "bawang goreng premium", "bawang goreng halal",
-    "bawang goreng ekspor", "bawang goreng Probolinggo", "supplier bawang goreng",
-    "grosir bawang goreng", "bawang goreng tanpa pengawet", "bawang goreng biru lancor",
-    "bawang goreng katering", "bawang goreng restoran", "produsen bawang goreng Indonesia",
-    "bawang goreng kiloan", "bawang goreng curah", "bawang goreng untuk ekspor",
-    // Produk spesifik ID
-    "bawang putih goreng", "bawang merah goreng", "bawang putih goreng premium",
-    "bawang merah goreng renyah", "bawang goreng renyah tahan lama",
-    "bawang goreng dalam toples", "bawang goreng kemasan vakum", "bawang goreng pouch",
-    "bawang goreng botol", "bawang goreng sachet", "sambal hunay",
-    // Intent pembelian ID
-    "beli bawang goreng", "pesan bawang goreng", "order bawang goreng online",
-    "bawang goreng murah berkualitas", "bawang goreng harga pabrik",
-    "bawang goreng free ongkir", "bawang goreng COD", "bawang goreng terdekat",
-    "toko bawang goreng online", "jual bawang goreng online",
-    // Lokasi ID
-    "bawang goreng Jawa Timur", "bawang goreng asli Probolinggo",
-    "bawang goreng Dringu", "produsen bawang goreng Probolinggo",
-    "pabrik bawang goreng Jawa Timur", "UMKM bawang goreng Indonesia",
-    // B2B & distribusi ID
-    "distributor bawang goreng", "agen bawang goreng", "reseller bawang goreng",
-    "bawang goreng untuk hotel", "bawang goreng untuk industri makanan",
-    "bawang goreng untuk pabrik", "bawang goreng partai besar",
-    "bawang goreng kemasan private label", "bawang goreng OEM",
-    // Sertifikasi & kualitas ID
-    "bawang goreng sertifikat halal MUI", "bawang goreng terdaftar BPOM",
-    "bawang goreng ISO 9001", "bawang goreng HACCP", "bawang goreng GMP",
-    "bawang goreng tanpa MSG", "bawang goreng tanpa bahan kimia",
-    "bawang goreng alami", "bawang goreng organik", "bawang goreng asli tanpa campuran",
-    // Long-tail ID
-    "cara pesan bawang goreng Hunay", "harga bawang goreng per kg",
-    "bawang goreng tahan berapa lama", "bawang goreng tidak lembek",
-    "bawang goreng untuk nasi goreng", "bawang goreng untuk soto",
-    "bawang goreng untuk mie ayam", "taburan bawang goreng", "topping bawang goreng",
-    "bawang goreng untuk topping makanan", "bawang goreng enak renyah",
     // Korean keywords
     "튀긴 양파", "튀긴 샬롯", "프리미엄 튀긴 양파", "인도네시아 튀긴 양파",
     "바삭한 튀긴 양파", "양파 유통업체", "도매 튀긴 양파", "할랄 튀긴 양파",
@@ -96,8 +60,7 @@ export const metadata: Metadata = {
     // Brand
     "Hunay", "CV Dua Putri Sholehah",
     // Long-tail
-    "beli bawang goreng online", "harga bawang goreng grosir",
-    "fried onion manufacturer Indonesia", "bawang goreng sertifikasi halal BPOM",
+    "fried onion manufacturer Indonesia",
     // Shallots informational (People Also Ask)
     "shallots", "pickled shallots", "substitute for shallots",
     "shallots vs onions", "are shallots onions", "how to cut shallots",
@@ -113,7 +76,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    alternateLocale: "id_ID",
     url: BASE_URL,
     siteName: "Hunay Fried Onions",
     title: "Hunay — Premium Fried Onions from Probolinggo, Indonesia",
@@ -171,7 +133,7 @@ const websiteSchema = {
   alternateName: ["Hunay Bawang Goreng", "hunayshallots.com"],
   url: BASE_URL,
   description: "Official website of Hunay premium fried onions and fried shallots by CV. Dua Putri Sholehah, Probolinggo, East Java, Indonesia. Halal certified, no preservatives, exported globally.",
-  inLanguage: ["en-US", "id-ID"],
+  inLanguage: "en-US",
   keywords: "fried onion, bawang goreng, biru lancor, halal, Probolinggo, Indonesia, export",
   speakable: {
     "@type": "SpeakableSpecification",
@@ -397,42 +359,6 @@ const faqSchema = {
       "@type": "Question",
       name: "How much do Hunay fried onions cost?",
       acceptedAnswer: { "@type": "Answer", text: "Hunay retail products range from Rp20.000 (garlic bottle 75gr) to Rp35.000 (shallot or garlic jar 150gr). Wholesale bulk pricing is available for businesses — contact WhatsApp +62 852-3365-8619 for current wholesale rates." },
-    },
-    // ─── Indonesian / Bilingual FAQ (AEO for ID market) ───
-    {
-      "@type": "Question",
-      name: "Apa itu bawang goreng Hunay?",
-      acceptedAnswer: { "@type": "Answer", text: "Hunay adalah brand bawang goreng premium dari CV. Dua Putri Sholehah, Probolinggo, Jawa Timur. Dibuat dari bawang biru lancor pilihan tanpa tepung dan tanpa pengawet buatan. Bersertifikat Halal MUI, BPOM, ISO 9001:2015, HACCP, GMP, dan GAP." },
-    },
-    {
-      "@type": "Question",
-      name: "Berapa harga bawang goreng Hunay?",
-      acceptedAnswer: { "@type": "Answer", text: "Harga bawang goreng Hunay mulai Rp20.000 (botol bawang putih 75gr) hingga Rp35.000 (toples bawang merah atau putih 150gr). Tersedia harga grosir kiloan untuk restoran, katering, dan bisnis makanan. Hubungi WhatsApp +62 852-3365-8619 untuk info harga grosir." },
-    },
-    {
-      "@type": "Question",
-      name: "Apakah bawang goreng Hunay menggunakan pengawet?",
-      acceptedAnswer: { "@type": "Answer", text: "Tidak. Bawang goreng Hunay 100% bebas pengawet buatan. Kerenyahan dan daya tahan (6–12 bulan dalam kemasan vacuum) diperoleh dari kandungan air rendah bawang biru lancor dan teknologi pengemasan vakum, bukan dari bahan kimia." },
-    },
-    {
-      "@type": "Question",
-      name: "Berapa lama ketahanan bawang goreng Hunay?",
-      acceptedAnswer: { "@type": "Answer", text: "Bawang goreng Hunay yang belum dibuka tahan 6–12 bulan dalam kemasan vacuum. Setelah dibuka, tetap renyah 1–2 bulan jika disimpan dalam wadah kedap udara di tempat kering dan sejuk. Jangan disimpan di kulkas karena kelembaban akan membuatnya lembek." },
-    },
-    {
-      "@type": "Question",
-      name: "Apakah bawang goreng Hunay bisa dikirim ke luar Indonesia?",
-      acceptedAnswer: { "@type": "Answer", text: "Ya. Hunay mengekspor bawang goreng premium ke Jepang, Korea Selatan, Kanada, Singapura, Amerika Serikat, dan Australia. Untuk pemesanan ekspor dalam jumlah besar, hubungi tim kami via WhatsApp +62 852-3365-8619." },
-    },
-    {
-      "@type": "Question",
-      name: "Apa itu bawang biru lancor dan mengapa istimewa?",
-      acceptedAnswer: { "@type": "Answer", text: "Biru lancor adalah varietas bawang merah lokal khas Probolinggo dengan kadar air hanya 62–65%, jauh lebih rendah dari varietas lain. Hasilnya: bawang goreng lebih renyah, warna keemasan alami lebih intens, aroma lebih kuat, dan daya tahan lebih lama tanpa pengawet." },
-    },
-    {
-      "@type": "Question",
-      name: "Bagaimana cara memesan bawang goreng Hunay?",
-      acceptedAnswer: { "@type": "Answer", text: "Bisa melalui 3 cara: (1) Langsung via website hunay.id — pilih produk, tambah ke keranjang, isi data pengiriman, kirim pesanan via WhatsApp. (2) WhatsApp langsung ke +62 852-3365-8619. (3) Marketplace: Tokopedia (tokopedia.com/hunay-1) atau Shopee (shopee.co.id/hunay.id)." },
     },
   ],
 };

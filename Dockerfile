@@ -38,6 +38,12 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/prisma.config.ts ./prisma.config.ts
 
+# content/blog/*.md + the generated Prisma client are needed at runtime by
+# scripts/start.sh, which runs prisma/seedBlog.ts on every container start
+# so new/edited blog markdown files go live without a manual seed step.
+COPY --from=builder --chown=nextjs:nodejs /app/content ./content
+COPY --from=builder --chown=nextjs:nodejs /app/src/generated ./src/generated
+
 # Copy full node_modules from builder so prisma db push has all its transitive deps
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 

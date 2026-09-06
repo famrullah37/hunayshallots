@@ -6,32 +6,28 @@ import type { Metadata } from "next";
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
 export const metadata: Metadata = {
-  title: "Blog & Artikel — Hunay Fried Onions",
+  title: "Blog & Articles — Hunay Fried Onions",
   description:
-    "Tips, resep, dan cerita seputar bawang goreng premium Hunay dari Probolinggo, Indonesia. Tips memasak, cara penyimpanan, dan informasi ekspor.",
+    "Tips, recipes, and stories about Hunay's premium fried onions from Probolinggo, Indonesia. Cooking tips, storage guides, and export insights.",
   keywords: [
-    "blog bawang goreng", "resep bawang goreng", "tips memasak bawang goreng",
-    "hunay blog", "artikel bawang goreng premium",
+    "fried onion blog", "fried onion recipes", "fried onion cooking tips",
+    "hunay blog", "premium fried onion articles",
   ],
   alternates: {
     canonical: `${BASE_URL}/blog`,
-    languages: {
-      "en-US": `${BASE_URL}/blog`,
-      "id-ID": `${BASE_URL}/blog?lang=id`,
-    },
   },
   openGraph: {
     type: "website",
     url: `${BASE_URL}/blog`,
     siteName: "Hunay Fried Onions",
-    title: "Blog & Artikel — Hunay Fried Onions",
-    description: "Tips, resep, dan cerita seputar bawang goreng premium Hunay dari Probolinggo.",
+    title: "Blog & Articles — Hunay Fried Onions",
+    description: "Tips, recipes, and stories about Hunay's premium fried onions from Probolinggo.",
     images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Hunay Blog" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog & Artikel — Hunay Fried Onions",
-    description: "Tips, resep, dan cerita seputar bawang goreng premium Hunay.",
+    title: "Blog & Articles — Hunay Fried Onions",
+    description: "Tips, recipes, and stories about Hunay's premium fried onions.",
     images: [`${BASE_URL}/og-image.jpg`],
   },
 };
@@ -45,13 +41,13 @@ export default async function BlogPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-16 max-w-5xl">
         <div className="mb-10 text-center">
-          <Link href="/" className="text-sm text-green-700 hover:underline mb-4 inline-block">← Kembali ke Beranda</Link>
-          <h1 className="text-4xl font-bold text-gray-900">Blog & Artikel</h1>
-          <p className="text-gray-500 mt-2">Tips, resep, dan cerita seputar bawang goreng premium Hunay</p>
+          <Link href="/" className="text-sm text-green-700 hover:underline mb-4 inline-block">← Back to Home</Link>
+          <h1 className="text-4xl font-bold text-gray-900">Blog & Articles</h1>
+          <p className="text-gray-500 mt-2">Tips, recipes, and stories about Hunay&apos;s premium fried onions</p>
         </div>
 
         {posts.length === 0 ? (
-          <p className="text-center text-gray-500 py-20">Belum ada artikel. Segera hadir!</p>
+          <p className="text-center text-gray-500 py-20">No articles yet. Coming soon!</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post) => (
