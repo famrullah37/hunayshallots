@@ -13,91 +13,48 @@ interface Props {
 export default function BlogForm({ post, action, submitLabel = "Simpan" }: Props) {
   const [coverImage, setCoverImage] = useState(post?.coverImage || "");
   const [isPublished, setIsPublished] = useState(post?.isPublished ?? false);
-  const [lang, setLang] = useState<"id" | "en">("id");
-
-  // A required field on the inactive tab is display:none, so the browser
-  // can't focus it to show its validation tooltip and silently blocks
-  // submit instead. Switch to that tab and re-report validity manually.
-  function revealAndReport(targetLang: "id" | "en") {
-    return (e: React.InvalidEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      setLang(targetLang);
-      const field = e.target;
-      requestAnimationFrame(() => field.reportValidity());
-    };
-  }
+  const [titleEn, setTitleEn] = useState(post?.titleEn || "");
 
   return (
     <form action={action} className="space-y-6">
       <input type="hidden" name="coverImage" value={coverImage} />
       <input type="hidden" name="isPublished" value={String(isPublished)} />
+      {/* titleId is required in the database (in case the ID sister site still
+          reads it) but this admin only writes English content now, so mirror
+          the English title into it rather than asking the admin to type it twice. */}
+      <input type="hidden" name="titleId" value={titleEn} />
 
-      {/* Language Tabs */}
-      <div className="border-b border-gray-200">
-        <div className="flex gap-1">
-          {(["id", "en"] as const).map((l) => (
-            <button
-              key={l}
-              type="button"
-              onClick={() => setLang(l)}
-              className={`px-5 py-2.5 text-sm font-semibold rounded-t-lg transition border-b-2 -mb-px ${
-                lang === l
-                  ? "border-green-600 text-green-700 bg-white"
-                  : "border-transparent text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {l === "id" ? "🇮🇩 Indonesia" : "🇬🇧 English"}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Tab ID — stays in DOM */}
-      <div style={{ display: lang === "id" ? "block" : "none" }} className="space-y-4">
-        <Field label="Judul Artikel" name="titleId" defaultValue={post?.titleId} required onInvalid={revealAndReport("id")} />
-        <Textarea label="Ringkasan (Excerpt)" name="excerptId" defaultValue={post?.excerptId || ""} rows={2} />
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Konten — Markdown
-          </label>
-          <textarea
-            name="contentId"
-            defaultValue={post?.contentId || ""}
-            rows={16}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"
-            placeholder="Tulis konten dalam format Markdown..."
-          />
-        </div>
-      </div>
-
-      {/* Tab EN — stays in DOM */}
-      <div style={{ display: lang === "en" ? "block" : "none" }} className="space-y-4">
-        <Field label="Article Title" name="titleEn" defaultValue={post?.titleEn} required onInvalid={revealAndReport("en")} />
-        <Textarea label="Excerpt" name="excerptEn" defaultValue={post?.excerptEn || ""} rows={2} />
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Content — Markdown
-          </label>
-          <textarea
-            name="contentEn"
-            defaultValue={post?.contentEn || ""}
-            rows={16}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"
-            placeholder="Write content in Markdown format..."
-          />
-        </div>
+      <Field
+        label="Article Title"
+        name="titleEn"
+        value={titleEn}
+        onChange={setTitleEn}
+        required
+      />
+      <Textarea label="Excerpt" name="excerptEn" defaultValue={post?.excerptEn || ""} rows={2} />
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Content — Markdown
+        </label>
+        <textarea
+          name="contentEn"
+          defaultValue={post?.contentEn || ""}
+          rows={16}
+          className="w-full border border-gray-300 rounded-lg px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"
+          placeholder="Write content in Markdown format..."
+        />
       </div>
 
       {/* Shared: Keywords */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Kata Kunci SEO <span className="text-gray-400 font-normal">(pisahkan dengan koma, boleh campur ID & EN)</span>
+          Kata Kunci SEO <span className="text-gray-400 font-normal">(pisahkan dengan koma)</span>
         </label>
         <input
           name="keywords"
           type="text"
           defaultValue={post?.keywords || ""}
-          placeholder="bawang goreng, resep sambal, fried shallot recipe"
+          placeholder="fried shallot recipe, crispy fried onion, halal snack"
           className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
         />
       </div>
@@ -135,15 +92,13 @@ export default function BlogForm({ post, action, submitLabel = "Simpan" }: Props
         >
           {submitLabel}
         </button>
-        <span className="text-xs text-gray-400">Pastikan isi field di kedua tab (ID & EN)</span>
       </div>
     </form>
   );
 }
 
-function Field({ label, name, defaultValue, required, onInvalid }: {
-  label: string; name: string; defaultValue?: string; required?: boolean;
-  onInvalid?: (e: React.InvalidEvent<HTMLInputElement>) => void;
+function Field({ label, name, value, onChange, required }: {
+  label: string; name: string; value: string; onChange: (v: string) => void; required?: boolean;
 }) {
   return (
     <div>
@@ -151,9 +106,9 @@ function Field({ label, name, defaultValue, required, onInvalid }: {
       <input
         name={name}
         type="text"
-        defaultValue={defaultValue}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         required={required}
-        onInvalid={onInvalid}
         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
       />
     </div>

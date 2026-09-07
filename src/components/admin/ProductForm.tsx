@@ -18,51 +18,28 @@ interface Props {
 
 export default function ProductForm({ product, action, submitLabel = "Simpan" }: Props) {
   const [imageUrl, setImageUrl] = useState(product?.imageUrl || "");
-  const [lang, setLang] = useState<"id" | "en">("id");
-
-  // A required field on the inactive tab is display:none, so the browser
-  // can't focus it to show its validation tooltip and silently blocks
-  // submit instead. Switch to that tab and re-report validity manually.
-  function revealAndReport(targetLang: "id" | "en") {
-    return (e: React.InvalidEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      setLang(targetLang);
-      const field = e.target;
-      requestAnimationFrame(() => field.reportValidity());
-    };
-  }
+  const [nameEn, setNameEn] = useState(product?.nameEn || "");
 
   return (
     <form action={action} className="space-y-6 max-w-2xl">
       <input type="hidden" name="imageUrl" value={imageUrl} />
+      {/* nameId is required in the database (in case the ID sister site still
+          reads it) but this admin only writes English content now, so mirror
+          the English name into it rather than asking the admin to type it twice. */}
+      <input type="hidden" name="nameId" value={nameEn} />
 
-      {/* Language Tabs */}
-      <div className="border-b border-gray-200">
-        <div className="flex gap-1">
-          {(["id", "en"] as const).map((l) => (
-            <button
-              key={l}
-              type="button"
-              onClick={() => setLang(l)}
-              className={`px-5 py-2.5 text-sm font-semibold rounded-t-lg transition border-b-2 -mb-px ${
-                lang === l
-                  ? "border-green-600 text-green-700 bg-white"
-                  : "border-transparent text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {l === "id" ? "🇮🇩 Indonesia" : "🇬🇧 English"}
-            </button>
-          ))}
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+          <input
+            name="nameEn"
+            type="text"
+            value={nameEn}
+            onChange={(e) => setNameEn(e.target.value)}
+            required
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
         </div>
-      </div>
-
-      {/* Tab Panels — both stay in DOM so form submits both */}
-      <div style={{ display: lang === "id" ? "block" : "none" }} className="space-y-4">
-        <Field label="Nama Produk" name="nameId" defaultValue={product?.nameId} required onInvalid={revealAndReport("id")} />
-        <Textarea label="Deskripsi Produk" name="descriptionId" defaultValue={product?.descriptionId || ""} />
-      </div>
-      <div style={{ display: lang === "en" ? "block" : "none" }} className="space-y-4">
-        <Field label="Product Name" name="nameEn" defaultValue={product?.nameEn} required onInvalid={revealAndReport("en")} />
         <Textarea label="Product Description" name="descriptionEn" defaultValue={product?.descriptionEn || ""} />
       </div>
 
@@ -117,18 +94,18 @@ export default function ProductForm({ product, action, submitLabel = "Simpan" }:
         label="Custom Pesan WhatsApp (opsional)"
         name="whatsappText"
         defaultValue={product?.whatsappText || ""}
-        placeholder="Halo, saya ingin memesan..."
+        placeholder="Hello, I'd like to order..."
       />
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Kata Kunci SEO <span className="text-gray-400 font-normal">(pisahkan dengan koma, boleh campur ID & EN)</span>
+          Kata Kunci SEO <span className="text-gray-400 font-normal">(pisahkan dengan koma)</span>
         </label>
         <input
           name="keywords"
           type="text"
           defaultValue={product?.keywords || ""}
-          placeholder="bawang goreng, fried shallot, bawang merah, garlic"
+          placeholder="fried shallot, fried garlic, halal snack"
           className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
         />
       </div>
@@ -159,17 +136,15 @@ export default function ProductForm({ product, action, submitLabel = "Simpan" }:
         >
           {submitLabel}
         </button>
-        <span className="text-xs text-gray-400">Pastikan isi field di kedua tab (ID & EN)</span>
       </div>
     </form>
   );
 }
 
 function Field({
-  label, name, defaultValue, required, type = "text", placeholder, onInvalid,
+  label, name, defaultValue, required, type = "text", placeholder,
 }: {
   label: string; name: string; defaultValue?: string; required?: boolean; type?: string; placeholder?: string;
-  onInvalid?: (e: React.InvalidEvent<HTMLInputElement>) => void;
 }) {
   return (
     <div>
@@ -180,7 +155,6 @@ function Field({
         defaultValue={defaultValue}
         required={required}
         placeholder={placeholder}
-        onInvalid={onInvalid}
         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
       />
     </div>
