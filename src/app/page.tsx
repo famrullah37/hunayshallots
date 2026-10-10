@@ -26,10 +26,27 @@ export const metadata: Metadata = {
   alternates: {
     canonical: BASE_URL,
     languages: {
-      "en-US": BASE_URL,
+      en: BASE_URL,
+      // Indonesian-market site (separate domain). Needs the reciprocal tag on bawanghunay.com.
+      id: "https://bawanghunay.com",
       "x-default": BASE_URL,
     },
   },
+};
+
+// WebPage schema is homepage-only (it describes this URL, so it must not live in the root layout).
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${BASE_URL}/#webpage`,
+  url: BASE_URL,
+  name: "Hunay — Premium Fried Onions & Fried Shallots | Export Quality from Probolinggo",
+  inLanguage: "en",
+  isPartOf: { "@id": `${BASE_URL}/#website` },
+  about: { "@id": `${BASE_URL}/#organization` },
+  description:
+    "Premium crispy fried shallots and fried garlic from Probolinggo, Indonesia. Halal MUI certified, no preservatives, biru lancor variety. Bulk supply, private label and export to importers and distributors worldwide.",
+  primaryImageOfPage: { "@type": "ImageObject", url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630 },
 };
 
 export default async function Home() {
@@ -40,6 +57,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
       <Header />
       <HeroSection />
       <MarqueeSection />

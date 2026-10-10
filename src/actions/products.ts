@@ -44,7 +44,7 @@ export async function createProduct(formData: FormData) {
   });
   revalidatePath("/admin/products");
   revalidatePath("/");
-  revalidatePath("/produk");
+  revalidatePath("/products");
   redirect("/admin/products");
 }
 
@@ -69,7 +69,7 @@ export async function updateProduct(id: string, formData: FormData) {
   });
   revalidatePath("/admin/products");
   revalidatePath("/");
-  revalidatePath("/produk");
+  revalidatePath("/products");
   redirect("/admin/products");
 }
 
@@ -78,7 +78,7 @@ export async function deleteProduct(id: string) {
   await prisma.product.delete({ where: { id } });
   revalidatePath("/admin/products");
   revalidatePath("/");
-  revalidatePath("/produk");
+  revalidatePath("/products");
 }
 
 export async function getProducts(activeOnly = false) {

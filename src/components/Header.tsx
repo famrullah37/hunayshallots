@@ -33,7 +33,8 @@ export default function Header() {
         {/* Desktop Navigation - Centered */}
         <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
           <Link href="/#tentang-kami" className="text-gray-700 hover:text-forest-green transition">{t("nav.about")}</Link>
-          <Link href="/produk" className="text-gray-700 hover:text-forest-green transition">{t("nav.products")}</Link>
+          <Link href="/products" className="text-gray-700 hover:text-forest-green transition">{t("nav.products")}</Link>
+          <Link href="/wholesale" className="text-gray-700 hover:text-forest-green transition">Wholesale</Link>
           <Link href="/#sertifikat" className="text-gray-700 hover:text-forest-green transition">{t("nav.certificate")}</Link>
           <Link href="/#kontak" className="text-gray-700 hover:text-forest-green transition">{t("nav.contact")}</Link>
         </nav>
@@ -111,7 +112,8 @@ export default function Header() {
           >
             <nav className="flex flex-col space-y-4 px-4 py-4">
               <Link href="/#tentang-kami" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.about")}</Link>
-              <Link href="/produk" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.products")}</Link>
+              <Link href="/products" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.products")}</Link>
+              <Link href="/wholesale" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">Wholesale</Link>
               <Link href="/#sertifikat" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.certificate")}</Link>
               <Link href="/#kontak" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.contact")}</Link>
               <Link

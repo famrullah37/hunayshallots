@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Link from "next/link";
+import { CONTACT_EMAIL } from "@/lib/contact";
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -42,11 +43,11 @@ export default function Footer() {
                 <span>+62 852-3365-8619</span>
               </a>
               <a
-                href="mailto:cvduaputrisholehah@gmail.com"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="flex items-center gap-2 hover:text-golden-yellow transition"
               >
                 <Mail size={20} />
-                <span>cvduaputrisholehah@gmail.com</span>
+                <span>{CONTACT_EMAIL}</span>
               </a>
             </div>
           </div>

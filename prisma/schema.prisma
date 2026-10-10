@@ -65,3 +65,23 @@ model SiteSettings {
 
   @@map("site_settings")
 }
+
+// Export / wholesale quote requests submitted from /wholesale (and /ja, /ko pages).
+model Inquiry {
+  id          String   @id @default(cuid())
+  name        String
+  company     String
+  email       String
+  phone       String?
+  country     String
+  product     String
+  volume      String?
+  packaging   String?
+  message     String?  @db.Text
+  sourcePage  String?  @map("source_page")
+  status      String   @default("new")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("inquiries")
+}

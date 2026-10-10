@@ -17,9 +17,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const description = post.excerptEn || post.excerptId || "";
   const url = `${BASE_URL}/blog/${slug}`;
   const image = post.coverImage || "/og-image.jpg";
+  // This domain is English-only. Posts without English content would render the
+  // Indonesian fallback, which belongs on bawanghunay.com — keep those out of the index.
+  const hasEnglish = Boolean(post.contentEn?.trim());
 
   return {
     title,
+    ...(hasEnglish ? {} : { robots: { index: false, follow: true } }),
     description,
     keywords: post.keywords
       ? post.keywords.split(",").map((k) => k.trim()).filter(Boolean)
@@ -33,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       images: [{ url: image, width: 1200, height: 630, alt: title || "" }],
       publishedTime: post.publishedAt?.toISOString(),
       modifiedTime: post.updatedAt?.toISOString(),
-      authors: [`${BASE_URL}/tentang-kami`],
+      authors: [BASE_URL],
       section: "Food & Lifestyle",
       tags: ["fried onion", "bawang goreng", "Hunay", "Indonesian food"],
     },
@@ -56,6 +60,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const content = post.contentEn || post.contentId || "";
   const url = `${BASE_URL}/blog/${slug}`;
   const image = post.coverImage || "/og-image.jpg";
+  const absImage = image.startsWith("http") ? image : `${BASE_URL}${image}`;
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -63,7 +68,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     "@id": `${url}#article`,
     headline: title,
     description: excerpt,
-    image: { "@type": "ImageObject", url: `${BASE_URL}${image}`, width: 1200, height: 630 },
+    image: { "@type": "ImageObject", url: absImage, width: 1200, height: 630 },
     url,
     datePublished: post.publishedAt?.toISOString() ?? new Date().toISOString(),
     dateModified: post.updatedAt?.toISOString() ?? new Date().toISOString(),
@@ -80,7 +85,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       logo: { "@type": "ImageObject", url: `${BASE_URL}/hunay_logo.png` },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    inLanguage: "en-US",
+    inLanguage: "en",
     isPartOf: { "@type": "WebSite", "@id": `${BASE_URL}/#website` },
   };
 

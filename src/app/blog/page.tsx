@@ -35,7 +35,8 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function BlogPage() {
-  const posts = await getPosts(true).catch(() => []);
+  // English-only domain: list only posts that actually have English content.
+  const posts = (await getPosts(true).catch(() => [])).filter((p) => p.contentEn?.trim());
 
   return (
     <div className="min-h-screen bg-gray-50">

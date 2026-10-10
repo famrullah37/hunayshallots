@@ -11,7 +11,7 @@ import ProductCard, {
 
 interface Props {
   products?: ProductItem[];
-  /** Maksimal produk yang ditampilkan di homepage; selebihnya di /produk */
+  /** Maksimal produk yang ditampilkan di homepage; selebihnya di /products */
   limit?: number;
 }
 
@@ -63,7 +63,7 @@ export default function ProductShowcase({ products = FALLBACK_PRODUCTS, limit = 
 
         <div className="text-center mt-12">
           <Link
-            href="/produk"
+            href="/products"
             className="inline-flex items-center gap-2 bg-forest-green text-white px-8 py-3 rounded-full font-semibold hover:bg-green-700 transition shadow-lg"
           >
             {hasMore

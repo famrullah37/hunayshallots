@@ -64,7 +64,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
   return (
     <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow overflow-hidden group flex flex-col">
       {/* Gambar — klik ke detail */}
-      <Link href={`/produk/${product.slug}`} className="block relative h-52 w-full overflow-hidden bg-gray-50 shrink-0">
+      <Link href={`/products/${product.slug}`} className="block relative h-52 w-full overflow-hidden bg-gray-50 shrink-0">
         <Image
           src={imgSrc}
           alt={name}
@@ -75,7 +75,7 @@ export default function ProductCard({ product }: { product: ProductItem }) {
 
       <div className="p-5 flex flex-col flex-1">
         {/* Nama — klik ke detail */}
-        <Link href={`/produk/${product.slug}`} className="block mb-3 flex-1">
+        <Link href={`/products/${product.slug}`} className="block mb-3 flex-1">
           <h3 className="font-bold text-gray-900 text-base leading-snug hover:text-forest-green transition line-clamp-2">
             {name}
           </h3>

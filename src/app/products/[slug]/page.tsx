@@ -100,7 +100,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
           <p className="text-gray-500 text-lg mb-4">
             {language === "id" ? "Produk tidak ditemukan." : "Product not found."}
           </p>
-          <Link href="/produk" className="text-forest-green hover:underline">
+          <Link href="/products" className="text-forest-green hover:underline">
             ← {language === "id" ? "Kembali ke Produk" : "Back to Products"}
           </Link>
         </div>
@@ -124,7 +124,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
         <nav className="text-sm text-gray-400 mb-6 flex items-center gap-2">
           <Link href="/" className="hover:text-forest-green transition">Home</Link>
           <span>/</span>
-          <Link href="/produk" className="hover:text-forest-green transition">
+          <Link href="/products" className="hover:text-forest-green transition">
             {lang ? "Produk" : "Products"}
           </Link>
           <span>/</span>
@@ -248,7 +248,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 </Link>
 
                 <Link
-                  href="/produk"
+                  href="/products"
                   className="block text-center text-sm text-gray-400 hover:text-forest-green transition mt-2"
                 >
                   ← {lang ? "Lihat produk lain" : "See other products"}
@@ -271,7 +271,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
                 return (
                   <Link
                     key={p.id}
-                    href={`/produk/${p.slug}`}
+                    href={`/products/${p.slug}`}
                     className="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition group"
                   >
                     <div className="relative h-36 bg-gray-100">

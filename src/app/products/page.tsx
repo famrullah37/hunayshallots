@@ -13,10 +13,10 @@ export const metadata: Metadata = {
   title: "All Products — Fried Onions, Snacks & Sambal | Hunay",
   description:
     "Explore Hunay's full product range: fried shallots, fried garlic, onion snacks, and premium sambal varieties. Halal, no preservatives, crispy from Probolinggo.",
-  alternates: { canonical: `${BASE_URL}/produk` },
+  alternates: { canonical: `${BASE_URL}/products` },
   openGraph: {
     type: "website",
-    url: `${BASE_URL}/produk`,
+    url: `${BASE_URL}/products`,
     siteName: "Hunay Fried Onions",
     title: "All Products | Hunay",
     description:
@@ -33,7 +33,7 @@ export default async function ProdukPage() {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
-      { "@type": "ListItem", position: 2, name: "Products", item: `${BASE_URL}/produk` },
+      { "@type": "ListItem", position: 2, name: "Products", item: `${BASE_URL}/products` },
     ],
   };
 
@@ -45,7 +45,7 @@ export default async function ProdukPage() {
           "@type": "ListItem",
           position: i + 1,
           name: p.nameEn || p.nameId,
-          url: `${BASE_URL}/produk/${p.slug}`,
+          url: `${BASE_URL}/products/${p.slug}`,
         })),
       }
     : null;

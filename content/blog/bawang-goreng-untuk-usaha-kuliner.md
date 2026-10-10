@@ -35,7 +35,7 @@ Menjalankan usaha kuliner — entah itu warung makan, restoran, katering, atau h
 | Bawang Putih Goreng | Pouch 100gr | Rp 25.000 |
 | Bawang Putih Goreng | Toples 150gr | Rp 35.000 |
 
-Untuk kebutuhan skala menengah hingga besar, tersedia kemasan **kiloan** mulai 5 kg dengan harga spesial grosir.
+Untuk kebutuhan skala menengah hingga besar, tersedia kemasan **kiloan** mulai 10 kg dengan harga spesial grosir.
 
 ---
 
@@ -77,7 +77,7 @@ Running a food business — whether a restaurant, catering service, or hotel —
 | Fried Garlic | 100gr Pouch | IDR 25,000 |
 | Fried Garlic | 150gr Jar | IDR 35,000 |
 
-For medium to large scale needs, **bulk packaging** is available from 5 kg at special wholesale prices.
+For medium to large scale needs, **bulk packaging** is available from 10 kg at special wholesale prices.
 
 ---
 

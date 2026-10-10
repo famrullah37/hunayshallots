@@ -14,10 +14,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: `${BASE_URL}/produk`,
+      url: `${BASE_URL}/products`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/wholesale`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/ja/wholesale`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/ko/wholesale`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
     {
       url: `${BASE_URL}/blog`,
@@ -30,8 +48,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const [posts, products] = await Promise.all([
       prisma.blogPost.findMany({
-        where: { isPublished: true },
-        select: { slug: true, updatedAt: true },
+        // English-only domain: skip posts that have no English body.
+        where: { isPublished: true, contentEn: { not: null } },
+        select: { slug: true, updatedAt: true, contentEn: true },
       }),
       prisma.product.findMany({
         where: { isActive: true },
@@ -39,7 +58,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
     ]);
 
-    const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
+    const blogRoutes: MetadataRoute.Sitemap = posts
+      .filter((post) => post.contentEn?.trim())
+      .map((post) => ({
       url: `${BASE_URL}/blog/${post.slug}`,
       lastModified: post.updatedAt,
       changeFrequency: "monthly" as const,
@@ -47,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     const productRoutes: MetadataRoute.Sitemap = products.map((product) => ({
-      url: `${BASE_URL}/produk/${product.slug}`,
+      url: `${BASE_URL}/products/${product.slug}`,
       lastModified: product.updatedAt,
       changeFrequency: "weekly" as const,
       priority: 0.8,
