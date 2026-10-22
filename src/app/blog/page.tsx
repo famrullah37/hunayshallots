@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
 export const metadata: Metadata = {
-  title: "Blog & Articles — Hunay Fried Onions",
+  title: "Fried Shallot Recipes & Buying Guides",
   description:
     "Tips, recipes, and stories about Hunay's premium fried onions from Probolinggo, Indonesia. Cooking tips, storage guides, and export insights.",
   keywords: [
@@ -20,13 +20,13 @@ export const metadata: Metadata = {
     type: "website",
     url: `${BASE_URL}/blog`,
     siteName: "Hunay Fried Onions",
-    title: "Blog & Articles — Hunay Fried Onions",
+    title: "Fried Shallot Recipes & Buying Guides",
     description: "Tips, recipes, and stories about Hunay's premium fried onions from Probolinggo.",
     images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Hunay Blog" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog & Articles — Hunay Fried Onions",
+    title: "Fried Shallot Recipes & Buying Guides",
     description: "Tips, recipes, and stories about Hunay's premium fried onions.",
     images: [`${BASE_URL}/og-image.jpg`],
   },

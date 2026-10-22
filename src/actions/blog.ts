@@ -83,7 +83,7 @@ export async function deletePost(id: string) {
 export async function getPosts(publishedOnly = false) {
   return prisma.blogPost.findMany({
     where: publishedOnly ? { isPublished: true } : undefined,
-    orderBy: { createdAt: "desc" },
+    orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
   });
 }
 

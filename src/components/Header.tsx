@@ -35,6 +35,7 @@ export default function Header() {
           <Link href="/#tentang-kami" className="text-gray-700 hover:text-forest-green transition">{t("nav.about")}</Link>
           <Link href="/products" className="text-gray-700 hover:text-forest-green transition">{t("nav.products")}</Link>
           <Link href="/wholesale" className="text-gray-700 hover:text-forest-green transition">Wholesale</Link>
+          <Link href="/blog" className="text-gray-700 hover:text-forest-green transition">Blog</Link>
           <Link href="/#sertifikat" className="text-gray-700 hover:text-forest-green transition">{t("nav.certificate")}</Link>
           <Link href="/#kontak" className="text-gray-700 hover:text-forest-green transition">{t("nav.contact")}</Link>
         </nav>
@@ -114,6 +115,7 @@ export default function Header() {
               <Link href="/#tentang-kami" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.about")}</Link>
               <Link href="/products" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.products")}</Link>
               <Link href="/wholesale" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">Wholesale</Link>
+              <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">Blog</Link>
               <Link href="/#sertifikat" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.certificate")}</Link>
               <Link href="/#kontak" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.contact")}</Link>
               <Link

@@ -10,7 +10,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com"
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "All Products — Fried Onions, Snacks & Sambal | Hunay",
+  title: "Fried Shallots, Fried Garlic & Sambal — All Products",
   description:
     "Explore Hunay's full product range: fried shallots, fried garlic, onion snacks, and premium sambal varieties. Halal, no preservatives, crispy from Probolinggo.",
   alternates: { canonical: `${BASE_URL}/products` },

@@ -1,5 +1,6 @@
-import { getPostBySlug } from "@/actions/blog";
+import { getPostBySlug, getPosts } from "@/actions/blog";
 import Image from "next/image";
+import { cache } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -8,9 +9,12 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com"
 
 export const revalidate = 3600;
 
+// generateMetadata and the page both need the post; dedupe the DB query per request.
+const getPost = cache((slug: string) => getPostBySlug(slug).catch(() => null));
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostBySlug(slug).catch(() => null);
+  const post = await getPost(slug);
   if (!post) return { title: "Article Not Found" };
 
   const title = post.titleEn || post.titleId;
@@ -52,8 +56,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug).catch(() => null);
+  const post = await getPost(slug);
   if (!post || !post.isPublished) notFound();
+
+  // Related articles give crawlers and readers a path between posts.
+  const related = (await getPosts(true).catch(() => []))
+    .filter((p) => p.slug !== slug && p.contentEn?.trim())
+    .slice(0, 3);
 
   const title = post.titleEn || post.titleId || "";
   const excerpt = post.excerptEn || post.excerptId || "";
@@ -132,41 +141,117 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {content && (
           <div
-            className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-a:text-green-700 prose-strong:text-gray-900"
+            className="article-content"
             dangerouslySetInnerHTML={{ __html: markdownToHtml(content) }}
           />
         )}
 
-        <div className="mt-12 pt-8 border-t border-gray-100 text-center">
-          <p className="text-gray-600 mb-4">Interested in Hunay products?</p>
-          <a
-            href="https://api.whatsapp.com/send/?phone=6285233658619&text=Hello+Hunay,+I+would+like+to+order&type=phone_number"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-green-700 text-white px-8 py-3 rounded-full font-medium hover:bg-green-800 transition"
-          >
-            Order via WhatsApp
-          </a>
+        <div className="mt-12 rounded-2xl bg-green-50 p-8 text-center">
+          <p className="text-xl font-bold text-gray-900 mb-2">Buying fried shallots for your business?</p>
+          <p className="text-gray-600 mb-6">Request samples, specs and a quotation. We reply in English.</p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/wholesale#quote"
+              className="inline-block bg-green-700 text-white px-8 py-3 rounded-full font-medium hover:bg-green-800 transition"
+            >
+              Request a Quote
+            </Link>
+            <a
+              href="https://api.whatsapp.com/send/?phone=6285233658619&text=Hello+Hunay,+I+would+like+to+order&type=phone_number"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block border border-green-700 text-green-700 px-8 py-3 rounded-full font-medium hover:bg-green-100 transition"
+            >
+              Chat on WhatsApp
+            </a>
+          </div>
         </div>
+
+        {related.length > 0 && (
+          <section className="mt-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">More Articles</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {related.map((p) => (
+                <Link
+                  key={p.id}
+                  href={`/blog/${p.slug}`}
+                  className="rounded-xl border border-gray-100 p-4 hover:border-green-600 hover:shadow-sm transition"
+                >
+                  <p className="font-semibold text-gray-900 line-clamp-3">{p.titleEn || p.titleId}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
 }
 
-function markdownToHtml(md: string): string {
-  return md
-    .replace(/^### (.+)/gm, "<h3>$1</h3>")
-    .replace(/^## (.+)/gm, "<h2>$1</h2>")
-    .replace(/^# (.+)/gm, "<h1>$1</h1>")
+function inline(text: string): string {
+  return text
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-    .replace(/^> (.+)/gm, "<blockquote>$1</blockquote>")
-    .replace(/^---$/gm, "<hr />")
-    .replace(/^- (.+)/gm, "<li>$1</li>")
-    .replace(/(<li>[\s\S]*?<\/li>)/g, "<ul>$1</ul>")
-    .replace(/^\d+\. (.+)/gm, "<li>$1</li>")
-    .replace(/\n\n/g, "</p><p>")
-    .replace(/^(?!<[hbuliop])/gm, "")
-    .replace(/^(.+)$/s, "<p>$1</p>");
+    .replace(/\[(.+?)\]\((.+?)\)/g, (_, label: string, href: string) =>
+      href.startsWith("/") || href.startsWith("#")
+        ? `<a href="${href}">${label}</a>`
+        : `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`
+    );
+}
+
+function tableRow(line: string, cell: "th" | "td"): string {
+  const cells = line.trim().replace(/^\||\|$/g, "").split("|");
+  return `<tr>${cells.map((c) => `<${cell}>${inline(c.trim())}</${cell}>`).join("")}</tr>`;
+}
+
+// Block-level markdown: headings, lists, tables, quotes, rules and paragraphs.
+function markdownToHtml(md: string): string {
+  const html: string[] = [];
+  const lines = md.replace(/\r\n/g, "\n").split("\n");
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
+
+    if (!line.trim()) {
+      i++;
+    } else if (/^#{1,3} /.test(line)) {
+      const level = line.match(/^#+/)![0].length;
+      html.push(`<h${level}>${inline(line.slice(level + 1))}</h${level}>`);
+      i++;
+    } else if (/^---+$/.test(line.trim())) {
+      html.push("<hr />");
+      i++;
+    } else if (line.trim().startsWith("|")) {
+      const rows: string[] = [];
+      while (i < lines.length && lines[i].trim().startsWith("|")) rows.push(lines[i++]);
+      const body = rows.slice(2).map((r) => tableRow(r, "td")).join("");
+      html.push(`<div class="table-wrap"><table><thead>${tableRow(rows[0], "th")}</thead><tbody>${body}</tbody></table></div>`);
+    } else if (/^[-*] /.test(line)) {
+      const items: string[] = [];
+      while (i < lines.length && /^[-*] /.test(lines[i])) items.push(`<li>${inline(lines[i++].slice(2))}</li>`);
+      html.push(`<ul>${items.join("")}</ul>`);
+    } else if (/^\d+\. /.test(line)) {
+      const items: string[] = [];
+      while (i < lines.length && /^\d+\. /.test(lines[i])) items.push(`<li>${inline(lines[i++].replace(/^\d+\. /, ""))}</li>`);
+      html.push(`<ol>${items.join("")}</ol>`);
+    } else if (line.startsWith("> ")) {
+      const quote: string[] = [];
+      while (i < lines.length && lines[i].startsWith("> ")) quote.push(inline(lines[i++].slice(2)));
+      html.push(`<blockquote>${quote.join("<br />")}</blockquote>`);
+    } else {
+      const para: string[] = [];
+      while (
+        i < lines.length &&
+        lines[i].trim() &&
+        !/^(#{1,3} |[-*] |\d+\. |> |\|)/.test(lines[i]) &&
+        !/^---+$/.test(lines[i].trim())
+      ) {
+        para.push(inline(lines[i++]));
+      }
+      html.push(`<p>${para.join(" ")}</p>`);
+    }
+  }
+
+  return html.join("\n");
 }

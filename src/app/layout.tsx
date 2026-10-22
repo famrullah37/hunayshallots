@@ -24,8 +24,8 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Hunay — Premium Fried Onions & Fried Shallots | Export Quality from Probolinggo, Indonesia",
-    template: "%s | Hunay Premium Fried Onions",
+    default: "Hunay Fried Shallots — Halal Export Supplier from Indonesia",
+    template: "%s | Hunay",
   },
   description:
     "Hunay produces premium export-quality fried onions and fried shallots (bawang goreng) from Probolinggo, Indonesia. Made from biru lancor variety, Halal MUI certified, no preservatives. Trusted by Japan, South Korea, Canada & Singapore importers. Order wholesale via WhatsApp.",
