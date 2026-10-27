@@ -2,7 +2,7 @@ import { getPostBySlug, getPosts } from "@/actions/blog";
 import Image from "next/image";
 import { cache } from "react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
@@ -58,6 +58,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post || !post.isPublished) notFound();
+  // Indonesian-only posts live on bawanghunay.com; send visitors and link equity there.
+  if (!post.contentEn?.trim()) permanentRedirect(`https://bawanghunay.com/blog/${slug}`);
 
   // Related articles give crawlers and readers a path between posts.
   const related = (await getPosts(true).catch(() => []))

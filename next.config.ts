@@ -8,6 +8,13 @@ const nextConfig: NextConfig = {
     return [
       { source: "/produk", destination: "/products", permanent: true },
       { source: "/produk/:slug*", destination: "/products/:slug*", permanent: true },
+      // Old Indonesian toggle; the Indonesian site is now bawanghunay.com.
+      {
+        source: "/",
+        has: [{ type: "query", key: "lang", value: "id" }],
+        destination: "https://bawanghunay.com/",
+        permanent: true,
+      },
     ];
   },
   images: {
