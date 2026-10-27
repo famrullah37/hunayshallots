@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { redis } from "@/lib/redis";
 import { requireAdmin } from "@/actions/auth";
+import { sendInquiryNotification } from "@/lib/mail";
 
 export type InquiryState = { ok: boolean; error?: string };
 
@@ -65,6 +66,15 @@ export async function submitInquiry(_prev: InquiryState, formData: FormData): Pr
   } catch (err) {
     console.error("[inquiry] save failed", err);
     return { ok: false, error: "server" };
+  }
+
+  // The lead is already saved; a mail failure must not fail the form for the buyer.
+  try {
+    await sendInquiryNotification({
+      name, company, email, phone, country, product, volume, packaging, message, sourcePage,
+    });
+  } catch (err) {
+    console.error("[inquiry] notification email failed", err);
   }
 
   return { ok: true };
