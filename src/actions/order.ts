@@ -5,7 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { redis } from "@/lib/redis";
 import { requireTeam } from "@/actions/auth";
 import { revalidatePath } from "next/cache";
-import { isStatus } from "@/lib/status";
+import { isStatus, LOCAL_STATUSES } from "@/lib/status";
+import { setLocalOrderStatus } from "@/lib/bawanghunay";
 
 export type OrderItemInput = { id: string; name: string; quantity: number; price: number; weight: number };
 
@@ -95,6 +96,16 @@ export async function updateOrderStatus(id: string, status: string) {
     where: { id },
     data: { status, handledBy: status === "new" ? null : user.name },
   });
+  revalidatePath("/admin/orders");
+  revalidatePath("/admin");
+}
+
+// Orders from bawanghunay.com live in that site's own storage; update them through its internal API.
+export async function updateLocalOrderStatus(id: string, status: string) {
+  const user = await requireTeam();
+  if (!LOCAL_STATUSES.some((s) => s.value === status)) return;
+  const ok = await setLocalOrderStatus(id, status, user.name);
+  if (!ok) throw new Error("Gagal mengubah status pesanan bawanghunay.com");
   revalidatePath("/admin/orders");
   revalidatePath("/admin");
 }

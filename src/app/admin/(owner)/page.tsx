@@ -3,17 +3,22 @@ import { getProducts } from "@/actions/products";
 import { getPosts } from "@/actions/blog";
 import { getInquiries } from "@/actions/inquiry";
 import { getOrders } from "@/actions/order";
+import { fetchLocalOrders } from "@/lib/bawanghunay";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Dashboard | Hunay Admin" };
 
 export default async function AdminDashboard() {
-  const [products, posts, inquiries, orders] = await Promise.all([
+  const [products, posts, inquiries, orders, localOrders] = await Promise.all([
     getProducts().catch(() => []),
     getPosts().catch(() => []),
     getInquiries().catch(() => []),
     getOrders().catch(() => []),
+    fetchLocalOrders(),
   ]);
+  const allOrders = orders.length + (localOrders?.length ?? 0);
+  const newOrders =
+    orders.filter((o) => o.status === "new").length + (localOrders ?? []).filter((o) => o.status === "baru").length;
 
   const activeProducts = products.filter((p) => p.isActive).length;
   const publishedPosts = posts.filter((p) => p.isPublished).length;
@@ -30,8 +35,8 @@ export default async function AdminDashboard() {
         />
         <QuickLink
           href="/admin/orders"
-          title={`Pesanan Retail (${orders.filter((o) => o.status === "new").length} baru / ${orders.length})`}
-          desc="Pesanan dari keranjang via WhatsApp"
+          title={`Pesanan (${newOrders} baru / ${allOrders})`}
+          desc="hunayshallots.com + bawanghunay.com"
           icon="🧾"
         />
       </div>
