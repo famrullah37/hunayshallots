@@ -1,6 +1,9 @@
 import { Building2, ShoppingBasket, Truck, UtensilsCrossed } from "lucide-react";
+import { AU, CA, JP, KR, SG, US } from "country-flag-icons/react/3x2";
 import SectionHeading from "@/components/SectionHeading";
 import { MARKETS } from "@/lib/company";
+
+const FLAGS = { AU, CA, JP, KR, SG, US };
 
 const PARTNERS = [
   { icon: Truck, title: "Importers", desc: "Container and consolidated shipments with export documents." },
@@ -23,12 +26,15 @@ export default function ExportSection() {
           />
 
           <div className="mb-16 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {MARKETS.map((m) => (
-              <div key={m.name} className="rounded-2xl bg-white/5 p-5 text-center ring-1 ring-white/10">
-                <div className="mb-2 text-4xl" aria-hidden="true">{m.flag}</div>
-                <div className="font-semibold text-white">{m.name}</div>
-              </div>
-            ))}
+            {MARKETS.map((m) => {
+              const Flag = FLAGS[m.code];
+              return (
+                <div key={m.name} className="rounded-2xl bg-white/5 p-5 text-center ring-1 ring-white/10">
+                  <Flag aria-hidden="true" className="mx-auto mb-3 h-8 w-12 rounded-sm shadow ring-1 ring-white/20" />
+                  <div className="font-semibold text-white">{m.name}</div>
+                </div>
+              );
+            })}
           </div>
 
           <h3 className="mb-8 text-center text-2xl font-bold text-white">Global Partnership Opportunities</h3>

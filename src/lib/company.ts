@@ -15,11 +15,13 @@ export const CERTIFICATES = [
   { name: "FDA", image: "/fda.png" },
 ];
 
+// ISO country codes: flags are rendered as SVG from country-flag-icons, because
+// Windows does not render flag emoji (it shows the letters "JP", "KR", ...).
 export const MARKETS = [
-  { name: "Japan", flag: "🇯🇵" },
-  { name: "South Korea", flag: "🇰🇷" },
-  { name: "Canada", flag: "🇨🇦" },
-  { name: "Singapore", flag: "🇸🇬" },
-  { name: "United States", flag: "🇺🇸" },
-  { name: "Australia", flag: "🇦🇺" },
-];
+  { name: "Japan", code: "JP" },
+  { name: "South Korea", code: "KR" },
+  { name: "Canada", code: "CA" },
+  { name: "Singapore", code: "SG" },
+  { name: "United States", code: "US" },
+  { name: "Australia", code: "AU" },
+] as const;
