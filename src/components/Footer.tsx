@@ -25,6 +25,11 @@ export default function Footer() {
               />
             </Link>
             <p className="text-gray-400 my-4">{t("footer.tagline")}</p>
+            <nav className="flex flex-col gap-2 text-gray-400">
+              <Link href="/products" className="hover:text-golden-yellow transition">Products</Link>
+              <Link href="/wholesale" className="hover:text-golden-yellow transition">Wholesale &amp; Export</Link>
+              <Link href="/blog" className="hover:text-golden-yellow transition">Blog &amp; Articles</Link>
+            </nav>
           </div>
 
           {/* Contact Info */}
