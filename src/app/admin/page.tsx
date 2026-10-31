@@ -1,14 +1,18 @@
 import Link from "next/link";
 import { getProducts } from "@/actions/products";
 import { getPosts } from "@/actions/blog";
+import { getInquiries } from "@/actions/inquiry";
+import { getOrders } from "@/actions/order";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Dashboard | Hunay Admin" };
 
 export default async function AdminDashboard() {
-  const [products, posts] = await Promise.all([
+  const [products, posts, inquiries, orders] = await Promise.all([
     getProducts().catch(() => []),
     getPosts().catch(() => []),
+    getInquiries().catch(() => []),
+    getOrders().catch(() => []),
   ]);
 
   const activeProducts = products.filter((p) => p.isActive).length;
@@ -17,6 +21,20 @@ export default async function AdminDashboard() {
   return (
     <div>
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Dashboard</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <QuickLink
+          href="/admin/inquiries"
+          title={`Permintaan Penawaran (${inquiries.length})`}
+          desc="Inquiry B2B dari importir & distributor"
+          icon="📨"
+        />
+        <QuickLink
+          href="/admin/orders"
+          title={`Pesanan Retail (${orders.length})`}
+          desc="Pesanan dari keranjang via WhatsApp"
+          icon="🧾"
+        />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <StatCard label="Total Produk" value={products.length} color="green" />
         <StatCard label="Produk Aktif" value={activeProducts} color="blue" />

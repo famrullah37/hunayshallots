@@ -85,3 +85,24 @@ model Inquiry {
   @@index([createdAt])
   @@map("inquiries")
 }
+
+// Retail cart orders. Saved when the buyer taps "Order via WhatsApp" on /cart;
+// payment and final shipping are still settled manually in WhatsApp.
+model Order {
+  id               String   @id @default(cuid())
+  customerName     String   @map("customer_name")
+  whatsapp         String
+  address          String   @db.Text
+  country          String
+  notes            String?  @db.Text
+  // [{ id, name, quantity, price, weight }] — prices in IDR as shown at checkout
+  items            Json
+  totalWeight      Int      @map("total_weight")
+  subtotal         Int
+  shippingEstimate Int?     @map("shipping_estimate")
+  status           String   @default("new")
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("orders")
+}

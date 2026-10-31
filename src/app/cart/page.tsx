@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { submitOrder } from "@/actions/order";
 
 const WHATSAPP_NUMBER = "6285233658619";
 
@@ -53,13 +54,8 @@ export default function CartPage() {
 
   const [form, setForm] = useState<ShippingForm>({ nama: "", noWA: "", alamat: "", catatan: "", country: "" });
   const [errors, setErrors] = useState<Partial<Record<keyof ShippingForm, string>>>({});
-  const [intlEstimate, setIntlEstimate] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (!form.country) { setIntlEstimate(null); return; }
-    const c = INTERNATIONAL_COUNTRIES.find(x => x.value === form.country);
-    if (c) setIntlEstimate(c.ratePerKg * (totalWeight / 1000));
-  }, [form.country, totalWeight]);
+  const selectedCountry = INTERNATIONAL_COUNTRIES.find(x => x.value === form.country);
+  const intlEstimate = selectedCountry ? selectedCountry.ratePerKg * (totalWeight / 1000) : null;
 
   const grandTotal = totalPrice + (intlEstimate ?? 0);
 
@@ -99,6 +95,26 @@ export default function CartPage() {
     const shippingInfo = `📋 *Shipping Info:*\nName: ${form.nama}\nWhatsApp: ${form.noWA}\nAddress: ${form.alamat}\nDestination Country: ${form.country}${form.catatan ? `\nNotes: ${form.catatan}` : ""}`;
 
     const message = `Hello Hunay! I'd like to order:\n\n${itemsList}\n\nTotal Weight: ${weightStr}\n${shippingLine}\n${totalLine}\n\n${shippingInfo}\n\nThank you! 🙏`;
+
+    // Record the order for /admin/orders. Not awaited: window.open must stay inside
+    // the click handler or browsers block the popup, and a failed save must not stop the order.
+    submitOrder({
+      customerName: form.nama,
+      whatsapp: form.noWA,
+      address: form.alamat,
+      country: form.country,
+      notes: form.catatan,
+      items: items.map((item) => ({
+        id: item.id,
+        name: item.nameEn,
+        quantity: item.quantity,
+        price: item.price,
+        weight: item.weight,
+      })),
+      totalWeight,
+      subtotal: totalPrice,
+      shippingEstimate: intlEstimate,
+    }).catch(() => {});
 
     window.open(`https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`, "_blank");
   };
