@@ -1,6 +1,6 @@
 "use server";
 
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { redis } from "@/lib/redis";
 import { prisma } from "@/lib/prisma";
@@ -24,6 +24,14 @@ function generateToken(): string {
   return crypto.randomBytes(32).toString("hex");
 }
 
+// Constant-time string compare; hashing first makes both sides the same length.
+function safeEqual(a: string, b: string | undefined): boolean {
+  if (!b) return false;
+  const ha = crypto.createHash("sha256").update(a).digest();
+  const hb = crypto.createHash("sha256").update(b).digest();
+  return crypto.timingSafeEqual(ha, hb);
+}
+
 function getRateLimitKey(ip: string) {
   return `ratelimit:admin:${ip}`;
 }
@@ -40,9 +48,12 @@ export async function loginAction(formData: FormData) {
   const username = String(formData.get("username") ?? "").trim();
   const password = String(formData.get("password") ?? "");
 
-  // Rate limiting: max 5 attempts per 15 min. If Redis is unreachable,
+  // Rate limiting: max 5 attempts per 15 min per IP. A single shared key let anyone
+  // lock the real admin out with a few wrong guesses. If Redis is unreachable,
   // skip rate limiting rather than crashing the whole login flow.
-  const rateLimitKey = getRateLimitKey("admin");
+  const h = await headers();
+  const ip = (h.get("x-forwarded-for") || h.get("x-real-ip") || "unknown").split(",")[0].trim();
+  const rateLimitKey = getRateLimitKey(ip);
   try {
     const attempts = await redis.incr(rateLimitKey);
     if (attempts === 1) {
@@ -60,7 +71,10 @@ export async function loginAction(formData: FormData) {
   let sessionValue: string | null = null;
   let role: Role = "admin";
 
-  if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
+  // Evaluate both so the response time doesn't reveal which one was wrong.
+  const ownerUser = safeEqual(username, process.env.ADMIN_USERNAME);
+  const ownerPass = safeEqual(password, process.env.ADMIN_PASSWORD);
+  if (ownerUser && ownerPass) {
     sessionValue = OWNER_SESSION;
   } else {
     const user = await prisma.adminUser.findUnique({ where: { username } }).catch(() => null);
