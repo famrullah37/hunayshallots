@@ -4,6 +4,9 @@ import { cache } from "react";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
@@ -42,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       publishedTime: post.publishedAt?.toISOString(),
       modifiedTime: post.updatedAt?.toISOString(),
       authors: [BASE_URL],
-      section: "Food & Lifestyle",
+      section: "Fried Shallot Buying Guides",
       tags: ["fried onion", "bawang goreng", "Hunay", "Indonesian food"],
     },
     twitter: {
@@ -114,8 +117,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <div className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <Header />
 
-      <div className="container mx-auto px-4 py-16 max-w-3xl">
+      <main className="container mx-auto px-4 pt-32 pb-20 max-w-3xl">
         {/* Breadcrumb */}
         <nav className="text-sm text-gray-400 mb-6 flex items-center gap-2">
           <Link href="/" className="hover:text-forest-green transition">Home</Link>
@@ -159,7 +163,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               Request a Quote
             </Link>
             <a
-              href="https://api.whatsapp.com/send/?phone=6285233658619&text=Hello+Hunay,+I+would+like+to+order&type=phone_number"
+              href="https://api.whatsapp.com/send/?phone=6285233658619&text=I+would+like+to+ask+about+wholesale+supply&type=phone_number"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block border border-green-700 text-green-700 px-8 py-3 rounded-full font-medium hover:bg-green-100 transition"
@@ -185,7 +189,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
           </section>
         )}
-      </div>
+      </main>
+      <Footer />
+      <WhatsAppFloat />
     </div>
   );
 }

@@ -2,16 +2,22 @@ import { getPosts } from "@/actions/blog";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
+const TITLE = "Fried Shallot Buying Guides & Export Insights";
+const DESCRIPTION =
+  "Guides for importers, distributors and food manufacturers buying fried shallots from Indonesia: sourcing, specifications, packaging, shelf life and recipes.";
+
 export const metadata: Metadata = {
-  title: "Fried Shallot Recipes & Buying Guides",
-  description:
-    "Tips, recipes, and stories about Hunay's premium fried onions from Probolinggo, Indonesia. Cooking tips, storage guides, and export insights.",
+  title: TITLE,
+  description: DESCRIPTION,
   keywords: [
-    "fried onion blog", "fried onion recipes", "fried onion cooking tips",
-    "hunay blog", "premium fried onion articles",
+    "fried shallot supplier", "import fried shallots from Indonesia", "fried shallot wholesale",
+    "bulk fried onions", "fried shallot specifications", "Hunay blog",
   ],
   alternates: {
     canonical: `${BASE_URL}/blog`,
@@ -20,14 +26,14 @@ export const metadata: Metadata = {
     type: "website",
     url: `${BASE_URL}/blog`,
     siteName: "Hunay Fried Onions",
-    title: "Fried Shallot Recipes & Buying Guides",
-    description: "Tips, recipes, and stories about Hunay's premium fried onions from Probolinggo.",
+    title: TITLE,
+    description: DESCRIPTION,
     images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Hunay Blog" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fried Shallot Recipes & Buying Guides",
-    description: "Tips, recipes, and stories about Hunay's premium fried onions.",
+    title: TITLE,
+    description: DESCRIPTION,
     images: [`${BASE_URL}/og-image.jpg`],
   },
 };
@@ -42,11 +48,15 @@ export default async function BlogPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-16 max-w-5xl">
+      <Header />
+      <main className="container mx-auto px-4 pt-32 pb-20 max-w-5xl">
         <div className="mb-10 text-center">
-          <Link href="/" className="text-sm text-green-700 hover:underline mb-4 inline-block">← Back to Home</Link>
-          <h1 className="text-4xl font-bold text-gray-900">Blog & Articles</h1>
-          <p className="text-gray-500 mt-2">Tips, recipes, and stories about Hunay&apos;s premium fried onions</p>
+          <p className="text-sm font-semibold uppercase tracking-wider text-forest-green mb-2">Hunay Blog</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Buying Guides &amp; Export Insights</h1>
+          <p className="text-gray-500 mt-3 max-w-2xl mx-auto">
+            Practical guides for importers, distributors and food manufacturers sourcing fried shallots
+            from Indonesia, plus recipes for your customers.
+          </p>
         </div>
 
         {posts.length === 0 ? (
@@ -88,7 +98,20 @@ export default async function BlogPage() {
             ))}
           </div>
         )}
-      </div>
+
+        <div className="mt-16 rounded-2xl bg-forest-green p-8 text-center text-white">
+          <p className="text-xl font-bold mb-2">Sourcing fried shallots for your business?</p>
+          <p className="text-white/80 mb-6">Get specifications, samples and an export quotation.</p>
+          <Link
+            href="/wholesale#quote"
+            className="inline-block rounded-full bg-golden-yellow px-8 py-3 font-bold text-gray-900 transition hover:bg-amber-400"
+          >
+            Request a Quote
+          </Link>
+        </div>
+      </main>
+      <Footer />
+      <WhatsAppFloat />
     </div>
   );
 }
