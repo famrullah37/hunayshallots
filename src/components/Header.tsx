@@ -53,14 +53,12 @@ export default function Header() {
             )}
           </Link>
 
-          <a
-            href="https://linktr.ee/hunaybawanggoreng?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnNMCOOLVAOcBihTLFe1HZkVGetZ5mjYLtKEuaYUMvkVbZ1rlcmytu4M3oQYM_aem_KzN7PxybTFJ5y1HlWXYmtA"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/#quotation"
             className="bg-forest-green text-white px-6 py-2 rounded-full hover:bg-green-700 transition"
           >
-            {t("nav.buyNow")}
-          </a>
+            Request a Quote
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -128,14 +126,13 @@ export default function Header() {
                 </svg>
                 Cart {totalItems > 0 && <span className="bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">{totalItems}</span>}
               </Link>
-              <a
-                href="https://api.whatsapp.com/send/?phone=6285233658619&text&type=phone_number&app_absent=0"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/#quotation"
+                onClick={() => setIsMenuOpen(false)}
                 className="bg-forest-green text-white px-6 py-2 rounded-full hover:bg-green-700 transition text-center"
               >
-                {t("nav.buyNow")}
-              </a>
+                Request a Quote
+              </Link>
             </nav>
           </motion.div>
         )}
