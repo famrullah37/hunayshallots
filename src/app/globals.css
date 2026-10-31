@@ -39,9 +39,11 @@ h6 {
   font-weight: 700;
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling. scroll-padding-top keeps anchor targets (#tentang-kami,
+   #sertifikat, #quotation...) clear of the fixed header (~112px tall). */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 7.5rem;
 }
 
 /* Marquee Animation */

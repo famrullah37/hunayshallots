@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCart } from "@/contexts/CartContext";
@@ -11,6 +12,37 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useLanguage();
   const { totalItems } = useCart();
+  const pathname = usePathname();
+
+  const navLinks = [
+    { href: "/#tentang-kami", label: t("nav.about") },
+    { href: "/products", label: t("nav.products") },
+    { href: "/wholesale", label: "Wholesale" },
+    { href: "/blog", label: "Blog" },
+    { href: "/#sertifikat", label: t("nav.certificate") },
+    { href: "/#kontak", label: t("nav.contact") },
+  ];
+
+  // On the homepage, scroll to the section ourselves: a <Link> to the hash the URL
+  // already has (e.g. clicking "About Us" twice) does nothing.
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    const menuWasOpen = isMenuOpen;
+    setIsMenuOpen(false);
+    if (pathname !== "/" || !href.startsWith("/#")) return;
+    const target = document.getElementById(href.slice(2));
+    if (!target) return;
+    e.preventDefault();
+    window.history.replaceState(null, "", href);
+    // On mobile the menu's closing animation (0.3s) cancels a smooth scroll started
+    // at the same time, so wait for it, then scroll to just below the fixed header.
+    const scroll = () => {
+      const header = document.querySelector("header")?.getBoundingClientRect().height ?? 0;
+      const top = target.getBoundingClientRect().top + window.scrollY - header - 8;
+      window.scrollTo({ top, behavior: "smooth" });
+    };
+    if (menuWasOpen) setTimeout(scroll, 350);
+    else scroll();
+  };
 
   return (
     <motion.header
@@ -30,18 +62,23 @@ export default function Header() {
           />
         </Link>
 
-        {/* Desktop Navigation - Centered */}
-        <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
-          <Link href="/#tentang-kami" className="text-gray-700 hover:text-forest-green transition">{t("nav.about")}</Link>
-          <Link href="/products" className="text-gray-700 hover:text-forest-green transition">{t("nav.products")}</Link>
-          <Link href="/wholesale" className="text-gray-700 hover:text-forest-green transition">Wholesale</Link>
-          <Link href="/blog" className="text-gray-700 hover:text-forest-green transition">Blog</Link>
-          <Link href="/#sertifikat" className="text-gray-700 hover:text-forest-green transition">{t("nav.certificate")}</Link>
-          <Link href="/#kontak" className="text-gray-700 hover:text-forest-green transition">{t("nav.contact")}</Link>
+        {/* Desktop Navigation: in the flex flow (not absolutely centered) so it can't
+            overlap the logo or the CTA; the hamburger menu takes over below lg. */}
+        <nav className="hidden lg:flex flex-1 items-center justify-center gap-6 xl:gap-8 px-6">
+          {navLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={(e) => handleNavClick(e, l.href)}
+              className="whitespace-nowrap text-gray-700 hover:text-forest-green transition"
+            >
+              {l.label}
+            </Link>
+          ))}
         </nav>
 
         {/* CTA Button - Right Side */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4">
           <Link href="/cart" className="relative p-2 text-gray-700 hover:text-forest-green transition" aria-label="Cart">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.4 7h12.8M7 13L5.4 5M10 21a1 1 0 100-2 1 1 0 000 2zm7 0a1 1 0 100-2 1 1 0 000 2z" />
@@ -55,7 +92,8 @@ export default function Header() {
 
           <Link
             href="/#quotation"
-            className="bg-forest-green text-white px-6 py-2 rounded-full hover:bg-green-700 transition"
+            onClick={(e) => handleNavClick(e, "/#quotation")}
+            className="whitespace-nowrap bg-forest-green text-white px-6 py-2 rounded-full hover:bg-green-700 transition"
           >
             Request a Quote
           </Link>
@@ -64,7 +102,7 @@ export default function Header() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-2 text-gray-700"
+          className="lg:hidden p-2 text-gray-700"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? (
@@ -107,15 +145,19 @@ export default function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white border-t border-gray-200 overflow-hidden"
+            className="lg:hidden bg-white border-t border-gray-200 overflow-hidden"
           >
             <nav className="flex flex-col space-y-4 px-4 py-4">
-              <Link href="/#tentang-kami" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.about")}</Link>
-              <Link href="/products" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.products")}</Link>
-              <Link href="/wholesale" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">Wholesale</Link>
-              <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">Blog</Link>
-              <Link href="/#sertifikat" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.certificate")}</Link>
-              <Link href="/#kontak" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-forest-green transition">{t("nav.contact")}</Link>
+              {navLinks.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={(e) => handleNavClick(e, l.href)}
+                  className="text-gray-700 hover:text-forest-green transition"
+                >
+                  {l.label}
+                </Link>
+              ))}
               <Link
                 href="/cart"
                 onClick={() => setIsMenuOpen(false)}
@@ -128,7 +170,7 @@ export default function Header() {
               </Link>
               <Link
                 href="/#quotation"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, "/#quotation")}
                 className="bg-forest-green text-white px-6 py-2 rounded-full hover:bg-green-700 transition text-center"
               >
                 Request a Quote
