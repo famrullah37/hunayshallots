@@ -21,9 +21,23 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com"
 // prerender would bake in an empty list until the first revalidation.
 export const dynamic = "force-dynamic";
 
+const TITLE = "Fried Shallots Manufacturer & Exporter from Indonesia";
+const DESCRIPTION =
+  "Manufacturer & exporter of fried shallots, fried garlic and sambal from Indonesia. Halal, HACCP, ISO 9001. Bulk, OEM & private label. Request a quote.";
+
 // Canonical & hreflang khusus homepage — jangan di root layout,
 // karena akan diwarisi semua halaman dan membuat Google menganggapnya duplikat homepage
 export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    type: "website",
+    url: BASE_URL,
+    siteName: "Hunay Fried Onions",
+    title: `${TITLE} | Hunay`,
+    description: DESCRIPTION,
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Hunay premium fried shallots — export quality from Indonesia" }],
+  },
   alternates: {
     canonical: BASE_URL,
     languages: {
@@ -41,12 +55,11 @@ const webPageSchema = {
   "@type": "WebPage",
   "@id": `${BASE_URL}/#webpage`,
   url: BASE_URL,
-  name: "Hunay — Premium Fried Onions & Fried Shallots | Export Quality from Probolinggo",
+  name: `${TITLE} | Hunay`,
   inLanguage: "en",
   isPartOf: { "@id": `${BASE_URL}/#website` },
   about: { "@id": `${BASE_URL}/#organization` },
-  description:
-    "Premium crispy fried shallots and fried garlic from Probolinggo, Indonesia. Halal MUI certified, no preservatives, biru lancor variety. Bulk supply, private label and export to importers and distributors worldwide.",
+  description: DESCRIPTION,
   primaryImageOfPage: { "@type": "ImageObject", url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630 },
 };
 

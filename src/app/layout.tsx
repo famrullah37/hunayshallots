@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Hunay",
   },
   description:
-    "Hunay produces premium export-quality fried onions and fried shallots (bawang goreng) from Probolinggo, Indonesia. Made from biru lancor variety, Halal MUI certified, no preservatives. Trusted by Japan, South Korea, Canada & Singapore importers. Order wholesale via WhatsApp.",
+    "Hunay produces premium export-quality fried onions and fried shallots (bawang goreng) from Probolinggo, Indonesia. Made from biru lancor variety, Halal MUI certified, no preservatives. Exported to Japan, South Korea, Canada, Singapore, USA & Australia. Bulk supply, OEM and private label.",
   keywords: [
     "fried shallots", "fried onions", "crispy fried shallots", "Indonesian fried shallots",
     "fried shallot supplier", "fried shallot manufacturer Indonesia", "wholesale fried shallots",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     siteName: "Hunay Fried Onions",
     title: "Hunay — Premium Fried Onions from Probolinggo, Indonesia",
     description:
-      "Export-quality fried onions and fried shallots. Halal MUI certified, no preservatives. Made from biru lancor variety. Trusted exporter to Japan, South Korea, Canada & Singapore. Wholesale orders welcome.",
+      "Export-quality fried onions and fried shallots. Halal MUI certified, no preservatives. Made from biru lancor variety. Exported to Japan, South Korea, Canada, Singapore, USA & Australia. Bulk, OEM and private label.",
     images: [
       {
         url: "/og-image.jpg",
@@ -57,8 +57,8 @@ export const metadata: Metadata = {
       },
       {
         url: "/hero-hunay.jpg",
-        width: 1200,
-        height: 800,
+        width: 1100,
+        height: 1100,
         alt: "Hunay Fried Shallots — Crispy, Halal, No Preservatives",
       },
     ],
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hunay — Premium Fried Onions | Export Quality from Indonesia",
     description:
-      "Crispy, halal, no preservatives. Made from biru lancor shallots in Probolinggo. Exported to Japan, South Korea, Canada & Singapore.",
+      "Crispy, halal, no preservatives. Made from biru lancor shallots in Probolinggo. Exported to Japan, South Korea, Canada, Singapore, USA & Australia.",
     images: ["/og-image.jpg"],
   },
   robots: {

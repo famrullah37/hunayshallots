@@ -11,10 +11,10 @@ export default function HeroSection() {
             <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-forest-green/10 px-4 py-2 text-sm font-semibold text-forest-green">
               Manufacturer &amp; Exporter · Probolinggo, Indonesia · Since {FOUNDED_YEAR}
             </p>
-            <h1 className="mb-6 text-4xl font-bold leading-tight text-gray-900 md:text-5xl lg:text-6xl">
+            <h1 className="hero-title mb-6 text-4xl font-bold leading-tight text-gray-900 md:text-5xl lg:text-6xl">
               Premium Fried Shallots, <span className="text-forest-green">Made for Global Kitchens</span>
             </h1>
-            <p className="mb-8 max-w-xl text-lg leading-relaxed text-gray-700">
+            <p className="hero-description mb-8 max-w-xl text-lg leading-relaxed text-gray-700">
               Crispy fried shallots, fried garlic and sambal from biru lancor shallots — no preservatives,
               Halal MUI and HACCP certified. Bulk supply, OEM and private label for importers and distributors.
             </p>
