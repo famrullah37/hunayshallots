@@ -7,7 +7,9 @@ import { getProducts } from "@/actions/products";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
-export const revalidate = 3600;
+// Rendered per request: the Docker build has no database, so a build-time
+// prerender would bake in an empty list until the first revalidation.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Fried Shallots, Fried Garlic & Sambal — All Products",

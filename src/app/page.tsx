@@ -17,7 +17,9 @@ import { getPosts } from "@/actions/blog";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
-export const revalidate = 3600;
+// Rendered per request: the Docker build has no database, so a build-time
+// prerender would bake in an empty list until the first revalidation.
+export const dynamic = "force-dynamic";
 
 // Canonical & hreflang khusus homepage — jangan di root layout,
 // karena akan diwarisi semua halaman dan membuat Google menganggapnya duplikat homepage
@@ -51,7 +53,8 @@ const webPageSchema = {
 export default async function Home() {
   const [galleryVideos, posts] = await Promise.all([
     getGalleryVideos(),
-    getPosts(true).then((p) => p.slice(0, 3)).catch(() => []),
+    // Same rule as /blog: English-only domain, so skip posts without English content.
+    getPosts(true).then((p) => p.filter((post) => post.contentEn?.trim()).slice(0, 3)).catch(() => []),
   ]);
 
   return (

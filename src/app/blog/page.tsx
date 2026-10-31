@@ -32,7 +32,9 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 3600;
+// Rendered per request: the Docker build has no database, so a build-time
+// prerender would bake in an empty list until the first revalidation.
+export const dynamic = "force-dynamic";
 
 export default async function BlogPage() {
   // English-only domain: list only posts that actually have English content.
