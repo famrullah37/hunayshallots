@@ -3,7 +3,9 @@
 import { headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { redis } from "@/lib/redis";
-import { requireAdmin } from "@/actions/auth";
+import { requireTeam } from "@/actions/auth";
+import { revalidatePath } from "next/cache";
+import { isStatus } from "@/lib/status";
 
 export type OrderItemInput = { id: string; name: string; quantity: number; price: number; weight: number };
 
@@ -82,6 +84,17 @@ export async function submitOrder(input: OrderInput): Promise<{ ok: boolean }> {
 }
 
 export async function getOrders() {
-  await requireAdmin();
+  await requireTeam();
   return prisma.order.findMany({ orderBy: { createdAt: "desc" }, take: 500 });
+}
+
+export async function updateOrderStatus(id: string, status: string) {
+  const user = await requireTeam();
+  if (!isStatus(status)) return;
+  await prisma.order.update({
+    where: { id },
+    data: { status, handledBy: status === "new" ? null : user.name },
+  });
+  revalidatePath("/admin/orders");
+  revalidatePath("/admin");
 }

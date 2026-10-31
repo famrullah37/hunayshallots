@@ -1,14 +1,19 @@
-import { getInquiries } from "@/actions/inquiry";
+import { getInquiries, updateInquiryStatus } from "@/actions/inquiry";
+import StatusSelect from "@/components/admin/StatusSelect";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Permintaan Penawaran | Hunay Admin" };
 
 export default async function AdminInquiriesPage() {
   const inquiries = await getInquiries().catch(() => []);
+  const newCount = inquiries.filter((q) => q.status === "new").length;
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Permintaan Penawaran Ekspor ({inquiries.length})</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">
+        Permintaan Penawaran Ekspor ({inquiries.length})
+        {newCount > 0 && <span className="ml-2 text-base font-semibold text-red-600">· {newCount} baru</span>}
+      </h1>
       {inquiries.length === 0 ? (
         <div className="bg-white rounded-xl border border-gray-200 p-12 text-center text-gray-500">
           Belum ada permintaan penawaran.
@@ -21,10 +26,13 @@ export default async function AdminInquiriesPage() {
                 <h2 className="font-bold text-gray-900">
                   {q.company} <span className="font-normal text-gray-500">— {q.name}, {q.country}</span>
                 </h2>
-                <span className="text-xs text-gray-400">
-                  {q.createdAt.toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" })}
-                  {q.sourcePage ? ` · ${q.sourcePage}` : ""}
-                </span>
+                <div className="flex items-center gap-3">
+                  <StatusSelect status={q.status} handledBy={q.handledBy} onChange={updateInquiryStatus.bind(null, q.id)} />
+                  <span className="text-xs text-gray-400">
+                    {q.createdAt.toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" })}
+                    {q.sourcePage ? ` · ${q.sourcePage}` : ""}
+                  </span>
+                </div>
               </div>
               <dl className="grid grid-cols-1 md:grid-cols-4 gap-2 text-sm">
                 <div><dt className="text-gray-400">Email</dt><dd><a href={`mailto:${q.email}`} className="text-green-700 underline">{q.email}</a></dd></div>

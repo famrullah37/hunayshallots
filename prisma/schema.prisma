@@ -80,6 +80,7 @@ model Inquiry {
   message     String?  @db.Text
   sourcePage  String?  @map("source_page")
   status      String   @default("new")
+  handledBy   String?  @map("handled_by")
   createdAt   DateTime @default(now()) @map("created_at")
 
   @@index([createdAt])
@@ -101,8 +102,23 @@ model Order {
   subtotal         Int
   shippingEstimate Int?     @map("shipping_estimate")
   status           String   @default("new")
+  handledBy        String?  @map("handled_by")
   createdAt        DateTime @default(now()) @map("created_at")
 
   @@index([createdAt])
   @@map("orders")
+}
+
+// Team accounts for /admin. The owner account from ADMIN_USERNAME/ADMIN_PASSWORD
+// is not stored here and always has the "admin" role.
+model AdminUser {
+  id           String   @id @default(cuid())
+  name         String
+  username     String   @unique
+  passwordHash String   @map("password_hash")
+  role         String   @default("produksi") // "admin" | "produksi"
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("admin_users")
 }

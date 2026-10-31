@@ -1,4 +1,5 @@
-import { getOrders } from "@/actions/order";
+import { getOrders, updateOrderStatus } from "@/actions/order";
+import StatusSelect from "@/components/admin/StatusSelect";
 import type { OrderItemInput } from "@/actions/order";
 
 export const dynamic = "force-dynamic";
@@ -9,10 +10,14 @@ const weight = (g: number) => (g >= 1000 ? `${(g / 1000).toFixed(2)} kg` : `${g}
 
 export default async function AdminOrdersPage() {
   const orders = await getOrders().catch(() => []);
+  const newCount = orders.filter((o) => o.status === "new").length;
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">Pesanan Retail ({orders.length})</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-2">
+        Pesanan Retail ({orders.length})
+        {newCount > 0 && <span className="ml-2 text-base font-semibold text-red-600">· {newCount} baru</span>}
+      </h1>
       <p className="text-sm text-gray-500 mb-6">
         Tercatat saat pembeli menekan tombol order WhatsApp di keranjang. Pembayaran dan ongkir final tetap dikonfirmasi di WhatsApp.
       </p>
@@ -31,9 +36,12 @@ export default async function AdminOrdersPage() {
                   <h2 className="font-bold text-gray-900">
                     {o.customerName} <span className="font-normal text-gray-500">— {o.country}</span>
                   </h2>
-                  <span className="text-xs text-gray-400">
-                    {o.createdAt.toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" })}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <StatusSelect status={o.status} handledBy={o.handledBy} onChange={updateOrderStatus.bind(null, o.id)} />
+                    <span className="text-xs text-gray-400">
+                      {o.createdAt.toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" })}
+                    </span>
+                  </div>
                 </div>
 
                 <table className="w-full text-sm mb-3">

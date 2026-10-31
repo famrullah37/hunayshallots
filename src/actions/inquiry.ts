@@ -3,7 +3,9 @@
 import { headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { redis } from "@/lib/redis";
-import { requireAdmin } from "@/actions/auth";
+import { requireTeam } from "@/actions/auth";
+import { revalidatePath } from "next/cache";
+import { isStatus } from "@/lib/status";
 import { sendInquiryNotification } from "@/lib/mail";
 
 export type InquiryState = { ok: boolean; error?: string };
@@ -81,6 +83,17 @@ export async function submitInquiry(_prev: InquiryState, formData: FormData): Pr
 }
 
 export async function getInquiries() {
-  await requireAdmin();
+  await requireTeam();
   return prisma.inquiry.findMany({ orderBy: { createdAt: "desc" }, take: 500 });
+}
+
+export async function updateInquiryStatus(id: string, status: string) {
+  const user = await requireTeam();
+  if (!isStatus(status)) return;
+  await prisma.inquiry.update({
+    where: { id },
+    data: { status, handledBy: status === "new" ? null : user.name },
+  });
+  revalidatePath("/admin/inquiries");
+  revalidatePath("/admin");
 }

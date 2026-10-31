@@ -24,13 +24,13 @@ export default async function AdminDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         <QuickLink
           href="/admin/inquiries"
-          title={`Permintaan Penawaran (${inquiries.length})`}
+          title={`Permintaan Penawaran (${inquiries.filter((q) => q.status === "new").length} baru / ${inquiries.length})`}
           desc="Inquiry B2B dari importir & distributor"
           icon="📨"
         />
         <QuickLink
           href="/admin/orders"
-          title={`Pesanan Retail (${orders.length})`}
+          title={`Pesanan Retail (${orders.filter((o) => o.status === "new").length} baru / ${orders.length})`}
           desc="Pesanan dari keranjang via WhatsApp"
           icon="🧾"
         />
