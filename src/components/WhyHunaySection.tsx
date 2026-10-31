@@ -1,55 +1,60 @@
-"use client";
+import { ClipboardCheck, Factory, Sprout } from "lucide-react";
+import SectionHeading from "@/components/SectionHeading";
 
-import React from "react";
-import { Package, ChefHat, ShieldCheck } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+const PILLARS = [
+  {
+    icon: Sprout,
+    title: "Raw Materials",
+    points: [
+      "Biru lancor shallots from Probolinggo, East Java",
+      "Bought directly from partner farmers",
+      "Low water content (62–65%) for a crispier, longer-lasting fry",
+    ],
+  },
+  {
+    icon: Factory,
+    title: "Production",
+    points: [
+      "Fried in coconut oil with salt — nothing else",
+      "No flour, no MSG filler, no preservatives",
+      "Vacuum packed: 6–12 months shelf life unopened",
+    ],
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Quality Control",
+    points: [
+      "HACCP food safety system and GMP practices",
+      "ISO 9001:2015 quality management",
+      "Halal MUI certified and BPOM registered",
+    ],
+  },
+];
 
 export default function WhyHunaySection() {
-  const { t } = useLanguage();
-
-  const features = [
-    {
-      icon: Package,
-      title: t("why.feature1"),
-      description: t("why.feature1Desc"),
-    },
-    {
-      icon: ChefHat,
-      title: t("why.feature2"),
-      description: t("why.feature2Desc"),
-    },
-    {
-      icon: ShieldCheck,
-      title: t("why.feature3"),
-      description: t("why.feature3Desc"),
-    },
-  ];
-
   return (
-    <section className="relative py-20 bg-linear-to-br from-forest-green to-green-600 overflow-hidden">
-      {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
-      <div className="absolute top-1/2 right-1/4 w-32 h-32 border-2 border-white/10 rounded-full"></div>
+    <section className="relative overflow-hidden bg-linear-to-br from-forest-green to-green-600 py-20">
+      <div className="absolute top-0 left-0 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5"></div>
+      <div className="absolute right-0 bottom-0 h-96 w-96 translate-x-1/3 translate-y-1/3 rounded-full bg-white/5"></div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12">
-          {t("why.title")} <span className="text-golden-yellow">Hunay?</span>
-        </h2>
+      <div className="relative z-10 container mx-auto px-4">
+        <SectionHeading dark eyebrow="Why choose us" title="Why Choose" highlight="Hunay?" />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-xl hover:shadow-2xl transition transform hover:scale-105 text-center"
-            >
-              <div className="w-20 h-20 bg-green-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <feature.icon size={40} className="text-white" />
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-3">
+          {PILLARS.map((p) => (
+            <div key={p.title} className="rounded-2xl bg-white/95 p-8 shadow-xl">
+              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-green-700">
+                <p.icon size={32} className="text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <h3 className="mb-4 text-xl font-bold text-gray-900">{p.title}</h3>
+              <ul className="space-y-3">
+                {p.points.map((pt) => (
+                  <li key={pt} className="flex gap-2 text-gray-600">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-golden-yellow"></span>
+                    {pt}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

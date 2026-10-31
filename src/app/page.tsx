@@ -1,20 +1,19 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import MarqueeSection from "@/components/MarqueeSection";
-import CompanyProfile from "@/components/CompanyProfile";
+import CompanyHighlights from "@/components/CompanyHighlights";
+import ProductCategories from "@/components/ProductCategories";
+import B2BSolutions from "@/components/B2BSolutions";
 import WhyHunaySection from "@/components/WhyHunaySection";
-import ProcessSection from "@/components/ProcessSection";
-import ProductShowcase from "@/components/ProductShowcase";
-import MaklonSection from "@/components/MaklonSection";
-import CTASection from "@/components/CTASection";
+import ProductionSection from "@/components/ProductionSection";
+import ExportSection from "@/components/ExportSection";
 import TrustSection from "@/components/TrustSection";
-import GallerySection from "@/components/GallerySection";
-import LocationSection from "@/components/LocationSection";
+import QuotationSection from "@/components/QuotationSection";
+import LatestArticles from "@/components/LatestArticles";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import type { Metadata } from "next";
-import { getProducts } from "@/actions/products";
 import { getGalleryVideos } from "@/actions/videos";
+import { getPosts } from "@/actions/blog";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
@@ -50,9 +49,9 @@ const webPageSchema = {
 };
 
 export default async function Home() {
-  const [products, galleryVideos] = await Promise.all([
-    getProducts(true).catch(() => []),
+  const [galleryVideos, posts] = await Promise.all([
     getGalleryVideos(),
+    getPosts(true).then((p) => p.slice(0, 3)).catch(() => []),
   ]);
 
   return (
@@ -60,16 +59,15 @@ export default async function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
       <Header />
       <HeroSection />
-      <MarqueeSection />
-      <CompanyProfile />
+      <CompanyHighlights />
+      <ProductCategories />
+      <B2BSolutions />
       <WhyHunaySection />
-      <ProductShowcase products={products.length > 0 ? products : undefined} />
-      <ProcessSection />
-      <MaklonSection />
-      <CTASection />
+      <ProductionSection galleryVideos={galleryVideos} />
+      <ExportSection />
       <TrustSection />
-      <GallerySection galleryVideos={galleryVideos} />
-      <LocationSection />
+      <QuotationSection />
+      <LatestArticles posts={posts} />
       <Footer />
       <WhatsAppFloat />
     </div>

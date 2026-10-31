@@ -7,21 +7,11 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import InquiryForm from "@/components/InquiryForm";
 import { WHOLESALE_LANGUAGES } from "@/lib/i18n/hreflang";
 import { CONTACT_EMAIL as EMAIL, WA_NUMBER, WA_DISPLAY } from "@/lib/contact";
+import { CERTIFICATES, MARKETS as MARKET_LIST } from "@/lib/company";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 const PAGE_URL = `${BASE_URL}/wholesale`;
 const SPEC_SHEET = "/hunay-spec-sheet.pdf";
-
-const CERTIFICATES = [
-  { name: "Halal MUI", image: "/halalmui.png" },
-  { name: "BPOM", image: "/bpom.png" },
-  { name: "HACCP", image: "/haccp.png" },
-  { name: "ISO 9001:2015", image: "/iso9001.jpg" },
-  { name: "GMP", image: "/gmp.png" },
-  { name: "GAP", image: "/good.png" },
-  { name: "Non-GMO", image: "/gmo.png" },
-  { name: "FDA", image: "/fda.png" },
-];
 
 // ─── Export terms ────────────────────────────────────────────────────────────
 // TODO(Hunay): replace every "On request" with confirmed figures before promoting
@@ -71,7 +61,7 @@ const SPECS: { label: string; value: string }[] = [
 // The section stays hidden while this list is empty.
 const IMPORTER_TESTIMONIALS: { quote: string; name: string; company: string; country: string }[] = [];
 
-const MARKETS = ["Japan", "South Korea", "Canada", "Singapore", "United States", "Australia"];
+const MARKETS = MARKET_LIST.map((m) => m.name);
 
 const FAQS: { q: string; a: string }[] = [
   {
