@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { submitOrder } from "@/actions/order";
+import { tagWhatsAppHref } from "@/lib/whatsapp-tag";
 
 const WHATSAPP_NUMBER = "6285233658619";
 
@@ -116,7 +117,8 @@ export default function CartPage() {
       shippingEstimate: intlEstimate,
     }).catch(() => {});
 
-    window.open(`https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`, "_blank");
+    const waUrl = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+    window.open(tagWhatsAppHref(waUrl), "_blank");
   };
 
   return (

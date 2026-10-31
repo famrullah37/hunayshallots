@@ -5,6 +5,7 @@ import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import { CartProvider } from "@/contexts/CartContext";
 import Script from "next/script";
 import { CONTACT_EMAIL } from "@/lib/contact";
+import WhatsAppSourceTag from "@/components/WhatsAppSourceTag";
 import "./globals.css";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
@@ -224,6 +225,7 @@ export default function RootLayout({
             <CartProvider>{children}</CartProvider>
           </CurrencyProvider>
         </LanguageProvider>
+        <WhatsAppSourceTag />
       </body>
     </html>
   );
