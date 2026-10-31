@@ -31,21 +31,29 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
+  // localStorage can throw (blocked storage, some private modes); the provider wraps
+  // every page, so a throw here would take the whole site down. Fall back to an
+  // in-memory cart instead.
   useEffect(() => {
-    const saved = localStorage.getItem("hunay-cart");
-    if (saved) {
-      try {
-        setItems(JSON.parse(saved));
-      } catch {
-        // ignore corrupt data
-      }
+    try {
+      const saved = localStorage.getItem("hunay-cart");
+      // Loading persisted state after mount is intentional: reading it during render
+      // would mismatch the server-rendered HTML.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (saved) setItems(JSON.parse(saved));
+    } catch {
+      // blocked storage or corrupt data: start with an empty cart
     }
     setHydrated(true);
   }, []);
 
   useEffect(() => {
     if (hydrated) {
-      localStorage.setItem("hunay-cart", JSON.stringify(items));
+      try {
+        localStorage.setItem("hunay-cart", JSON.stringify(items));
+      } catch {
+        // storage full or blocked: cart keeps working in memory
+      }
     }
   }, [items, hydrated]);
 

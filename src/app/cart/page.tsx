@@ -117,8 +117,11 @@ export default function CartPage() {
       shippingEstimate: intlEstimate,
     }).catch(() => {});
 
-    const waUrl = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
-    window.open(tagWhatsAppHref(waUrl), "_blank");
+    const waUrl = tagWhatsAppHref(
+      `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`
+    );
+    // If the popup is still blocked, open WhatsApp in this tab so the order isn't lost.
+    if (!window.open(waUrl, "_blank")) window.location.href = waUrl;
   };
 
   return (
