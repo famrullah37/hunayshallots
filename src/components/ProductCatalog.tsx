@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import BulkBuyerBanner from "@/components/BulkBuyerBanner";
 import Link from "next/link";
 import ProductCard, {
   CATEGORY_LABELS,
@@ -63,6 +64,8 @@ export default function ProductCatalog({ products = FALLBACK_PRODUCTS }: Props) 
           ? "Jelajahi seluruh pilihan bawang goreng, camilan, dan sambal premium dari Hunay"
           : "Explore Hunay's full range of premium fried onions, snacks, and sambal"}
       </p>
+
+      <BulkBuyerBanner className="mb-10 max-w-5xl mx-auto" />
 
       {/* Pencarian & urutkan */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 max-w-3xl mx-auto">

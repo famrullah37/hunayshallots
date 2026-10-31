@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BulkBuyerBanner from "@/components/BulkBuyerBanner";
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCurrency } from "@/contexts/CurrencyContext";
@@ -257,6 +258,8 @@ export default function ProductDetailPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
         </div>
+
+        <BulkBuyerBanner className="mt-8" />
 
         {/* Related Products */}
         {related.length > 0 && (
