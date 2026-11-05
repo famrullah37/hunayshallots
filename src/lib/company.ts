@@ -27,7 +27,7 @@ export type CertificateDocument = {
 
 export const CERTIFICATE_DOCUMENTS: CertificateDocument[] = [
   { slug: "haccp", name: "HACCP", issuer: "LMS Assessments Ltd (UK)", number: "ID250517011U", pages: 1 },
-  { slug: "bpom", name: "BPOM MD", issuer: "Badan POM RI", number: "MD 023771000100154", pages: 2 },
+  { slug: "bpom", name: "BPOM MD", issuer: "Badan POM RI", number: "MD 023771000100154", pages: 1 },
   { slug: "fda", name: "US FDA Registration", issuer: "Integrated Assessment Services", number: "19358011222", pages: 1 },
   { slug: "gs1", name: "GS1 Barcode", issuer: "GS1 Indonesia", number: "Prefix 899702467", pages: 1 },
   { slug: "gap", name: "GAP (Good Agricultural Practice)", issuer: "Dinas Pertanian Jawa Timur", number: "GAP.01-35.13.4-II.008", pages: 2 },

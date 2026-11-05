@@ -26,7 +26,7 @@ MAX_WIDTH = 1100  # readable on screen, too small for a convincing print
 # output slug -> (source PDF, pages to render, 0-based)
 SOURCES = {
     "haccp": ("HACCP.NEW CV DUA PUTRI SHOLEHAH.pdf", [0]),
-    "bpom": ("BPOM MD,Al Foil Fried Shallot.pdf", [0, 1]),
+    "bpom": ("BPOM MD,Al Foil Fried Shallot.pdf", [1]),  # page 2: product annex with the MD number
     "fda": ("FDA CV.pdf", [0]),
     "gap": ("GAP.pdf", [0, 1]),
     "gs1": ("GS1 New.pdf", [0]),
