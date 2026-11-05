@@ -7,7 +7,8 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import InquiryForm from "@/components/InquiryForm";
 import { WHOLESALE_LANGUAGES } from "@/lib/i18n/hreflang";
 import { CONTACT_EMAIL as EMAIL, WA_NUMBER, WA_DISPLAY } from "@/lib/contact";
-import { CERTIFICATES, MARKETS as MARKET_LIST } from "@/lib/company";
+import CertificateGallery from "@/components/CertificateGallery";
+import { LOGO_ONLY_CERTIFICATES, MARKETS as MARKET_LIST } from "@/lib/company";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 const PAGE_URL = `${BASE_URL}/wholesale`;
@@ -250,8 +251,9 @@ export default function WholesalePage() {
         <section className="container mx-auto px-4 max-w-5xl mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Certifications</h2>
           <p className="text-gray-600 mb-6">Certificate copies are included with quotations and shipment documents.</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {CERTIFICATES.map((c) => (
+          <CertificateGallery compact />
+          <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {LOGO_ONLY_CERTIFICATES.map((c) => (
               <div key={c.name} className="rounded-2xl border border-gray-100 p-4 flex flex-col items-center gap-3">
                 <div className="relative h-20 w-20">
                   <Image src={c.image} alt={`${c.name} certificate — Hunay`} fill sizes="80px" className="object-contain" />

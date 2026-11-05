@@ -108,3 +108,8 @@ html {
 .article-content th,
 .article-content td { border: 1px solid #e5e7eb; padding: 0.6rem 0.8rem; text-align: left; }
 .article-content th { background: #f0fdf4; color: #111827; }
+
+/* Certificate previews: never printed (see CertificateGallery). */
+@media print {
+  .cert-protected { display: none !important; }
+}

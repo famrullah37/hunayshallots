@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import InquiryForm, { type InquiryLabels } from "@/components/InquiryForm";
 import { CONTACT_EMAIL, WA_NUMBER, WA_DISPLAY } from "@/lib/contact";
+import CertificateGallery from "@/components/CertificateGallery";
+import { LOGO_ONLY_CERTIFICATES } from "@/lib/company";
 
 // Localized export landing page (used by /ja/wholesale and /ko/wholesale).
 // NOTE: copy was machine-assisted — have a native speaker review before promoting.
@@ -36,14 +38,10 @@ export type WholesaleCopy = {
   englishLink: string;
 };
 
-const CERTIFICATES = [
-  { name: "Halal MUI", image: "/halalmui.png" },
-  { name: "BPOM", image: "/bpom.png" },
-  { name: "HACCP", image: "/haccp.png" },
-  { name: "ISO 9001:2015", image: "/iso9001.jpg" },
-  { name: "GMP", image: "/gmp.png" },
-  { name: "GAP", image: "/good.png" },
-];
+const CERT_LABELS = {
+  ja: { view: "証明書を見る", close: "閉じる", page: "ページ", note: "透かし入りプレビューです。正式な写しはお見積りと一緒にお送りします。" },
+  ko: { view: "인증서 보기", close: "닫기", page: "페이지", note: "워터마크가 있는 미리보기입니다. 정식 사본은 견적과 함께 보내드립니다." },
+};
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hunayshallots.com";
 
@@ -134,8 +132,9 @@ export default function WholesaleLocalized({ copy }: { copy: WholesaleCopy }) {
 
         <section className="container mx-auto px-4 max-w-5xl mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{copy.certsTitle}</h2>
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-4">
-            {CERTIFICATES.map((c) => (
+          <CertificateGallery compact labels={CERT_LABELS[copy.lang]} />
+          <div className="mt-6 grid grid-cols-3 sm:grid-cols-6 gap-4">
+            {LOGO_ONLY_CERTIFICATES.map((c) => (
               <div key={c.name} className="rounded-2xl border border-gray-100 p-3 flex flex-col items-center gap-2">
                 <div className="relative h-16 w-16">
                   <Image src={c.image} alt={c.name} fill sizes="64px" className="object-contain" />

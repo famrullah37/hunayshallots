@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { FileCheck2 } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
-import { CERTIFICATES } from "@/lib/company";
+import CertificateGallery from "@/components/CertificateGallery";
+import { LOGO_ONLY_CERTIFICATES } from "@/lib/company";
 
 export default function TrustSection() {
   return (
@@ -12,24 +13,29 @@ export default function TrustSection() {
             eyebrow="Certificates & quality"
             title="Certified for"
             highlight="International Trade"
-            subtitle="Valid certifications covering food safety, quality management and halal compliance."
+            subtitle="Certifications covering food safety, quality management and export registration. Tap a certificate to view it."
           />
 
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-            {CERTIFICATES.map((cert) => (
-              <div key={cert.name} className="rounded-2xl p-6 text-center shadow-lg transition hover:shadow-xl">
-                <div className="relative mx-auto mb-4 h-20 w-20">
-                  <Image src={cert.image} alt={`${cert.name} certificate`} fill sizes="80px" className="object-contain" />
+          <CertificateGallery />
+
+          {LOGO_ONLY_CERTIFICATES.length > 0 && (
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-6">
+              {LOGO_ONLY_CERTIFICATES.map((cert) => (
+                <div key={cert.name} className="flex items-center gap-2">
+                  <div className="relative h-12 w-12">
+                    <Image src={cert.image} alt={`${cert.name} certificate`} fill sizes="48px" className="object-contain" />
+                  </div>
+                  <span className="text-sm font-semibold text-gray-700">{cert.name}</span>
                 </div>
-                <h3 className="font-bold text-gray-900">{cert.name}</h3>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           <div className="mx-auto mt-10 flex max-w-2xl items-start gap-3 rounded-2xl bg-forest-green/5 p-5 text-gray-700">
             <FileCheck2 size={24} className="mt-0.5 shrink-0 text-forest-green" />
             <p>
-              Copies of all certificates are available to importers on request — mention it in your{" "}
+              Previews are watermarked. Official copies of all certificates are sent to importers on request — mention
+              it in your{" "}
               <a href="#quotation" className="font-semibold text-forest-green underline">quotation request</a>.
             </p>
           </div>
