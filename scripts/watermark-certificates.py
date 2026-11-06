@@ -30,6 +30,8 @@ SOURCES = {
     "fda": ("FDA CV.pdf", [0]),
     "gap": ("GAP.pdf", [0, 1]),
     "gs1": ("GS1 New.pdf", [0]),
+    "halal": ("HALAL 7 PRODUK.pdf", [0, 1]),  # certificate + product list (outlet page skipped)
+    "coa": ("COA CV DUA PUTRI SHOLEHAH.pdf", [0]),
 }
 
 

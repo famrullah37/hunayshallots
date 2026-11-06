@@ -31,6 +31,8 @@ export const CERTIFICATE_DOCUMENTS: CertificateDocument[] = [
   { slug: "fda", name: "US FDA Registration", issuer: "Integrated Assessment Services", number: "19358011222", pages: 1 },
   { slug: "gs1", name: "GS1 Barcode", issuer: "GS1 Indonesia", number: "Prefix 899702467", pages: 1 },
   { slug: "gap", name: "GAP (Good Agricultural Practice)", issuer: "Dinas Pertanian Jawa Timur", number: "GAP.01-35.13.4-II.008", pages: 2 },
+  { slug: "halal", name: "Halal Certificate", issuer: "BPJPH (Halal Product Assurance Body)", number: "ID35110080244070826", pages: 2 },
+  { slug: "coa", name: "Certificate of Analysis", issuer: "CV Dua Putri Sholehah", number: "Fried Shallots (HUNAY)", pages: 1 },
 ];
 
 // ISO country codes: flags are rendered as SVG from country-flag-icons, because
@@ -45,5 +47,5 @@ export const MARKETS = [
 ] as const;
 
 // Certifications we show only as a logo, because no scanned document is published yet.
-const HAS_DOCUMENT = ["BPOM", "HACCP", "GAP", "FDA"];
+const HAS_DOCUMENT = ["Halal MUI", "BPOM", "HACCP", "GAP", "FDA"];
 export const LOGO_ONLY_CERTIFICATES = CERTIFICATES.filter((c) => !HAS_DOCUMENT.includes(c.name));
